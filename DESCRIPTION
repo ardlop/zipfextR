@@ -1,11 +1,12 @@
 Package: zipfextR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Zipf Extended Distributions
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Ariel Duarte-López and Marta Pérez-Casany
+Maintainer: Ariel Duarte-López <aduarte@ac.upc.edu>
+Description: Three extensions of the Zipf model.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/ardlop/zipfextR
+BugReports: https://github.com/ardlop/zipfextR/issues
