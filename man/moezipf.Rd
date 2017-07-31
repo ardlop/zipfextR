@@ -41,7 +41,7 @@ rmoezipf(n, alpha, beta)
 }
 \description{
 Probability Mass Function, Cumulative Function, Quantile Function and Random
-Generation for the MOEZipf distribution with parameter \eqn{\alpha} and \eqn{\beta}.
+Generation of the MOEZipf distribution with parameter \eqn{\alpha} and \eqn{\beta}.
 }
 \details{
 The \emph{probability mass function} at a positive integer value \eqn{x} of the MOEZipf distribution with
