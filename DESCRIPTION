@@ -6,7 +6,11 @@ Author: Ariel Duarte-López and Marta Pérez-Casany
 Maintainer: Ariel Duarte-López <aduarte@ac.upc.edu>
 Description: Three extensions of the Zipf model.
 License: GPL-3
+Depends: R (>= 2.0.1)
+Imports: VGAM (>= 0.9.8), tolerance(>= 1.2.0)
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ardlop/zipfextR
 BugReports: https://github.com/ardlop/zipfextR/issues
+RoxygenNote: 6.0.1
+Suggests: testthat
