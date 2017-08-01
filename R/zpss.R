@@ -1,3 +1,4 @@
+
 #' The Zipf-Poisson Stop Sum Distribution (Z-PSS).
 #'
 #' Probability Mass Function, Cumulative Function of the Z-PSS distribution
@@ -87,7 +88,7 @@ pzpss <- function(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncate
   finalProbs <- array(0, length(q))
   finalProbs <- sapply(1:length(q), function(i, q, probs){
     finalProbs[i] <- sum(probs[1:q[i]])
-  }, q = q, probs, probs)
+  }, q = q, probs = probs)
   #finalProbs <- probs[q]
   if(!log.p & lower.tail){
     return(finalProbs)
