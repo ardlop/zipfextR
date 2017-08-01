@@ -54,7 +54,7 @@ NULL
 .dzpe.default <- function(x, alpha, beta, z){
   .prec.checkXvalue(x)
   zetaX <-.zeta_x(alpha, x)
-  return((exp(beta*(1 - (zetaX/z)))*(exp(beta*(x^(alpha)/z)) - 1))/(exp(beta) -1))
+  return((exp(beta*(1 - (zetaX/z)))*(exp(beta*(x^(-alpha)/z)) - 1))/(exp(beta) -1))
 }
 
 #' @rdname zpe
