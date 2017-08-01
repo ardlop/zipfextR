@@ -35,13 +35,13 @@
 NULL
 #> NULL
 
-.prec.checkXvalue <- function(x){
+.prec.zpe.checkXvalue <- function(x){
   if(!is.numeric(x) || x < 1 || x%%1 != 0) {
     stop('The x value is not included into the support of the distribution.')
   }
 }
 
-.prec.checkparams <- function(alpha, beta){
+.prec.zpe.checkparams <- function(alpha, beta){
   if(!is.numeric(alpha) | alpha <= 1){
     stop('Incorrect alpha parameter. This parameter should be greater than one.')
   }
@@ -52,7 +52,7 @@ NULL
 }
 
 .dzpe.default <- function(x, alpha, beta, z){
-  .prec.checkXvalue(x)
+  .prec.zpe.checkXvalue(x)
   zetaX <-.zeta_x(alpha, x)
   return((exp(beta*(1 - (zetaX/z)))*(exp(beta*(x^(-alpha)/z)) - 1))/(exp(beta) -1))
 }
@@ -60,7 +60,7 @@ NULL
 #' @rdname zpe
 #' @export
 dzpe <-  function(x, alpha, beta, log = FALSE){
-  .prec.checkparams(alpha, beta)
+  .prec.zpe.checkparams(alpha, beta)
 
   z <- VGAM::zeta(alpha)
   probs <- sapply(x, .dzpe.default, alpha = alpha, beta = beta, z = z)
@@ -73,7 +73,7 @@ dzpe <-  function(x, alpha, beta, log = FALSE){
 }
 
 .pzpe.default <- function(v, alpha, beta, z){
-  .prec.checkXvalue(v)
+  .prec.zpe.checkXvalue(v)
   zetaX <- .zeta_x(alpha, v + 1)
   return((exp(beta * (1 - (zetaX/z))) - 1)/(exp(beta) - 1))
 }
@@ -81,7 +81,7 @@ dzpe <-  function(x, alpha, beta, log = FALSE){
 #' @rdname zpe
 #' @export
 pzpe <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
-  .prec.checkparams(alpha, beta)
+  .prec.zpe.checkparams(alpha, beta)
 
   z <- VGAM::zeta(alpha)
   probs <- sapply(q, .pzpe.default, alpha = alpha, beta = beta, z = z)

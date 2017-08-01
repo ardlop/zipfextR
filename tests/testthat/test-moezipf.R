@@ -1,3 +1,14 @@
+test_that("[moezipf - preconditions] Checking preconditions", {
+  expect_error(dmoezipf(1, "2.5", -1.5), "Incorrect alpha parameter. This parameter should be greater than one.")
+  expect_error(pmoezipf(1, 0.5, 1.5), "Incorrect alpha parameter. This parameter should be greater than one.")
+  expect_error(pmoezipf(1, 2.5, "-1.5"), "Incorrect beta parameter. You should provide a numeric value.")
+  expect_error(dmoezipf("1", 1.5, 1.5), "The x value is not included into the support of the distribution.")
+  expect_error(pmoezipf(0, 2.5, 1.5), "The x value is not included into the support of the distribution.")
+  expect_error(dmoezipf(1.6, 2.5, 1.5), "The x value is not included into the support of the distribution.")
+  expect_error(qmoezipf(1.3, 2.5, 1.6), "Wrong values for the p parameter.")
+  expect_error(rmoezipf(1.6, 2.5, 1.5), "The x value is not included into the support of the distribution.")
+})
+
 test_that("[moezipf - pmf] The summation of all probabilities must be 1.", {
   expect_equal(1,sum(dmoezipf(1:1000, alpha = 2.5, beta = 0.10)), tolerance = 1*10^(-3))
   expect_equal(1,sum(dmoezipf(1:1000, alpha = 2.5, beta = 1.3)), tolerance = 1*10^(-3))

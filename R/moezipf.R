@@ -60,34 +60,55 @@
 NULL
 #> NULL
 
-.dmoezipf.default <- function(x, alpha, beta){
-  num <- beta * VGAM::zeta(alpha) * x^(-alpha)
-  den <- (VGAM::zeta(alpha) - (1 - beta)*.zeta_x(alpha, x))*(VGAM::zeta(alpha) - (1 - beta) * .zeta_x(alpha, x + 1))
-  values <- num/den
+.prec.moezipf.checkXvalue <- function(x){
+  if(!is.numeric(x) || x < 1 || x%%1 != 0) {
+    stop('The x value is not included into the support of the distribution.')
+  }
+}
 
-  return(values)
+.prec.moezipf.checkparams <- function(alpha, beta){
+  if(!is.numeric(alpha) || alpha <= 1){
+    stop('Incorrect alpha parameter. This parameter should be greater than one.')
+  }
+
+  if(!is.numeric(beta) || beta < 0){
+    stop('Incorrect beta parameter. You should provide a numeric value.')
+  }
+}
+
+.dmoezipf.default <- function(x, alpha, beta, z){
+  .prec.moezipf.checkXvalue(x)
+  num <- beta * z * x^(-alpha)
+  den <- (z - (1 - beta)*.zeta_x(alpha, x))*(z - (1 - beta) * .zeta_x(alpha, x + 1))
+  return(num/den)
 }
 
 #' @rdname moezipf
 #' @export
 dmoezipf <- function(x, alpha, beta, log = FALSE){
-  values <- sapply(x, .dmoezipf.default, alpha = alpha, beta = beta)
+  .prec.moezipf.checkparams(alpha, beta)
+  z <- VGAM::zeta(alpha)
+  values <- sapply(x, .dmoezipf.default, alpha = alpha, beta = beta, z = z)
   if(log){
     return(log(values))
   }
   return(values)
 }
 
-.survival.default <- function(x, alpha, beta){
-  num <- beta * (.zeta_x(alpha, x + 1))
-  den <- (VGAM::zeta(alpha) - (1 - beta)*(.zeta_x(alpha, x + 1)))
+.survival.default <- function(x, alpha, beta, z){
+  .prec.moezipf.checkXvalue(x)
+  zetaX <- .zeta_x(alpha, x + 1)
+  num <- beta * (zetaX)
+  den <- (z - (1 - beta)*(zetaX))
   return(num/den)
 }
 
 #' @rdname moezipf
 #' @export
 pmoezipf <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
-  srvvl <- sapply(q, .survival.default, alpha = alpha, beta = beta, simplify = T)
+  .prec.moezipf.checkparams(alpha, beta)
+  z <- VGAM::zeta(alpha)
+  srvvl <- sapply(q, .survival.default, alpha = alpha, beta = beta, z = z, simplify = T)
 
   if(!log.p && lower.tail){
     return(1 - srvvl)
@@ -104,16 +125,16 @@ pmoezipf <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
 }
 
 .qmoezipf.default <- function(x, beta){
-  p <- (x*beta)/(1 + x*(beta-1))
-  return(p)
+  if(x > 1 || x < 0){
+    stop('Wrong values for the p parameter.')
+  }
+  return((x*beta)/(1 + x*(beta-1)))
 }
 
 #' @rdname moezipf
 #' @export
 qmoezipf <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
-  if(!is.numeric(alpha) || !is.numeric(beta)){
-    stop('Wrong values for the parameters.')
-  }
+  .prec.moezipf.checkparams(alpha, beta)
 
   if(length(p) < 1){
     stop('Wrong values for the p parameter.')
@@ -131,10 +152,6 @@ qmoezipf <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
     }
   }
 
-  if(length(which(p > 1 || p < 0 )) > 0){
-    stop('There is a wrong value(s) in the p parameter.')
-  }
-
   u <- sapply(p, .qmoezipf.default, beta = beta)
   data <- tolerance::qzipfman(u, s = alpha, b = NULL, N = Inf)
   return(data)
@@ -143,16 +160,15 @@ qmoezipf <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
 #' @rdname moezipf
 #' @export
 rmoezipf <- function(n, alpha, beta){
-  if(!is.numeric(alpha) || !is.numeric(beta)){
-    stop('Wrong values for the parameters.')
-  }
+  .prec.moezipf.checkXvalue(n)
+  .prec.moezipf.checkparams(alpha, beta)
 
   uValues <- stats::runif(n, 0, 1)
   data <- qmoezipf(uValues, alpha, beta)
-  print(data)
-  lvl <- names(sort(table(data), decreasing = TRUE))
-  uniqVal <- 1:length(unique(data))
-  data <- uniqVal[match(data, lvl)]
+  # print(data)
+  # lvl <- names(sort(table(data), decreasing = TRUE))
+  # uniqVal <- 1:length(unique(data))
+  # data <- uniqVal[match(data, lvl)]
   return(data)
 }
 
