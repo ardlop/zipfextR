@@ -7,11 +7,46 @@
 \alias{pzpe}
 \title{The Zipf-Poisson Extreme Distribution (ZPE).}
 \usage{
-dzpe(x, alpha, lambda)
+dzpe(x, alpha, beta, log = FALSE)
 
-pzpe(q, alpha, beta)
+pzpe(q, alpha, beta, log.p = FALSE, lower.tail = TRUE)
+}
+\arguments{
+\item{x, q}{Vector of positive integer values.}
+
+\item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).}
+
+\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta > 0} ).}
+
+\item{log, log.p}{Logical; if TRUE, probabilities p are given as log(p).}
+
+\item{lower.tail}{Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.}
+}
+\value{
+{
+\code{dzpe} gives the probability mass function,
+\code{pzpe} gives the cumulative function. }
 }
 \description{
 Probability Mass Function, Cumulative Function of the ZPE distribution
 with parameter \eqn{\alpha} and \eqn{\beta}.
+}
+\details{
+The \emph{probability mass function} at a positive integer value \eqn{x} of the ZPE distribution with
+parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
+
+\deqn{p(x | \alpha, \beta) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x)}{\zeta(\alpha)})} (e^{\beta \frac{x^{-alpha}}{\zeta(\alpha)}} - 1)}
+{e^{beta} - 1}, \alpha > 1, -\infty < \beta < +\infty,}
+
+where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, \eqn{\zeta(\alpha, x)}
+is the Hurtwitz zeta function with arguments \eqn{\alpha} and x.
+
+The \emph{cumulative distribution function}, \eqn{F_{\alpha, \beta}(x)}, at a given positive integer value \eqn{x},
+ is calcuted as:
+\deqn{F(x) = \frac{e^{beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{beta} -1}}
+}
+\examples{
+dzpe(1:10, 2.5, -1.5)
+pzpe(1:10, 2.5, -1.5)
+
 }
