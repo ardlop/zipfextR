@@ -5,11 +5,17 @@
 \alias{dzpe}
 \alias{dzpe}
 \alias{pzpe}
+\alias{qzpe}
+\alias{rzpe}
 \title{The Zipf-Poisson Extreme Distribution (ZPE).}
 \usage{
 dzpe(x, alpha, beta, log = FALSE)
 
 pzpe(q, alpha, beta, log.p = FALSE, lower.tail = TRUE)
+
+qzpe(p, alpha, beta, log.p = FALSE, lower.tail = TRUE)
+
+rzpe(n, alpha, beta)
 }
 \arguments{
 \item{x, q}{Vector of positive integer values.}
@@ -21,11 +27,17 @@ pzpe(q, alpha, beta, log.p = FALSE, lower.tail = TRUE)
 \item{log, log.p}{Logical; if TRUE, probabilities p are given as log(p).}
 
 \item{lower.tail}{Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.}
+
+\item{p}{Vector of probabilities.}
+
+\item{n}{Number of random numbers to return.}
 }
 \value{
 {
 \code{dzpe} gives the probability mass function,
-\code{pzpe} gives the cumulative function. }
+\code{pzpe} gives the cumulative function.
+\code{qzpe} gives the quantile function, and
+\code{rzpe} generates random deviates.  }
 }
 \description{
 Probability Mass Function, Cumulative Function of the ZPE distribution
@@ -44,9 +56,21 @@ is the Hurtwitz zeta function with arguments \eqn{\alpha} and x.
 The \emph{cumulative distribution function}, \eqn{F_{\alpha, \beta}(x)}, at a given positive integer value \eqn{x},
  is calcuted as:
 \deqn{F(x) = \frac{e^{beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{beta} -1}}
+
+The \emph{quantiles} of a ZPE distribution for a given probability
+vector \code{p}, are obtained by computing the quantiles associated to a Zipf distribution with
+the same parameter \eqn{\alpha}, and probability vector equal to:
+\deqn{p\prime = \frac{log(p\, (e^{\beta} - 1) + 1)}{\beta}}
 }
 \examples{
 dzpe(1:10, 2.5, -1.5)
 pzpe(1:10, 2.5, -1.5)
+qzpe(0.56, 2.5, 1.3)
+rzpe(10, 2.5, 1.3)
 
+}
+\references{
+{
+Young, D. S. (2010). \emph{Tolerance: an R package for estimating tolerance intervals}. Journal of Statistical Software, 36(5), 1-39.
+}
 }
