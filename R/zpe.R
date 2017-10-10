@@ -153,7 +153,6 @@ qzpe <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
   return(data)
 }
 
-
 #' @rdname zpe
 #' @export
 rzpe <- function(n, alpha, beta){
