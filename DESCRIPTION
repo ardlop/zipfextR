@@ -1,7 +1,7 @@
 Package: zipfextR
 Type: Package
 Title: Zipf Extended Distributions
-Version: 0.1.0
+Version: 0.5.0
 Author: Ariel Duarte-López and Marta Pérez-Casany
 Maintainer: Ariel Duarte-López <aduarte@ac.upc.edu>
 Description: Three extensions of the Zipf model.
