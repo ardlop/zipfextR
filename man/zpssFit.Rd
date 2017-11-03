@@ -11,12 +11,12 @@ zpssFit(data, init_alpha, init_lambda, isTruncated = FALSE, ...)
 
 \item{init_alpha}{Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).}
 
+\item{init_lambda}{Initial value of \eqn{\beta} parameter (\eqn{\beta \geq 0}).}
+
 \item{isTruncated}{Logical; if TRUE, the truncated version of the distribution is returned.}
 
 \item{...}{Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
 the extra arguments are passing to the \link{optim} function.}
-
-\item{init_beta}{Initial value of \eqn{\beta} parameter (\eqn{\beta \geq 0}).}
 }
 \value{
 Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations,

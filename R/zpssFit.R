@@ -16,7 +16,7 @@
 #' method.
 #' @param data Matrix of count data.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
-#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \geq 0}).
+#' @param init_lambda Initial value of \eqn{\beta} parameter (\eqn{\beta \geq 0}).
 #' @param isTruncated Logical; if TRUE, the truncated version of the distribution is returned.
 #' @param ... Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
 #' the extra arguments are passing to the \link{optim} function.

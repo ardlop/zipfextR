@@ -1,0 +1,332 @@
+
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "zipfextR"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('zipfextR')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("moezipf")
+> ### * moezipf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: moezipf
+> ### Title: The Marshal-Olkin Extended Zipf Distribution (MOEZipf).
+> ### Aliases: moezipf dmoezipf dmoezipf pmoezipf qmoezipf rmoezipf
+> 
+> ### ** Examples
+> 
+> dmoezipf(1:10, 2.5, 1.3)
+ [1] 0.692552701 0.153501174 0.058638885 0.029165430 0.016876645 0.010768060
+ [7] 0.007355359 0.005283237 0.003944113 0.003035699
+> pmoezipf(1:10, 2.5, 1.3)
+ [1] 0.6925527 0.8460539 0.9046928 0.9338582 0.9507348 0.9615029 0.9688583
+ [8] 0.9741415 0.9780856 0.9811213
+> qmoezipf(0.56, 2.5, 1.3)
+[1] 1
+> rmoezipf(10, 2.5, 1.3)
+ [1] 1 1 1 4 1 3 5 1 1 1
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("moezipfFit")
+> ### * moezipfFit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: moezipfFit
+> ### Title: MOEZipf parameters estimation.
+> ### Aliases: moezipfFit
+> 
+> ### ** Examples
+> 
+> data <- rmoezipf(100, 2.5, 1.3)
+> data <- zipfExtR_getDataMatrix(data)
+> obj <- moezipfFit(data, 1.001, 0.001)
+Warning in log(b) : NaNs produced
+Warning in log(VGAM::zeta(alpha) - (1 - beta) * .zeta_x(alpha, x)) :
+  NaNs produced
+Warning in log(VGAM::zeta(a)) : NaNs produced
+Warning in log(VGAM::zeta(alpha) - (1 - beta) * .zeta_x(alpha, x)) :
+  NaNs produced
+Warning in log(b) : NaNs produced
+Warning in log(VGAM::zeta(alpha) - (1 - beta) * .zeta_x(alpha, x)) :
+  NaNs produced
+Warning in log(VGAM::zeta(alpha) - (1 - beta) * .zeta_x(alpha, x)) :
+  NaNs produced
+Warning in log(VGAM::zeta(alpha) - (1 - beta) * .zeta_x(alpha, x)) :
+  NaNs produced
+Warning in log(b) : NaNs produced
+Warning in log(VGAM::zeta(alpha) - (1 - beta) * .zeta_x(alpha, x)) :
+  NaNs produced
+> 
+> 
+> 
+> cleanEx()
+> nameEx("moezipfMean")
+> ### * moezipfMean
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: moezipfMean
+> ### Title: Expected value.
+> ### Aliases: moezipfMean
+> 
+> ### ** Examples
+> 
+> moezipfMean(2.5, 1.3)
+[1] 2.106573
+> moezipfMean(2.5, 1.3, 10^(-3))
+[1] 2.002115
+> 
+> 
+> 
+> cleanEx()
+> nameEx("moezipfMoments")
+> ### * moezipfMoments
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: moezipfMoments
+> ### Title: Distribution Moments.
+> ### Aliases: moezipfMoments
+> 
+> ### ** Examples
+> 
+> moezipfMoments(3, 4.5, 1.3)
+[1] 2.805115
+> moezipfMoments(3, 4.5, 1.3,  1*10^(-3))
+[1] 2.682366
+> 
+> 
+> 
+> cleanEx()
+> nameEx("moezipfVariance")
+> ### * moezipfVariance
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: moezipfVariance
+> ### Title: Variance.
+> ### Aliases: moezipfVariance
+> 
+> ### ** Examples
+> 
+> moezipfVariance(3.5, 1.3)
+[1] 1.057449
+> 
+> 
+> 
+> cleanEx()
+> nameEx("moezipf_getInitialValues")
+> ### * moezipf_getInitialValues
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: moezipf_getInitialValues
+> ### Title: Calculates initial values for the alpha and beta parameters.
+> ### Aliases: moezipf_getInitialValues
+> 
+> ### ** Examples
+> 
+> data <- rmoezipf(100, 2.5, 1.3)
+> data <- zipfExtR_getDataMatrix(data)
+> initials <- moezipf_getInitialValues(data)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zipfExtR_getDataMatrix")
+> ### * zipfExtR_getDataMatrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zipfExtR_getDataMatrix
+> ### Title: Convert a sample vector to a frequency matrix.
+> ### Aliases: zipfExtR_getDataMatrix
+> 
+> ### ** Examples
+> 
+> data <- rmoezipf(100, 2.5, 1.3)
+> zipfExtR_getDataMatrix(data)
+     [,1] [,2]
+[1,]    1   67
+[2,]    2   20
+[3,]    3    7
+[4,]    4    2
+[5,]    5    2
+[6,]    6    1
+[7,]   19    1
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zpe")
+> ### * zpe
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zpe
+> ### Title: The Zipf-Poisson Extreme Distribution (ZPE).
+> ### Aliases: zpe dzpe dzpe pzpe qzpe rzpe
+> 
+> ### ** Examples
+> 
+> dzpe(1:10, 2.5, -1.5)
+ [1] 0.866451365 0.075466513 0.023900888 0.011036529 0.006146268 0.003833162
+ [7] 0.002579659 0.001833866 0.001358768 0.001039883
+> pzpe(1:10, 2.5, -1.5)
+ [1] 0.8664514 0.9419179 0.9658188 0.9768553 0.9830016 0.9868347 0.9894144
+ [8] 0.9912482 0.9926070 0.9936469
+> qzpe(0.56, 2.5, 1.3)
+[1] 1
+> rzpe(10, 2.5, 1.3)
+ [1] 1 1 1 4 1 4 6 2 2 1
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zpeFit")
+> ### * zpeFit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zpeFit
+> ### Title: ZPE parameters estimation.
+> ### Aliases: zpeFit
+> 
+> ### ** Examples
+> 
+> data <- rmoezipf(100, 2.5, 1.3)
+> data <- zipfExtR_getDataMatrix(data)
+> obj <- zpeFit(data, 1.001, 0.001)
+Warning in log(exp((beta * values[i]^(-alpha))/(zeta_a)) - 1) :
+  NaNs produced
+Warning in log(exp((beta * values[i]^(-alpha))/(zeta_a)) - 1) :
+  NaNs produced
+Warning in log(exp((beta * values[i]^(-alpha))/(zeta_a)) - 1) :
+  NaNs produced
+Warning in log(exp((beta * values[i]^(-alpha))/(zeta_a)) - 1) :
+  NaNs produced
+Warning in log(exp((beta * values[i]^(-alpha))/(zeta_a)) - 1) :
+  NaNs produced
+Warning in log(exp((beta * values[i]^(-alpha))/(zeta_a)) - 1) :
+  NaNs produced
+Warning in log(exp((beta * values[i]^(-alpha))/(zeta_a)) - 1) :
+  NaNs produced
+Warning in log(exp(beta) - 1) : NaNs produced
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zpeMoments")
+> ### * zpeMoments
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zpeMoments
+> ### Title: Distribution Moments.
+> ### Aliases: zpeMoments
+> 
+> ### ** Examples
+> 
+> moezipfMoments(3, 4.5, 1.3)
+[1] 2.805115
+> moezipfMoments(3, 4.5, 1.3,  1*10^(-3))
+[1] 2.682366
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zpssFit")
+> ### * zpssFit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zpssFit
+> ### Title: ZPSS parameters estimation.
+> ### Aliases: zpssFit
+> 
+> ### ** Examples
+> 
+> data <- rmoezipf(100, 2.5, 1.3)
+> data <- zipfExtR_getDataMatrix(data)
+> obj <- zpssFit(data, 1.001, 0.001)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zpssMean")
+> ### * zpssMean
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zpssMean
+> ### Title: Expected value of the Z-PSS distribution.
+> ### Aliases: zpssMean
+> 
+> ### ** Examples
+> 
+> zpssMean(2.5, 1.3)
+[1] 2.531584
+> zpssMean(2.5, 1.3, TRUE)
+[1] 1.841647
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zpssVariance")
+> ### * zpssVariance
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zpssVariance
+> ### Title: Variance of the Z-PSS distribution.
+> ### Aliases: zpssVariance
+> 
+> ### ** Examples
+> 
+> zpssVariance(4.5, 2.3)
+[1] 2.92538
+> zpssVariance(4.5, 2.3, TRUE)
+[1] 2.503667
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  3.444 0.128 3.575 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

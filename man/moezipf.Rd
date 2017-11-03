@@ -30,7 +30,7 @@ rmoezipf(n, alpha, beta)
 
 \item{p}{Vector of probabilities.}
 
-\item{n}{Number of random numbers to return.}
+\item{n}{Number of random values to return.}
 }
 \value{
 {
@@ -41,7 +41,7 @@ rmoezipf(n, alpha, beta)
 }
 \description{
 Probability Mass Function, Cumulative Function, Quantile Function and Random
-Generation of the MOEZipf distribution with parameter \eqn{\alpha} and \eqn{\beta}.
+Generation for the MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta}.
 }
 \details{
 The \emph{probability mass function} at a positive integer value \eqn{x} of the MOEZipf distribution with
@@ -52,7 +52,7 @@ parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
 where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, \eqn{\zeta(\alpha, x)}
 is the Hurtwitz zeta function with arguments \eqn{\alpha} and x, and \eqn{\bar{\beta} = 1 - \beta}.
 
-The \emph{cumulative distribution function}, \eqn{F_{\alpha}(x)}, at a given positive real value \eqn{x},
+The \emph{cumulative distribution function}, \eqn{F_{\alpha}(x)}, at a given positive integer value \eqn{x},
  is calcuted from the survival function \eqn{S(x)} as:
 \deqn{F(x) = 1 - S(x), }
 the survival function \eqn{S(x)} is equal to:

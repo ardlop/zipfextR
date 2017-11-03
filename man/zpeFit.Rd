@@ -11,7 +11,7 @@ zpeFit(data, init_alpha, init_beta, ...)
 
 \item{init_alpha}{Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).}
 
-\item{init_beta}{Initial value of \eqn{\beta} parameter (\eqn{\beta \in [ -\infity, +\infity]}).}
+\item{init_beta}{Initial value of \eqn{\beta} parameter (\eqn{\beta \in [-\infty, +\infty]}).}
 
 \item{...}{Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
 the extra arguments are passing to the \link{optim} function.}

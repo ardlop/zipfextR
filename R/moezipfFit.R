@@ -5,16 +5,13 @@
 #' @param data Matrix of count data.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
 #' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta > 0}).
-#' @param level Confidence level used to calculate the intervals (default 0.95).
-#' @param object An object from class "moezipfR" (output of \emph{moezipfR.fit} function).
-#' @param x An object from class "moezipfR" (output of \emph{moezipfR.fit} function).
-#' @param ... Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
-#' the extra arguments are passing to the \link{optim} function.
+#' @param level Confidence level used to calculate the confidence intervals (default 0.95).
+#' @param ... Further arguments to the generic functions. The extra arguments are passing to the \emph{\link{optim}} function.
 #' @details
 #' The argument \code{data} is a matrix where, for each row, the first column contains a count,
 #' and the second column contains its corresponding frequency.
 #'
-#' The log-likelihood function is computed by means of the following equation:
+#' The log-likelihood equation is defined as:
 #'
 #' \deqn{l(\alpha, \beta; x) = -\alpha \sum_{i = 1} ^m f_{a}(x_{i}) log(x_{i}) + N (log(\beta) + \log(\zeta(\alpha)))}
 #' \deqn{ - \sum_{i = 1} ^m f_a(x_i) log[(\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x_i)(\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x_i + 1)))], }

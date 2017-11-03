@@ -13,14 +13,9 @@ moezipfFit(data, init_alpha, init_beta, level = 0.95, ...)
 
 \item{init_beta}{Initial value of \eqn{\beta} parameter (\eqn{\beta > 0}).}
 
-\item{level}{Confidence level used to calculate the intervals (default 0.95).}
+\item{level}{Confidence level used to calculate the confidence intervals (default 0.95).}
 
-\item{...}{Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
-the extra arguments are passing to the \link{optim} function.}
-
-\item{object}{An object from class "moezipfR" (output of \emph{moezipfR.fit} function).}
-
-\item{x}{An object from class "moezipfR" (output of \emph{moezipfR.fit} function).}
+\item{...}{Further arguments to the generic functions. The extra arguments are passing to the \emph{\link{optim}} function.}
 }
 \value{
 Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations,
@@ -34,7 +29,7 @@ method.
 The argument \code{data} is a matrix where, for each row, the first column contains a count,
 and the second column contains its corresponding frequency.
 
-The log-likelihood function is computed by means of the following equation:
+The log-likelihood equation is defined as:
 
 \deqn{l(\alpha, \beta; x) = -\alpha \sum_{i = 1} ^m f_{a}(x_{i}) log(x_{i}) + N (log(\beta) + \log(\zeta(\alpha)))}
 \deqn{ - \sum_{i = 1} ^m f_a(x_i) log[(\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x_i)(\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x_i + 1)))], }

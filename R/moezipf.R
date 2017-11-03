@@ -1,7 +1,7 @@
 #' The Marshal-Olkin Extended Zipf Distribution (MOEZipf).
 #'
 #' Probability Mass Function, Cumulative Function, Quantile Function and Random
-#' Generation of the MOEZipf distribution with parameter \eqn{\alpha} and \eqn{\beta}.
+#' Generation for the MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta}.
 #'
 #' @name moezipf
 #' @aliases dmoezipf
@@ -11,7 +11,7 @@
 #'
 #' @param x,q Vector of positive integer values.
 #' @param p Vector of probabilities.
-#' @param n Number of random numbers to return.
+#' @param n Number of random values to return.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).
 #' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta > 0} ).
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
@@ -24,7 +24,7 @@
 #' where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, \eqn{\zeta(\alpha, x)}
 #' is the Hurtwitz zeta function with arguments \eqn{\alpha} and x, and \eqn{\bar{\beta} = 1 - \beta}.
 #'
-#' The \emph{cumulative distribution function}, \eqn{F_{\alpha}(x)}, at a given positive real value \eqn{x},
+#' The \emph{cumulative distribution function}, \eqn{F_{\alpha}(x)}, at a given positive integer value \eqn{x},
 #'  is calcuted from the survival function \eqn{S(x)} as:
 #' \deqn{F(x) = 1 - S(x), }
 #' the survival function \eqn{S(x)} is equal to:

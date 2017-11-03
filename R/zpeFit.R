@@ -20,19 +20,20 @@
 
 #' ZPE parameters estimation.
 #'
-#' For a given count data set,  usually of the type of ranking data or frequencies of frequencies data, estimates the parameters of the MOEZipf distribution by means of the maximum likelihood
-#' method.
+#' For a given count data set,  usually of the type of ranking data or frequencies of frequencies data,
+#' estimates the parameters of the ZPE distribution by means of the maximum likelihood method.
 #' @param data Matrix of count data.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
-#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in [ -\infity, +\infity]}).
-#' @param ... Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
-#' the extra arguments are passing to the \link{optim} function.
+#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in [-\infty, +\infty]}).
+#' @param ... Further arguments to the generic functions.The extra arguments are passing
+#' to the \emph{\link{optim}} function.
 #' @details
 #' The argument \code{data} is a matrix where, for each row, the first column contains a count,
 #' and the second column contains its corresponding frequency.
 #'
 #' The log-likelihood function is computed by means of the following equation:
 #'
+#' \deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{x \in X} \zeta(\alpha, x)) + \sum_{x \in X} log(e^{\frac{\beta\, x^{-\alpha}}{\zeta(\alpha)}} - 1) - N\, log(e^{\beta} - 1)}
 #'
 #' The function \emph{\link{optim}} is used to estimate the parameters.
 #' @return Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations,
