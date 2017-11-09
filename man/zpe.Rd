@@ -30,32 +30,32 @@ rzpe(n, alpha, beta)
 
 \item{p}{Vector of probabilities.}
 
-\item{n}{Number of random numbers to return.}
+\item{n}{Number of random values to return.}
 }
 \value{
 {
 \code{dzpe} gives the probability mass function,
-\code{pzpe} gives the cumulative function.
+\code{pzpe} gives the cumulative function,
 \code{qzpe} gives the quantile function, and
 \code{rzpe} generates random deviates.  }
 }
 \description{
-Probability Mass Function, Cumulative Function of the ZPE distribution
-with parameter \eqn{\alpha} and \eqn{\beta}.
+Probability Mass function, Cumulative function, Quantile function and Random generation for the ZPE distribution
+with parameters \eqn{\alpha} and \eqn{\beta}.
 }
 \details{
 The \emph{probability mass function} at a positive integer value \eqn{x} of the ZPE distribution with
 parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
 
-\deqn{p(x | \alpha, \beta) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x)}{\zeta(\alpha)})} (e^{\beta \frac{x^{-alpha}}{\zeta(\alpha)}} - 1)}
-{e^{beta} - 1}, \alpha > 1, -\infty < \beta < +\infty,}
+\deqn{p(x | \alpha, \beta) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x)}{\zeta(\alpha)})} (e^{\beta \frac{x^{-\alpha}}{\zeta(\alpha)}} - 1)}
+{e^{\beta} - 1}, \alpha > 1, -\infty < \beta < +\infty,}
 
 where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, \eqn{\zeta(\alpha, x)}
 is the Hurtwitz zeta function with arguments \eqn{\alpha} and x.
 
 The \emph{cumulative distribution function}, \eqn{F_{\alpha, \beta}(x)}, at a given positive integer value \eqn{x},
  is calcuted as:
-\deqn{F(x) = \frac{e^{beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{beta} -1}}
+\deqn{F(x) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{\beta} -1}}
 
 The \emph{quantiles} of a ZPE distribution for a given probability
 vector \code{p}, are obtained by computing the quantiles associated to a Zipf distribution with

@@ -2,28 +2,63 @@
 % Please edit documentation in R/zpssFit.R
 \name{zpssFit}
 \alias{zpssFit}
+\alias{residuals.zpssR}
+\alias{fitted.zpssR}
+\alias{coef.zpssR}
+\alias{plot.zpssR}
+\alias{print.zpssR}
+\alias{summary.zpssR}
+\alias{logLik.zpssR}
+\alias{AIC.zpssR}
+\alias{BIC.zpssR}
 \title{ZPSS parameters estimation.}
 \usage{
-zpssFit(data, init_alpha, init_lambda, isTruncated = FALSE, ...)
+zpssFit(data, init_alpha, init_lambda, level = 0.95, isTruncated = FALSE,
+  ...)
+
+\method{residuals}{zpssR}(object, ...)
+
+\method{fitted}{zpssR}(object, ...)
+
+\method{coef}{zpssR}(object, ...)
+
+\method{plot}{zpssR}(x, ...)
+
+\method{print}{zpssR}(x, ...)
+
+\method{summary}{zpssR}(object, ...)
+
+\method{logLik}{zpssR}(object, ...)
+
+\method{AIC}{zpssR}(object, ...)
+
+\method{BIC}{zpssR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data.}
 
 \item{init_alpha}{Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).}
 
-\item{init_lambda}{Initial value of \eqn{\beta} parameter (\eqn{\beta \geq 0}).}
+\item{init_lambda}{Initial value of \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).}
 
-\item{isTruncated}{Logical; if TRUE, the truncated version of the distribution is returned.}
+\item{level}{Confidence level used to calculate the confidence intervals (default 0.95).}
 
-\item{...}{Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
-the extra arguments are passing to the \link{optim} function.}
+\item{isTruncated}{Logical; if TRUE, the truncated version of the distribution is returned.(default = FALSE)}
+
+\item{...}{Further arguments to the generic functions. The extra arguments are passing
+to the \emph{\link{optim}} function.}
+
+\item{object}{An object from class "zpssR" (output of \emph{zpssFit} function).}
+
+\item{x}{An object from class "zpssR" (output of \emph{zpssFit} function).}
 }
 \value{
-Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations,
+Returns a \emph{zpssR} object composed by the maximum likelihood parameter estimations,
 their standard deviation, their confidence intervals and the log-likelihood value.
 }
 \description{
-For a given count data set,  usually of the type of ranking data or frequencies of frequencies data, estimates the parameters of the MOEZipf distribution by means of the maximum likelihood
+For a given count data set,  usually of the type of ranking data or frequencies of frequencies
+data, estimates the parameters of the Z-PSS distribution by means of the maximum likelihood
 method.
 }
 \details{
@@ -31,7 +66,9 @@ The argument \code{data} is a matrix where, for each row, the first column conta
 and the second column contains its corresponding frequency.
 
 The log-likelihood function is computed by means of the following equation:
-
+\deqn{l(\alpha, \lambda, x) = \sum_{i =1} ^{m} f_a(x_i)\, log(P(Y = x_i))},
+where \eqn{m} is the number of different values \eqn{x_i} in the sample, and \eqn{f_a(x_i)}
+is the absolute frequency of \eqn{x_i}. The probabilities are calculated applying the Panjer recursion.
 
 The function \emph{\link{optim}} is used to estimate the parameters.
 }

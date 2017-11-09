@@ -2,9 +2,36 @@
 % Please edit documentation in R/moezipfFit.R
 \name{moezipfFit}
 \alias{moezipfFit}
+\alias{residuals.moezipfR}
+\alias{fitted.moezipfR}
+\alias{coef.moezipfR}
+\alias{plot.moezipfR}
+\alias{print.moezipfR}
+\alias{summary.moezipfR}
+\alias{logLik.moezipfR}
+\alias{AIC.moezipfR}
+\alias{BIC.moezipfR}
 \title{MOEZipf parameters estimation.}
 \usage{
 moezipfFit(data, init_alpha, init_beta, level = 0.95, ...)
+
+\method{residuals}{moezipfR}(object, ...)
+
+\method{fitted}{moezipfR}(object, ...)
+
+\method{coef}{moezipfR}(object, ...)
+
+\method{plot}{moezipfR}(x, ...)
+
+\method{print}{moezipfR}(x, ...)
+
+\method{summary}{moezipfR}(object, ...)
+
+\method{logLik}{moezipfR}(object, ...)
+
+\method{AIC}{moezipfR}(object, ...)
+
+\method{BIC}{moezipfR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data.}
@@ -16,6 +43,10 @@ moezipfFit(data, init_alpha, init_beta, level = 0.95, ...)
 \item{level}{Confidence level used to calculate the confidence intervals (default 0.95).}
 
 \item{...}{Further arguments to the generic functions. The extra arguments are passing to the \emph{\link{optim}} function.}
+
+\item{object}{An object from class "moezipfR" (output of \emph{moezipfFit} function).}
+
+\item{x}{An object from class "moezipfR" (output of \emph{moezipfFit} function).}
 }
 \value{
 Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations,

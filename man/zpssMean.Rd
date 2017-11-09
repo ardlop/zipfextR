@@ -9,7 +9,7 @@ zpssMean(alpha, lambda, isTruncated = FALSE)
 \arguments{
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 2}).}
 
-\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0}).}
+\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).}
 
 \item{isTruncated}{Logical; if TRUE Use the zero-truncated version of the distribution to calculate the expected value (default = FALSE).}
 }
@@ -24,7 +24,7 @@ Computes the expected value of the Z-PSS distribution for given values of parame
 The expected value of the Z-PSS distribution only exists for \eqn{\alpha} values strictly greater than 2.
 The value is derive from \eqn{E[Y] = E[N]\, E[X]} where E[X] is the mean value of the Zipf distribution and
 E[N] is the expected value of a Poisson one. The resulting expression is set to be equal to:
-\deqn{E[Y] = \lambda\, \frac{\zeta(\alpha - 1)}{\zeta(\alpha)}}.
+\deqn{E[Y] = \lambda\, \frac{\zeta(\alpha - 1)}{\zeta(\alpha)}}
 Particularlly, if one is dealing with the zero-truncated version of the Z-PSS distribution. This values es calculated as:
 \deqn{E[Y^{ZT}] = \frac{\lambda\, \zeta(\alpha - 1)}{\zeta(\alpha)\, (1 - e^{-\lambda})}}
 }

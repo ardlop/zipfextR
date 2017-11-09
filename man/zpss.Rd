@@ -17,7 +17,7 @@ pzpss(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
 
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).}
 
-\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda >= 0} ).}
+\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0} ).}
 
 \item{log, log.p}{Logical; if TRUE, probabilities p are given as log(p).}
 
@@ -26,6 +26,6 @@ pzpss(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
 \item{lower.tail}{Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.}
 }
 \description{
-Probability Mass Function, Cumulative Function of the Z-PSS distribution
-with parameter \eqn{\alpha} and \eqn{\lambda}.
+Probability Mass Function, Cumulative Function for the Z-PSS distribution
+with parameters \eqn{\alpha} and \eqn{\lambda}.
 }

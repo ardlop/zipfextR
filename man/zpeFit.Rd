@@ -2,9 +2,36 @@
 % Please edit documentation in R/zpeFit.R
 \name{zpeFit}
 \alias{zpeFit}
+\alias{residuals.zpeR}
+\alias{fitted.zpeR}
+\alias{coef.zpeR}
+\alias{plot.zpeR}
+\alias{print.zpeR}
+\alias{summary.zpeR}
+\alias{logLik.zpeR}
+\alias{AIC.zpeR}
+\alias{BIC.zpeR}
 \title{ZPE parameters estimation.}
 \usage{
-zpeFit(data, init_alpha, init_beta, ...)
+zpeFit(data, init_alpha, init_beta, level = 0.95, ...)
+
+\method{residuals}{zpeR}(object, ...)
+
+\method{fitted}{zpeR}(object, ...)
+
+\method{coef}{zpeR}(object, ...)
+
+\method{plot}{zpeR}(x, ...)
+
+\method{print}{zpeR}(x, ...)
+
+\method{summary}{zpeR}(object, ...)
+
+\method{logLik}{zpeR}(object, ...)
+
+\method{AIC}{zpeR}(object, ...)
+
+\method{BIC}{zpeR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data.}
@@ -13,16 +40,22 @@ zpeFit(data, init_alpha, init_beta, ...)
 
 \item{init_beta}{Initial value of \eqn{\beta} parameter (\eqn{\beta \in [-\infty, +\infty]}).}
 
-\item{...}{Further arguments to the generic functions. In case of the function \emph{moezipfR.fit}
-the extra arguments are passing to the \link{optim} function.}
+\item{level}{Confidence level used to calculate the confidence intervals (default 0.95).}
+
+\item{...}{Further arguments to the generic functions.The extra arguments are passing
+to the \emph{\link{optim}} function.}
+
+\item{object}{An object from class "zpeR" (output of \emph{zpeFit} function).}
+
+\item{x}{An object from class "zpeR" (output of \emph{zpeFit} function).}
 }
 \value{
-Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations,
-their standard deviation, their confidence intervals and the log-likelihood value.
+Returns an object composed by the maximum likelihood parameter estimations, their standard deviation, their confidence
+intervals and the log-likelihood value.
 }
 \description{
-For a given count data set,  usually of the type of ranking data or frequencies of frequencies data, estimates the parameters of the MOEZipf distribution by means of the maximum likelihood
-method.
+For a given count data set,  usually of the type of ranking data or frequencies of frequencies data,
+estimates the parameters of the ZPE distribution by means of the maximum likelihood method.
 }
 \details{
 The argument \code{data} is a matrix where, for each row, the first column contains a count,
@@ -30,11 +63,12 @@ and the second column contains its corresponding frequency.
 
 The log-likelihood function is computed by means of the following equation:
 
+\deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{x \in X} \zeta(\alpha, x)) + \sum_{x \in X} log(e^{\frac{\beta\, x^{-\alpha}}{\zeta(\alpha)}} - 1) - N\, log(e^{\beta} - 1)}
 
 The function \emph{\link{optim}} is used to estimate the parameters.
 }
 \examples{
-data <- rmoezipf(100, 2.5, 1.3)
+data <- rzpe(100, 2.5, 1.3)
 data <- zipfExtR_getDataMatrix(data)
 obj <- zpeFit(data, 1.001, 0.001)
 }

@@ -14,7 +14,7 @@
 #' The value is derive from \eqn{Var[Y] = E[N]\, Var[X] + E[X]^2 \, Var[N]} where E[X] and E[N] ares the expected value of the
 #' Zipf and the Poisson distributions respectively. In the same way the values of Var[X] and Var[N] stand for the variances of the Zipf and the Poisson
 #' distributions. The resulting expression is set to be equal to:
-#' \deqn{Var[Y] = \lambda\, \frac{\zeta(\alpha - 2)}{\zeta(\alpha)}}.
+#' \deqn{Var[Y] = \lambda\, \frac{\zeta(\alpha - 2)}{\zeta(\alpha)}}
 #' Particularlly, the variance of the zero-truncated version of the Z-PSS distribution is calculated as:
 #' \deqn{Var[Y^{ZT}] = \frac{\lambda\, \zeta(\alpha)\, \zeta(\alpha - 2)\, (1 - e^{-\lambda}) - \lambda^2 \, \zeta(\alpha - 1)^2 \, e^{-\lambda}}{\zeta(\alpha)^2 \, (1 - e^{-\lambda})^2}}
 #'

@@ -1,8 +1,8 @@
 
 #' The Zipf-Poisson Stop Sum Distribution (Z-PSS).
 #'
-#' Probability Mass Function, Cumulative Function of the Z-PSS distribution
-#' with parameter \eqn{\alpha} and \eqn{\lambda}.
+#' Probability Mass Function, Cumulative Function for the Z-PSS distribution
+#' with parameters \eqn{\alpha} and \eqn{\lambda}.
 #'
 #' @name zpss
 #' @aliases dzpss
@@ -10,7 +10,7 @@
 #'
 #' @param x,q Vector of positive integer values.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).
-#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda >= 0} ).
+#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0} ).
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.
 #' @param isTruncated Logical; if TRUE, the truncated version of the distribution is returned.
@@ -106,5 +106,36 @@ pzpss <- function(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncate
 
 
 
-
-
+#' #' @rdname zpss
+#' #' @export
+#' qzpss <- function(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE){
+#'   .prec.zpe.checkparams(alpha, lambda)
+#'
+#'   if(length(p) < 1){
+#'     stop('Wrong value(s) for the p parameter.')
+#'   }
+#'
+#'   if(log.p && lower.tail){
+#'     p <- exp(p)
+#'   } else{
+#'     if(log.p && !lower.tail){
+#'       p <- 1-exp(p)
+#'     } else{
+#'       if(!log.p && !lower.tail){
+#'         p <- 1-p
+#'       }
+#'     }
+#'   }
+#'
+#'   if(length(which(p > 1 || p < 0 )) > 0){
+#'     stop('There is a wrong value(s) in the p parameter.')
+#'   }
+#'
+#'   while
+#'
+#'   #u <- sapply(p, .getUprime, beta = beta)
+#'   #data <- tolerance::qzipfman(u, s = alpha, b = NULL, N = Inf)
+#'   return(data)
+#' }
+#'
+#'

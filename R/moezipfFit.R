@@ -6,6 +6,8 @@
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
 #' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta > 0}).
 #' @param level Confidence level used to calculate the confidence intervals (default 0.95).
+#' @param object An object from class "moezipfR" (output of \emph{moezipfFit} function).
+#' @param x An object from class "moezipfR" (output of \emph{moezipfFit} function).
 #' @param ... Further arguments to the generic functions. The extra arguments are passing to the \emph{\link{optim}} function.
 #' @details
 #' The argument \code{data} is a matrix where, for each row, the first column contains a count,
@@ -41,7 +43,6 @@ moezipfFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
       estBeta <- as.numeric(estResults$results$par[2])
       paramSD <- sqrt(diag(solve(estResults$results$hessian)))
       paramsCI <- .getConfidenceIntervals(paramSD, estAlpha, estBeta, level)
-      logLikelihood <- -estResults$results$value
 
       structure(class = "moezipfR", list(alphaHat = estAlpha,
                                          betaHat = estBeta,
@@ -58,7 +59,7 @@ moezipfFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
     })
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 residuals.moezipfR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
@@ -67,7 +68,7 @@ residuals.moezipfR <- function(object, ...){
   return(residual.values)
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 fitted.moezipfR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
@@ -77,7 +78,7 @@ fitted.moezipfR <- function(object, ...) {
   return(fitted.values)
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 coef.moezipfR <- function(object, ...){
   estimation <- matrix(nrow = 2, ncol = 4)
@@ -89,7 +90,7 @@ coef.moezipfR <- function(object, ...){
   estimation
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 plot.moezipfR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
@@ -104,7 +105,7 @@ plot.moezipfR <- function(x, ...){
                    lty=c(NA, 1), lwd=c(NA, 2))
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 print.moezipfR <- function(x, ...){
   cat('Call:\n')
@@ -123,7 +124,7 @@ print.moezipfR <- function(x, ...){
   cat(sprintf('BIC: %s\n', BIC(x)))
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 summary.moezipfR <- function(object, ...){
   print(object)
@@ -132,7 +133,7 @@ summary.moezipfR <- function(object, ...){
   print(fitted(object))
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 logLik.moezipfR <- function(object, ...){
   if(!is.na(object[['logLikelihood']]) || !is.null(object[['logLikelihood']])){
@@ -141,14 +142,14 @@ logLik.moezipfR <- function(object, ...){
   return(NA)
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 AIC.moezipfR <- function(object, ...){
   aic <- .get_AIC(object[['logLikelihood']], 2)
   return(aic)
 }
 
-#' @rdname moezipfR.fit
+#' @rdname moezipfFit
 #' @export
 BIC.moezipfR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
