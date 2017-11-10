@@ -6,8 +6,9 @@
   if (truncated) {
     probs <- (probs) / (1 - probs[1])
     probs <- probs[-1]
+    return(- (sum(freq * log(probs[values]))))
   }
-  - (sum(freq * log(probs[values+1])))
+  return(- (sum(freq * log(probs[values+1]))))
 }
 
 #' ZPSS parameters estimation.

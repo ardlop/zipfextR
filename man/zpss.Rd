@@ -5,12 +5,15 @@
 \alias{dzpss}
 \alias{dzpss}
 \alias{pzpss}
+\alias{rzpss}
 \title{The Zipf-Poisson Stop Sum Distribution (Z-PSS).}
 \usage{
 dzpss(x, alpha, lambda, log = FALSE, isTruncated = FALSE)
 
 pzpss(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
   isTruncated = FALSE)
+
+rzpss(n, alpha, lambda)
 }
 \arguments{
 \item{x, q}{Vector of positive integer values.}
@@ -24,6 +27,8 @@ pzpss(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
 \item{isTruncated}{Logical; if TRUE, the truncated version of the distribution is returned.}
 
 \item{lower.tail}{Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.}
+
+\item{n}{Number of random values to return.}
 }
 \description{
 Probability Mass Function, Cumulative Function for the Z-PSS distribution

@@ -7,10 +7,12 @@
 #' @name zpss
 #' @aliases dzpss
 #' @aliases pzpss
+#' @aliases rzpss
 #'
 #' @param x,q Vector of positive integer values.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).
 #' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0} ).
+#' @param n Number of random values to return.
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.
 #' @param isTruncated Logical; if TRUE, the truncated version of the distribution is returned.
@@ -104,6 +106,26 @@ pzpss <- function(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncate
   }
 }
 
+
+#' @rdname zpss
+#' @export
+rzpss <- function(n, alpha, lambda){
+  .prec.zpe.checkparams(alpha, lambda)
+
+  data <- array(0, n)
+  for(i in 1:n){
+    nPois <- stats::rpois(1, lambda = lambda)
+    if(nPois == 0){
+      data[i] <- 0
+      print(c(i, 0))
+    } else{
+      xZipfs <- tolerance::rzipfman(nPois, s = alpha, b = NULL, N = Inf)
+      data[i] <- sum(xZipfs)
+      print(c(i, nPois, sum(xZipfs)))
+    }
+  }
+  return(data)
+}
 
 
 #' #' @rdname zpss
