@@ -124,7 +124,7 @@ rzpss <- function(n, alpha, lambda){
       print(c(i, nPois, sum(xZipfs)))
     }
   }
-  return(data)
+   return(data)
 }
 
 
