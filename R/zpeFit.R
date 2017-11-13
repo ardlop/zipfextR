@@ -68,7 +68,8 @@ zpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
                                    betaSD = paramSD[2],
                                    alphaCI = c(paramsCI[1,1],paramsCI[1,2]),
                                    betaCI = c(paramsCI[2,1],paramsCI[2,2]),
-                                   logLikelihood = -res$value,
+                                   logLikelihood = res$value,
+                                   hessian=res$hessian,
                                    call = Call))
   },  error = function(e) {
     print(c("Error", e))

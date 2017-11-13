@@ -59,12 +59,13 @@ zpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = FAL
     paramsCI <- .getConfidenceIntervals(paramSD, estAlpha, estLambda, level)
 
     structure(class = "zpssR", list(alphaHat = estAlpha,
-                                   betaHat = estLambda,
+                                   lambdaHat = estLambda,
                                    alphaSD = paramSD[1],
                                    lambdaSD = paramSD[2],
                                    alphaCI = c(paramsCI[1,1],paramsCI[1,2]),
                                    lambdaCI = c(paramsCI[2,1],paramsCI[2,2]),
-                                   logLikelihood = -res$value,
+                                   logLikelihood = res$value,
+                                   hessian = res$hessian,
                                    call = Call))
 
   }, error = function(e){
@@ -87,8 +88,8 @@ residuals.zpssR <- function(object, ...){
 fitted.zpssR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
   N <- sum(dataMatrix[, 2])
-  fitted.values <- N*sapply(dataMatrix[,1], dmoezipf, alpha = object[['alphaHat']],
-                            beta = object[['betaHat']])
+  fitted.values <- N*sapply(dataMatrix[,1], dzpss, alpha = object[['alphaHat']],
+                            lambda = object[['lambdaHat']])
   return(fitted.values)
 }
 
@@ -97,7 +98,7 @@ fitted.zpssR <- function(object, ...) {
 coef.zpssR <- function(object, ...){
   estimation <- matrix(nrow = 2, ncol = 4)
   estimation[1, ] <- c(object[['alphaHat']], object[['alphaSD']], object[['alphaCI']][1], object[['alphaCI']][2])
-  estimation[2, ] <- c(object[['betaHat']], object[['betaSD']], object[['betaCI']][1], object[['betaCI']][2])
+  estimation[2, ] <- c(object[['lambdaHat']], object[['lambdaSD']], object[['lambdaCI']][1], object[['lambdaCI']][2])
   colnames(estimation) <- c("MLE", "Std. Dev.", paste0("Inf. ", "95% CI"),
                             paste0("Sup. ", "95% CI"))
   rownames(estimation) <- c("alpha", "lambda")
@@ -127,7 +128,7 @@ print.zpssR <- function(x, ...){
   cat('\n')
   cat('Initial Values:\n')
   cat(sprintf('Alpha: %s\n', format(eval(x[['call']]$init_alpha), digits = 3)))
-  cat(sprintf('Lambda: %s\n', format(eval(x[['call']]$init_beta), digits = 3)))
+  cat(sprintf('Lambda: %s\n', format(eval(x[['call']]$init_lambda), digits = 3)))
   cat('\n')
   cat('Coefficients:\n')
   print(coef(x))

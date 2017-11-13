@@ -10,8 +10,8 @@ test_that("[zpss - preconditions] Checking preconditions", {
 })
 
 test_that("[zpss - pmf] The summation of all probabilities must be 1.", {
-  expect_equal(1,sum(dzpss(1:1000, alpha = 2.5, lambda = 1.3)), tolerance = 1*10^(-3))
-  expect_equal(1,sum(dzpss(1:1000, alpha = 2.5, lambda = 3)), tolerance = 1*10^(-3))
+  expect_equal(1,sum(dzpss(0:1000, alpha = 2.5, lambda = 1.3)), tolerance = 1*10^(-3))
+  expect_equal(1,sum(dzpss(1:1000, alpha = 2.5, lambda = 3, isTruncated = T)), tolerance = 1*10^(-3))
 })
 
 test_that("[zpss - pmf] The probability lays on the interval (0, 1).", {
@@ -25,8 +25,8 @@ test_that("[zpss - pmf] The probability lays on the interval (0, 1).", {
 })
 
 test_that("[zpss - cdf] The summation of all probabilities must be 1.", {
-  expect_equal(1,pzpss(1000, alpha = 2.5, lambda = 1.3), tolerance = 1*10^(-3))
-  expect_equal(1,pzpss(1000, alpha = 2.5, lambda = 3, isTruncated = T), tolerance = 1*10^(-3))
+  expect_equal(1, as.numeric(pzpss(q=1000, alpha = 2.5, lambda = 1.3)), tolerance = 1*10^(-4))
+  expect_equal(1, as.numeric(pzpss(1000, alpha = 2.5, lambda = 3, isTruncated = T)), tolerance = 1*10^(-3))
 })
 
 test_that("[zpss- cdf] The cumulative probabilities have to be in the interval (0, 1).", {

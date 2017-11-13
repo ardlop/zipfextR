@@ -36,5 +36,5 @@ zpssMean <- function(alpha, lambda, isTruncated = FALSE){
   if(!isTruncated){
     return(lambda * (VGAM::zeta(alpha - 1)/zeta_a))
   }
-  lambda*VGAM::zeta(alpha - 1)/zeta_a*(1 - exp(-lambda))
+  return(lambda*VGAM::zeta(alpha - 1)/zeta_a*(1 - exp(-lambda)))
 }

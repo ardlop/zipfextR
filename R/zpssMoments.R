@@ -34,14 +34,26 @@ zpssMoments <- function(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-
   }
 
   aux <- 1
+  # x <- if(isTruncated) 1 else 0
   x <- 1
   result <- 0
 
+  # while(aux > tolerance) {
+  #   px <- dzpss(x, alpha, lambda, isTruncated = isTruncated)
+  #   print(px)
+  #   aux <- x^k * px
+  #   print(aux)
+  #   result <- result + aux
+  #   x <- x + 1
+  # }
+
   while(aux > tolerance) {
-    px <- dzpss(x, alpha, lambda, isTruncated = isTruncated)
-    aux <- x^k * px
-    result <- result + aux
-    x <- x + 1
+      px <- dzpss(x, alpha, lambda, isTruncated = isTruncated)
+      print(px)
+      aux <- x^k * px
+      print(aux)
+      result <- result + aux
+      x <- x +1
   }
 
   return(result)
