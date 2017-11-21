@@ -4,11 +4,13 @@
   # print(c(alpha, beta))
   zeta_a <- VGAM::zeta(alpha)
   val1 <-
-    sum(sapply(1:length(values), function(i, alpha, values, freq) {
+    sum(sapply(base::seq_along(values), function(i, alpha, values, freq) {
+    # sum(sapply(1:length(values), function(i, alpha, values, freq) {
       freq[i] * .zeta_x(alpha, values[i])
     }, alpha = alpha, values = values, freq = freq))
 
-  val2 <- sum(sapply(1:length(values),
+  # val2 <- sum(sapply(1:length(values),
+  val2 <- sum(sapply(base::seq_along(values),
                      function(i, alpha, beta, values, freq) {
                        freq[i] * log(exp((beta * values[i] ^ (-alpha)) / (zeta_a)) - 1)
                      },
@@ -18,36 +20,41 @@
 
 
 
-#' ZPE parameters estimation.
+#' Zipf-PE parameters estimation.
 #'
-#' For a given count data set,  usually of the type of ranking data or frequencies of frequencies data,
-#' estimates the parameters of the ZPE distribution by means of the maximum likelihood method.
-#' @param data Matrix of count data.
+#' For a given sample of strictly positive integer values,  usually of the type of ranking data or
+#' frequencies of frequencies data, estimates the parameters of a Zipf-PE
+#' distribution by means of the maximum likelihood method.
+#' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
-#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in [-\infty, +\infty]}).
+#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).
 #' @param level Confidence level used to calculate the confidence intervals (default 0.95).
-#' @param object An object from class "zpeR" (output of \emph{zpeFit} function).
-#' @param x An object from class "zpeR" (output of \emph{zpeFit} function).
+#' @param object An object from class "zpeR" (output of \emph{zipfpeFit} function).
+#' @param x An object from class "zpeR" (output of \emph{zipfpeFit} function).
 #' @param ... Further arguments to the generic functions.The extra arguments are passing
 #' to the \emph{\link{optim}} function.
 #' @details
-#' The argument \code{data} is a matrix where, for each row, the first column contains a count,
-#' and the second column contains its corresponding frequency.
+#' The argument \code{data} is a two column matrix such that the first column of each row contains a
+#' count, while the corresponding second column contains its frequency.
 #'
-#' The log-likelihood function is computed by means of the following equation:
+#' The log-likelihood function is equal to:
 #'
-#' \deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{x \in X} \zeta(\alpha, x)) + \sum_{x \in X} log(e^{\frac{\beta\, x^{-\alpha}}{\zeta(\alpha)}} - 1) - N\, log(e^{\beta} - 1)}
+#' \deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{i = 1} ^m  f_{a}(x_{i}) \zeta(\alpha, x_i)) +
+#' \sum_{i = 1} ^m f_{a}(x_{i})  log(e^{\frac{\beta\, x_{i}^{-\alpha}}{\zeta(\alpha)}} - 1) - N\, log(e^{\beta} - 1), }
+#' where \eqn{m} is the number of different values in the sample, \eqn{N} is the sample size,
+#' i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)},  being \eqn{f_{a}(x_i)} is the absolute
+#' frequency of \eqn{x_i}.
 #'
 #' The function \emph{\link{optim}} is used to estimate the parameters.
 #' @return Returns an object composed by the maximum likelihood parameter estimations, their standard deviation, their confidence
-#' intervals and the log-likelihood value.
+#' intervals and the value of the log-likelihood at the maximum likelihood estimations.
 #' @examples
-#' data <- rzpe(100, 2.5, 1.3)
+#' data <- rzipfpe(100, 2.5, 1.3)
 #' data <- zipfExtR_getDataMatrix(data)
-#' obj <- zpeFit(data, 1.001, 0.001)
+#' obj <- zipfpeFit(data, 1.001, 0.001)
 #' @seealso \code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
 #' @export
-zpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
+zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
   Call <- match.call()
   if(!is.numeric(init_alpha) || !is.numeric(init_beta)){
     stop('Wrong intial values for the parameters.')
@@ -55,7 +62,7 @@ zpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
 
   tryCatch({
     res <- stats::optim(par = c(init_alpha, init_beta), .loglikexzp, N = sum(data[,2]),
-                        values = data[, 1], freq = data[, 2], hessian = T, ...)
+                        values = data[, 1], freq = data[, 2], hessian = TRUE, ...)
 
     estAlpha <- as.numeric(res$par[1])
     estBeta <- as.numeric(res$par[2])
@@ -76,7 +83,7 @@ zpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
   })
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 residuals.zpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
@@ -85,7 +92,7 @@ residuals.zpeR <- function(object, ...){
   return(residual.values)
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 fitted.zpeR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
@@ -95,7 +102,7 @@ fitted.zpeR <- function(object, ...) {
   return(fitted.values)
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 coef.zpeR <- function(object, ...){
   estimation <- matrix(nrow = 2, ncol = 4)
@@ -107,7 +114,7 @@ coef.zpeR <- function(object, ...){
   estimation
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 plot.zpeR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
@@ -122,7 +129,7 @@ plot.zpeR <- function(x, ...){
                    lty=c(NA, 1), lwd=c(NA, 2))
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 print.zpeR <- function(x, ...){
   cat('Call:\n')
@@ -141,7 +148,7 @@ print.zpeR <- function(x, ...){
   cat(sprintf('BIC: %s\n', BIC(x)))
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 summary.zpeR <- function(object, ...){
   print(object)
@@ -150,7 +157,7 @@ summary.zpeR <- function(object, ...){
   print(fitted(object))
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 logLik.zpeR <- function(object, ...){
   if(!is.na(object[['logLikelihood']]) || !is.null(object[['logLikelihood']])){
@@ -159,14 +166,14 @@ logLik.zpeR <- function(object, ...){
   return(NA)
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 AIC.zpeR <- function(object, ...){
   aic <- .get_AIC(object[['logLikelihood']], 2)
   return(aic)
 }
 
-#' @rdname zpeFit
+#' @rdname zipfpeFit
 #' @export
 BIC.zpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))

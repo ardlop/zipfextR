@@ -1,13 +1,13 @@
-#' The Zipf-Poisson Extreme Distribution (ZPE).
+#' The Zipf-Poisson Extreme Distribution (Zipf-PE).
 #'
-#' Probability Mass function, Cumulative function, Quantile function and Random generation for the ZPE distribution
-#' with parameters \eqn{\alpha} and \eqn{\beta}.
+#' Probability Mass function, Cumulative function, Quantile function and Random Number Generation
+#' for the Zipf-PE distribution with parameters \eqn{\alpha} and \eqn{\beta}.
 #'
-#' @name zpe
-#' @aliases dzpe
-#' @aliases pzpe
-#' @aliases qzpe
-#' @aliases rzpe
+#' @name zipfpe
+#' @aliases dzipfpe
+#' @aliases pzipfpe
+#' @aliases qzipfpe
+#' @aliases rzipfpe
 #'
 #' @param x,q Vector of positive integer values.
 #' @param p Vector of probabilities.
@@ -16,50 +16,55 @@
 #' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta > 0} ).
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.
-#' @details The \emph{probability mass function} at a positive integer value \eqn{x} of the ZPE distribution with
-#' parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
+#' @details The \emph{probability mass function} of the Zipf-PE distribution at a positive integer
+#' value \eqn{x} with parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
 #'
 #' \deqn{p(x | \alpha, \beta) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x)}{\zeta(\alpha)})} (e^{\beta \frac{x^{-\alpha}}{\zeta(\alpha)}} - 1)}
-#' {e^{\beta} - 1}, \alpha > 1, -\infty < \beta < +\infty,}
+#' {e^{\beta} - 1},\, x= 1,2,...,\, \alpha > 1,\, -\infty < \beta < +\infty,}
 #'
-#' where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, \eqn{\zeta(\alpha, x)}
+#' where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, and \eqn{\zeta(\alpha, x)}
 #' is the Hurtwitz zeta function with arguments \eqn{\alpha} and x.
 #'
-#' The \emph{cumulative distribution function}, \eqn{F_{\alpha, \beta}(x)}, at a given positive integer value \eqn{x},
+#' The \emph{cumulative distribution function}, \eqn{F(x)}, at a given positive integer value \eqn{x},
 #'  is calcuted as:
 #' \deqn{F(x) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{\beta} -1}}
 #'
-#' The \emph{quantiles} of a ZPE distribution for a given probability
-#' vector \code{p}, are obtained by computing the quantiles associated to a Zipf distribution with
-#' the same parameter \eqn{\alpha}, and probability vector equal to:
+#' The \emph{quantiles} of a Zipf-PE distribution for a given probability
+#' vector \code{p}, are equal to the quantiles of a Zipf distribution with the same parameter
+#' \eqn{\alpha}, and probability vector equal to:
+#'
 #' \deqn{p\prime = \frac{log(p\, (e^{\beta} - 1) + 1)}{\beta}}
 #'
+#' The random generator function applies the Inversion Method to obtain the random numbers. The function
+#' generates \emph{n} values from the interval (0, 1) using an Uniform distribution and it transforms these
+#' values by applying (1). Finally, the \emph{quantile} function and the \eqn{p\prime} are used to obtain the random values.
+#'
 #' @return {
-#' \code{dzpe} gives the probability mass function,
-#' \code{pzpe} gives the cumulative function,
-#' \code{qzpe} gives the quantile function, and
-#' \code{rzpe} generates random deviates.  }
+#' \code{dzipfpe} gives the probability mass function,
+#' \code{pzipfpe} gives the cumulative function,
+#' \code{qzipfpe} gives the quantile function, and
+#' \code{rzipfpe} generates random values from a Zipf-PE distribution.  }
 #'
 #' @references {
 #' Young, D. S. (2010). \emph{Tolerance: an R package for estimating tolerance intervals}. Journal of Statistical Software, 36(5), 1-39.
 #' }
 #'
 #' @examples
-#' dzpe(1:10, 2.5, -1.5)
-#' pzpe(1:10, 2.5, -1.5)
-#' qzpe(0.56, 2.5, 1.3)
-#' rzpe(10, 2.5, 1.3)
+#' dzipfpe(1:10, 2.5, -1.5)
+#' pzipfpe(1:10, 2.5, -1.5)
+#' qzipfpe(0.56, 2.5, 1.3)
+#' rzipfpe(10, 2.5, 1.3)
 #'
 NULL
 #> NULL
 
-.prec.zpe.checkXvalue <- function(x){
+.prec.zipfpe.checkXvalue <- function(x){
   if(!is.numeric(x) || x < 1 || x%%1 != 0) {
     stop('The x value is not included into the support of the distribution.')
   }
 }
 
-.prec.zpe.checkparams <- function(alpha, beta){
+.prec.zipfpe.checkparams <- function(alpha, beta){
   if(!is.numeric(alpha) | alpha <= 1){
     stop('Incorrect alpha parameter. This parameter should be greater than one.')
   }
@@ -70,15 +75,15 @@ NULL
 }
 
 .dzpe.default <- function(x, alpha, beta, z){
-  .prec.zpe.checkXvalue(x)
+  .prec.zipfpe.checkXvalue(x)
   zetaX <-.zeta_x(alpha, x)
   return((exp(beta*(1 - (zetaX/z)))*(exp(beta*(x^(-alpha)/z)) - 1))/(exp(beta) -1))
 }
 
-#' @rdname zpe
+#' @rdname zipfpe
 #' @export
-dzpe <-  function(x, alpha, beta, log = FALSE){
-  .prec.zpe.checkparams(alpha, beta)
+dzipfpe <-  function(x, alpha, beta, log = FALSE){
+  .prec.zipfpe.checkparams(alpha, beta)
 
   z <- VGAM::zeta(alpha)
   probs <- sapply(x, .dzpe.default, alpha = alpha, beta = beta, z = z)
@@ -91,15 +96,15 @@ dzpe <-  function(x, alpha, beta, log = FALSE){
 }
 
 .pzpe.default <- function(v, alpha, beta, z){
-  .prec.zpe.checkXvalue(v)
+  .prec.zipfpe.checkXvalue(v)
   zetaX <- .zeta_x(alpha, v + 1)
   return((exp(beta * (1 - (zetaX/z))) - 1)/(exp(beta) - 1))
 }
 
-#' @rdname zpe
+#' @rdname zipfpe
 #' @export
-pzpe <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
-  .prec.zpe.checkparams(alpha, beta)
+pzipfpe <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
+  .prec.zipfpe.checkparams(alpha, beta)
 
   z <- VGAM::zeta(alpha)
   probs <- sapply(q, .pzpe.default, alpha = alpha, beta = beta, z = z)
@@ -123,10 +128,10 @@ pzpe <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
   return(p)
 }
 
-#' @rdname zpe
+#' @rdname zipfpe
 #' @export
-qzpe <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
-  .prec.zpe.checkparams(alpha, beta)
+qzipfpe <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
+  .prec.zipfpe.checkparams(alpha, beta)
 
   if(length(p) < 1){
     stop('Wrong value(s) for the p parameter.')
@@ -153,14 +158,14 @@ qzpe <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
   return(data)
 }
 
-#' @rdname zpe
+#' @rdname zipfpe
 #' @export
-rzpe <- function(n, alpha, beta){
-  .prec.moezipf.checkXvalue(n)
-  .prec.moezipf.checkparams(alpha, beta)
+rzipfpe <- function(n, alpha, beta){
+  .prec.zipfpe.checkXvalue(n)
+  .prec.zipfpe.checkparams(alpha, beta)
 
   uValues <- stats::runif(n, 0, 1)
-  data <- qzpe(uValues, alpha, beta)
+  data <- qzipfpe(uValues, alpha, beta)
   return(data)
 }
 

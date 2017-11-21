@@ -52,7 +52,7 @@ zpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = FAL
 
   tryCatch({
     res <- stats::optim(par = c(init_alpha, init_lambda), .zpss_mle, values = data[, 1], freq = data[, 2],
-                  truncated = isTruncated, hessian = T, ...)
+                  truncated = isTruncated, hessian = TRUE, ...)
     estAlpha <- as.numeric(res$par[1])
     estLambda <- as.numeric(res$par[2])
     paramSD <- sqrt(diag(solve(res$hessian)))
@@ -88,7 +88,7 @@ residuals.zpssR <- function(object, ...){
 fitted.zpssR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
   N <- sum(dataMatrix[, 2])
-  fitted.values <- N*sapply(dataMatrix[,1], dzpss, alpha = object[['alphaHat']],
+  fitted.values <- N*sapply(dataMatrix[,1], dzipfpss, alpha = object[['alphaHat']],
                             lambda = object[['lambdaHat']])
   return(fitted.values)
 }

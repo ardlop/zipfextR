@@ -8,8 +8,9 @@
 #'
 #' @details
 #' The variance of the distribution only exists for \eqn{\alpha} strictly greater than 3.
-#' It is calculated as:
-#' \deqn{Var[Y] = E[Y^2] - (E[Y])^2}
+#' In this case, it is calculated as:
+#' \deqn{Var[Y] = E[Y^2] - (E[Y])^2},
+#' where the first and the second moments are computed using the \emph{moezipfMoments} function.
 #'
 #' @examples
 #' moezipfVariance(3.5, 1.3)

@@ -37,31 +37,35 @@ rmoezipf(n, alpha, beta)
 \code{dmoezipf} gives the probability mass function,
 \code{pmoezipf} gives the cumulative function,
 \code{qmoezipf} gives the quantile function, and
-\code{rmoezipf} generates random deviates.}
+\code{rmoezipf} generates random values from a MOEZipf distribution.}
 }
 \description{
-Probability Mass Function, Cumulative Function, Quantile Function and Random
+Probability Mass Function, Cumulative Function, Quantile Function and Random Number
 Generation for the MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta}.
 }
 \details{
 The \emph{probability mass function} at a positive integer value \eqn{x} of the MOEZipf distribution with
 parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
 
-\deqn{p(x | \alpha, \beta) = \frac{x^{-\alpha} \beta \zeta(\alpha) }{[\zeta(\alpha) - \bar{\beta} \zeta (\alpha, x)] [\zeta (\alpha) - \bar{\beta} \zeta (\alpha, x + 1)]}, \alpha > 1, \beta > 0, }
+\deqn{p(x | \alpha, \beta) = \frac{x^{-\alpha} \beta \zeta(\alpha) }{[\zeta(\alpha) - \bar{\beta} \zeta (\alpha, x)] [\zeta (\alpha) - \bar{\beta} \zeta (\alpha, x + 1)]},\, x = 1,2,...,\, \alpha > 1, \beta > 0, }
 
 where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, \eqn{\zeta(\alpha, x)}
 is the Hurtwitz zeta function with arguments \eqn{\alpha} and x, and \eqn{\bar{\beta} = 1 - \beta}.
 
-The \emph{cumulative distribution function}, \eqn{F_{\alpha}(x)}, at a given positive integer value \eqn{x},
+The \emph{cumulative distribution function}, \eqn{F(x)}, at a given positive integer value \eqn{x},
  is calcuted from the survival function \eqn{S(x)} as:
 \deqn{F(x) = 1 - S(x), }
 the survival function \eqn{S(x)} is equal to:
-\deqn{S(x) = \frac{\beta \zeta(\alpha, x + 1)}{\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x + 1)}, \forall x > 0}
+\deqn{S(x) = \frac{\beta\, \zeta(\alpha, x + 1)}{\zeta(\alpha) - \bar{\beta}\,\zeta(\alpha, x + 1)},\, x = 1, 2, .. }
 
 The \emph{quantiles} of a MOEZipf distribution for a given probability
-vector \code{p}, are obtained by computing the quantiles associated to a Zipf distribution with
-the same parameter \eqn{\alpha}, and probability vector equal to:
-\deqn{p\prime = \frac{p\,\beta}{1 + p\,(\beta - 1)}}
+vector \code{p}, are equal to the quantiles of a Zipf distribution with the same parameter \eqn{\alpha},
+and probability vector equal to:
+\deqn{p\prime = \frac{p\,\beta}{1 + p\,(\beta - 1)}\, \, \, (1)}
+
+The random generator function applies the Inversion Method to obtain the random numbers. The function
+generates \emph{n} values from the interval (0, 1) using an Uniform distribution and it transforms these
+values by applying (1). Finally, the \emph{quantile} function and the \eqn{p\prime} are used to obtain the random values.
 }
 \examples{
 dmoezipf(1:10, 2.5, 1.3)
@@ -72,12 +76,14 @@ rmoezipf(10, 2.5, 1.3)
 }
 \references{
 {
-Young, D. S. (2010). \emph{Tolerance: an R package for estimating tolerance intervals}. Journal of Statistical Software, 36(5), 1-39.
-
 Casellas, A. (2013) \emph{La distribució Zipf Estesa segons la transformació Marshall-Olkin}. Universitat Politécnica de Catalunya.
+
+Devroye L. (1986) Non-Uniform Random Variate Generation. Springer, New York, NY.
+
+Duarte-López, A., Prat-Pérez, A., & Pérez-Casany, M. (2015, August). \emph{Using the Marshall-Olkin Extended Zipf Distribution in Graph Generation}. In European Conference on Parallel Processing (pp. 493-502). Springer International Publishing.
 
 Pérez-Casany, M. and Casellas, A. (2013) \emph{Marshall-Olkin Extended Zipf Distribution}. arXiv preprint arXiv:1304.4540.
 
-Duarte-López, A., Prat-Pérez, A., & Pérez-Casany, M. (2015, August). \emph{Using the Marshall-Olkin Extended Zipf Distribution in Graph Generation}. In European Conference on Parallel Processing (pp. 493-502). Springer International Publishing.
+Young, D. S. (2010). \emph{Tolerance: an R package for estimating tolerance intervals}. Journal of Statistical Software, 36(5), 1-39.
 }
 }

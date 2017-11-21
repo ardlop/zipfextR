@@ -1,6 +1,6 @@
-#' Expected value of the Z-PSS distribution.
+#' Expected value of the Zipf-PSS distribution.
 #'
-#' Computes the expected value of the Z-PSS distribution for given values of parameters
+#' Computes the expected value of the Zipf-PSS distribution for given values of parameters
 #' \eqn{\alpha} and \eqn{\lambda}.
 #'
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 2}).

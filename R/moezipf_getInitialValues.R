@@ -1,25 +1,26 @@
 #' Calculates initial values for the \eqn{\alpha} and \eqn{\beta} parameters.
 #'
-#' The initial value of the parameters are computed using the empirical absolute frequencies of values
-#' one and two. The selection of robust initial values allows to reduce the number
+#' Initial values of the parameters useful to find the maximum likelihood estimators and required
+#' in the \emph{moezipfFit} procedure. They may be computed using the empirical absolute frequencies
+#' of values one and two. The selection of robust initial values allows to reduce the number
 #' of iterations which in turn, reduces the computation time.
 #' In the case where one of the two first positive integer values does not appear in the data
-#' set, the default values are set equal to \eqn{\alpha} = 1.0001 and \eqn{\beta} = 0.0001.
+#' set, the default values are set to be equal to \eqn{\alpha} = 1.0001 and \eqn{\beta} = 0.0001.
 #'
 #' @param data Matrix of count data.
 #'
 #' @details
 #'
-#' The argument \code{data} is a matrix where, for each row, the first column corresponds to a count,
-#' and the second column contains its corresponding frequency.
+#' The argument \code{data} is a two column matrix such that the first column of each row contains a
+#' count, while the corresponding second column contains its frequency.
 #'
-#' To obtain the initial value for \eqn{\alpha} and \eqn{\beta}, one will assume that
-#' the data come from a Zipf(\eqn{\alpha}) distribution. Thus, the initial value for \eqn{\beta}
-#' is set equal to one, and the inital value for \eqn{\alpha}, denoted by \eqn{\alpha_0}, is obtained
-#' equating the ratio of the theoretical probabilities at one and two to the corresponding emprirical
-#' ratio. Thus,
+#' To obtain the initial value of \eqn{\alpha} and \eqn{\beta}, it is assumed that
+#' the data come from a Zipf(\eqn{\alpha}) distribution. The initial value for \eqn{\beta}
+#' is set to be equal to one, and the inital value for \eqn{\alpha}, denoted by \eqn{\alpha_0}, is obtained
+#' equating the ratio of the theoretical probabilities at one and two to the corresponding empirical
+#' ratio. this gives:
 #'
-#' \deqn{\alpha_0 = log_2 \big (\frac{f_1}{f_2} \big)}
+#' \deqn{\alpha_0 = log_2 \big (\frac{f_a(1)}{f_a(2)} \big)}
 #' where \eqn{f_1} and \eqn{f_2} are the absolute frequencies of one and two in the sample.
 #' @return Returns the initial value for parameters \eqn{\alpha} and \eqn{\beta}.
 #' @examples

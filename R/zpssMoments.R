@@ -48,7 +48,7 @@ zpssMoments <- function(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-
   # }
 
   while(aux > tolerance) {
-      px <- dzpss(x, alpha, lambda, isTruncated = isTruncated)
+      px <- dzipfpss(x, alpha, lambda, isTruncated = isTruncated)
       # print(px)
       aux <- x^k * px
       # print(aux)

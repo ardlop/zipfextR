@@ -1,13 +1,13 @@
 
-#' The Zipf-Poisson Stop Sum Distribution (Z-PSS).
+#' The Zipf-Poisson Stop Sum Distribution (Zipf-PSS).
 #'
-#' Probability Mass function, Cumulative function, Quantile function and Random generation for the Z-PSS distribution
-#' with parameters \eqn{\alpha} and \eqn{\lambda}.
+#' Probability Mass function, Cumulative function, Quantile function and Random Number Generation
+#' for the Zipf-PSS distribution with parameters \eqn{\alpha} and \eqn{\lambda}.
 #'
-#' @name zpss
-#' @aliases dzpss
-#' @aliases pzpss
-#' @aliases rzpss
+#' @name zipfpss
+#' @aliases dzipfpss
+#' @aliases pzipfpss
+#' @aliases rzipfpss
 #'
 #' @param x,q Vector of positive integer values.
 #' @param p Vector of probabilities.
@@ -20,13 +20,13 @@
 NULL
 #> NULL
 
-.prec.zpss.checkXvalue <- function(x){
+.prec.zipfpss.checkXvalue <- function(x){
   if(!is.numeric(x) || x < 0 || x%%1 != 0) {
     stop('The x value is not included into the support of the distribution.')
   }
 }
 
-.prec.zpss.checkparams <- function(alpha, lambda){
+.prec.zipfpss.checkparams <- function(alpha, lambda){
   if(!is.numeric(alpha) || alpha <= 1){
     stop('Incorrect alpha parameter. This parameter should be greater than one.')
   }
@@ -55,8 +55,8 @@ NULL
 
 .getProbs <- function(x, alpha, lambda, isTruncated = FALSE){
   k <- max(x)
-  .prec.zpss.checkXvalue(k)
-  .prec.zpss.checkparams(alpha, lambda)
+  .prec.zipfpss.checkXvalue(k)
+  .prec.zipfpss.checkparams(alpha, lambda)
 
   probs <- .panjerRecursion(k, alpha, lambda)
 
@@ -67,56 +67,28 @@ NULL
   return(probs)
 }
 
-#' @rdname zpss
+#' @rdname zipfpss
 #' @export
-dzpss <- function(x, alpha, lambda, log = FALSE, isTruncated = FALSE){
-  # k <- max(x)
-  # .prec.zpss.checkXvalue(k)
-  # .prec.zpss.checkparams(alpha, lambda)
-  #
-  # probs <- .panjerRecursion(k, alpha, lambda)
-  #
-  # if(isTruncated){
-  #   probs <- (probs)/(1 - probs[1])
-  #   probs <- probs[-1]
-  # }
+dzipfpss <- function(x, alpha, lambda, log = FALSE, isTruncated = FALSE){
   probs <- .getProbs(x, alpha, lambda)
 
   finalProbs <- probs[if(isTruncated) x else (x+1)]#probs[x]#
   if(log){
     return(log(finalProbs))
   }
-
   return(finalProbs)
 }
 
-#' @rdname zpss
+#' @rdname zipfpss
 #' @export
-pzpss <- function(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE){
-  # k <- max(q)
-  # .prec.zpss.checkXvalue(k)
-  # .prec.zpss.checkparams(alpha, lambda)
-  #
-  # probs <- .panjerRecursion(k, alpha, lambda)
-  # if(isTruncated){
-  #   probs <- (probs)/(1 - probs[1])
-  #   probs <- probs[-1]
-  # }
+pzipfpss <- function(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE){
   probs <- .getProbs(q, alpha, lambda)
   finalProbs <- array(0, length(q))
-  # finalProbs <- sapply(1:length(q), function(i, q, probs, isTruncated){
-  #   index <- if(isTruncated) i else (i+1)
-  #   print(c(index, sum(probs[1:q[index]])))
-  #   finalProbs[index] <- sum(probs[1:q[index]])
-  # }, q = q, probs = probs, isTruncated = isTruncated)
 
-  for(i in 1:length(q)){
-    # print(if(isTruncated) 1 else 1:(q[i]+1))
-    # print(probs)
-    # print(probs[if(isTruncated) 1 else 0:q[i]])
+  for(i in seq_along(q)){
     finalProbs[i] <- sum(probs[1:if(isTruncated) q[i] else (q[i]+1)])
   }
-  #finalProbs <- probs[q]
+
   if(!log.p & lower.tail){
     return(finalProbs)
   } else{
@@ -131,32 +103,10 @@ pzpss <- function(q, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncate
   }
 }
 
-
-#' #' @rdname zpss
-#' #' @export
-#' rzpss <- function(n, alpha, lambda){
-#'   .prec.zpe.checkparams(alpha, lambda)
-#'
-#'   data <- array(0, n)
-#'   for(i in 1:n){
-#'     nPois <- stats::rpois(1, lambda = lambda)
-#'     if(nPois == 0){
-#'       data[i] <- 0
-#'       print(c(i, 0))
-#'     } else{
-#'       xZipfs <- tolerance::rzipfman(nPois, s = alpha, b = NULL, N = Inf)
-#'       data[i] <- sum(xZipfs)
-#'       # print(c(i, nPois, sum(xZipfs)))
-#'     }
-#'   }
-#'    return(data)
-#' }
-
-
-#' @rdname zpss
+#' @rdname zipfpss
 #' @export
-rzpss <- function(n, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE){
-  .prec.zpe.checkparams(alpha, lambda)
+rzipfpss <- function(n, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE){
+  .prec.zipfpss.checkparams(alpha, lambda)
 
   # data <- array(0, n)
   # for(i in 1:n){
@@ -172,29 +122,28 @@ rzpss <- function(n, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncate
   # }
 
   u <- stats::runif(n)
-  data <- sapply(u, qzpss, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE)
+  data <- sapply(u, qzipfpss, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE)
   #data <- tolerance::qzipfman(u, s = alpha, b = NULL, N = Inf)
   return(data)
 }
 
 .invertMethod <- function(p, alpha, lambda, log.p, lower.tail, isTruncated) {
   i <- if(isTruncated) 1 else 0
-  p_i <- pzpss(i, alpha = alpha, lambda = lambda, log.p, lower.tail, isTruncated)
+  p_i <- pzipfpss(i, alpha = alpha, lambda = lambda, log.p, lower.tail, isTruncated)
   repeat{
     if(p <= p_i){
       return(i)
     }
     i <- i + 1
-    p_i = pzpss(i, alpha = alpha, lambda = lambda, log.p, lower.tail, isTruncated)
+    p_i <- pzipfpss(i, alpha = alpha, lambda = lambda, log.p, lower.tail, isTruncated)
   }
-  # return(i)
 }
 
 
-#' @rdname zpss
+#' @rdname zipfpss
 #' @export
-qzpss <- function(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE){
-  .prec.zpe.checkparams(alpha, lambda)
+qzipfpss <- function(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE){
+  .prec.zipfpss.checkparams(alpha, lambda)
 
   if(length(p) < 1){
     stop('Wrong value(s) for the p parameter.')
@@ -217,9 +166,6 @@ qzpss <- function(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncate
   }
 
   data <- sapply(p, .invertMethod, alpha, lambda, log.p, lower.tail, isTruncated)
-
-  #u <- sapply(p, .getUprime, beta = beta)
-  #data <- tolerance::qzipfman(u, s = alpha, b = NULL, N = Inf)
   return(data)
 }
 
