@@ -2,7 +2,7 @@
 % Please edit documentation in R/moezipfVariance.R
 \name{moezipfVariance}
 \alias{moezipfVariance}
-\title{Variance.}
+\title{Variance of the MOEZipf distribution.}
 \usage{
 moezipfVariance(alpha, beta, tolerance = 10^(-4))
 }

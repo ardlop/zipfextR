@@ -11,40 +11,49 @@
   return(- (sum(freq * log(probs[values+1]))))
 }
 
-#' ZPSS parameters estimation.
+#' Zipf-PSS parameters estimation.
 #'
-#' For a given count data set,  usually of the type of ranking data or frequencies of frequencies
-#' data, estimates the parameters of the Z-PSS distribution by means of the maximum likelihood
-#' method.
-#' @param data Matrix of count data.
+#' For a given sample of strictly positive integer numbers,  usually of the type of ranking data or
+#' frequencies of frequencies data, estimates the parameters of a Zipf-PSS distribution by means of
+#' the maximum likelihood method.
+#'
+#' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
 #' @param init_lambda Initial value of \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).
 #' @param level Confidence level used to calculate the confidence intervals (default 0.95).
 #' @param isTruncated Logical; if TRUE, the truncated version of the distribution is returned.(default = FALSE)
-#' @param object An object from class "zpssR" (output of \emph{zpssFit} function).
-#' @param x An object from class "zpssR" (output of \emph{zpssFit} function).
+#' @param object An object from class "zpssR" (output of \emph{zipfpssFit} function).
+#' @param x An object from class "zpssR" (output of \emph{zipfpssFit} function).
 #' @param ... Further arguments to the generic functions. The extra arguments are passing
 #' to the \emph{\link{optim}} function.
 #'
 #' @details
-#' The argument \code{data} is a matrix where, for each row, the first column contains a count,
-#' and the second column contains its corresponding frequency.
+#' The argument \code{data} is a two column matrix such that the first column of each row contains a
+#' count, while the corresponding second column contains its frequency.
 #'
-#' The log-likelihood function is computed by means of the following equation:
+#' The log-likelihood function is equalt to:
 #' \deqn{l(\alpha, \lambda, x) = \sum_{i =1} ^{m} f_a(x_i)\, log(P(Y = x_i))},
-#' where \eqn{m} is the number of different values \eqn{x_i} in the sample, and \eqn{f_a(x_i)}
-#' is the absolute frequency of \eqn{x_i}. The probabilities are calculated applying the Panjer recursion.
+#' where \eqn{m} is the number of different values in the sample, being \eqn{f_{a}(x_i)} is the absolute
+#' frequency of \eqn{x_i}.The probabilities are calculated applying the Panjer recursion.
 #'
 #' The function \emph{\link{optim}} is used to estimate the parameters.
 #' @return Returns a \emph{zpssR} object composed by the maximum likelihood parameter estimations,
-#' their standard deviation, their confidence intervals and the log-likelihood value.
+#' their standard deviation, their confidence intervals and the value of the log-likelihood at the
+#' maximum likelihood estimator.
+#' @references {
+#' Bjørn Sundt and William S Jewell. 1981. Further results on recursive evaluation of compound distributions. ASTIN
+#' Bulletin: The Journal of the IAA 12, 1 (1981), 27–39.
+#'
+#' Harry H Panjer. 1981. Recursive evaluation of a family of compound distributions. Astin Bulletin 12, 01 (1981), 22–26.
+#' }
+#'
 #' @examples
-#' data <- rmoezipf(100, 2.5, 1.3)
+#' data <- rzipfpss(100, 2.5, 1.3)
 #' data <- zipfExtR_getDataMatrix(data)
-#' obj <- zpssFit(data, 1.001, 0.001)
+#' obj <- zipfpssFit(data, 1.001, 0.001)
 #' @seealso \code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
 #' @export
-zpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = FALSE, ...){
+zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = FALSE, ...){
   Call <- match.call()
   if(!is.numeric(init_alpha) || !is.numeric(init_lambda)){
     stop('Wrong intial values for the parameters.')
@@ -74,7 +83,7 @@ zpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = FAL
 }
 
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 residuals.zpssR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
@@ -83,7 +92,7 @@ residuals.zpssR <- function(object, ...){
   return(residual.values)
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 fitted.zpssR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
@@ -93,7 +102,7 @@ fitted.zpssR <- function(object, ...) {
   return(fitted.values)
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 coef.zpssR <- function(object, ...){
   estimation <- matrix(nrow = 2, ncol = 4)
@@ -105,7 +114,7 @@ coef.zpssR <- function(object, ...){
   estimation
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 plot.zpssR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
@@ -120,7 +129,7 @@ plot.zpssR <- function(x, ...){
                    lty=c(NA, 1), lwd=c(NA, 2))
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 print.zpssR <- function(x, ...){
   cat('Call:\n')
@@ -139,7 +148,7 @@ print.zpssR <- function(x, ...){
   cat(sprintf('BIC: %s\n', BIC(x)))
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 summary.zpssR <- function(object, ...){
   print(object)
@@ -148,7 +157,7 @@ summary.zpssR <- function(object, ...){
   print(fitted(object))
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 logLik.zpssR <- function(object, ...){
   if(!is.na(object[['logLikelihood']]) || !is.null(object[['logLikelihood']])){
@@ -157,14 +166,14 @@ logLik.zpssR <- function(object, ...){
   return(NA)
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 AIC.zpssR <- function(object, ...){
   aic <- .get_AIC(object[['logLikelihood']], 2)
   return(aic)
 }
 
-#' @rdname zpssFit
+#' @rdname zipfpssFit
 #' @export
 BIC.zpssR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))

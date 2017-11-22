@@ -2,7 +2,6 @@
 % Please edit documentation in R/moezipfFit.R
 \name{moezipfFit}
 \alias{moezipfFit}
-\alias{residuals.moezipfR}
 \alias{fitted.moezipfR}
 \alias{coef.moezipfR}
 \alias{plot.moezipfR}
@@ -14,8 +13,6 @@
 \title{MOEZipf parameters estimation.}
 \usage{
 moezipfFit(data, init_alpha, init_beta, level = 0.95, ...)
-
-\method{residuals}{moezipfR}(object, ...)
 
 \method{fitted}{moezipfR}(object, ...)
 
@@ -74,7 +71,7 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 }
 \examples{
 data <- rmoezipf(100, 2.5, 1.3)
-data <- zipfExtR_getDataMatrix(data)
+data <- as.data.frame(table(data))
 initValues <- moezipf_getInitialValues(data)
 obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 }

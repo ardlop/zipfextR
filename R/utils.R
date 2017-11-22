@@ -51,7 +51,8 @@
   result <- NULL
 
   tryCatch({
-    statistics <- list(nSize = sum(x[, 2]), values = x[, 1], frequencies = x[, 2])
+    statistics <- list(nSize = sum(as.numeric(x[, 2])),
+                       values = as.numeric(x[, 1]), frequencies = as.numeric(x[, 2]))
     result <- stats::optim(par = initValues, likelihoodFunc,
                            nSize = statistics$nSize, freq = statistics$frequencies,
                            values = statistics$values, hessian = TRUE, ...)

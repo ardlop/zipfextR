@@ -29,7 +29,7 @@
 #' maximum likelihood estimator.
 #' @examples
 #' data <- rmoezipf(100, 2.5, 1.3)
-#' data <- zipfExtR_getDataMatrix(data)
+#' data <- as.data.frame(table(data))
 #' initValues <- moezipf_getInitialValues(data)
 #' obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 #' @seealso \code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
@@ -65,12 +65,12 @@ moezipfFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
     })
 }
 
-#' @rdname moezipfFit
+#' @rdname moezipfFitmoezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 #' @export
 residuals.moezipfR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
   fitted.values <- fitted(object)
-  residual.values <- dataMatrix[, 2] - fitted.values
+  residual.values <- as.numeric(dataMatrix[, 2]) - fitted.values
   return(residual.values)
 }
 
@@ -78,8 +78,8 @@ residuals.moezipfR <- function(object, ...){
 #' @export
 fitted.moezipfR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
-  N <- sum(dataMatrix[, 2])
-  fitted.values <- N*sapply(dataMatrix[,1], dmoezipf, alpha = object[['alphaHat']],
+  N <- sum(as.numeric(dataMatrix[, 2]))
+  fitted.values <- N*sapply(as.numeric(dataMatrix[,1]), dmoezipf, alpha = object[['alphaHat']],
                             beta = object[['betaHat']])
   return(fitted.values)
 }
@@ -104,7 +104,7 @@ plot.moezipfR <- function(x, ...){
                  xlab="Observation", ylab="Frequency",
                  main="Fitting MOEZipf Distribution", ...)
 
-  graphics::lines(dataMatrix[,1], fitted(x), col="blue")
+  graphics::lines(as.numeric(dataMatrix[,1]), fitted(x), col="blue")
 
   graphics::legend("topright",  legend = c('Observations', 'MOEZipf Distribution'),
                    col=c('black', 'blue'), pch=c(21,NA),
@@ -159,6 +159,6 @@ AIC.moezipfR <- function(object, ...){
 #' @export
 BIC.moezipfR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
-  bic <- .get_BIC(object[['logLikelihood']], 2, sum(dataMatrix[, 2]))
+  bic <- .get_BIC(object[['logLikelihood']], 2, sum(as.numeric(dataMatrix[, 2])))
   return(bic)
 }

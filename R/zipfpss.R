@@ -17,6 +17,13 @@
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.
 #' @param isTruncated Logical; if TRUE, the truncated version of the distribution is returned.
+#'
+#' @references {
+#' Bjørn Sundt and William S Jewell. 1981. Further results on recursive evaluation of compound distributions. ASTIN
+#' Bulletin: The Journal of the IAA 12, 1 (1981), 27–39.
+#'
+#' Harry H Panjer. 1981. Recursive evaluation of a family of compound distributions. Astin Bulletin 12, 01 (1981), 22–26.
+#' }
 NULL
 #> NULL
 

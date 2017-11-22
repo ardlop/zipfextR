@@ -1,4 +1,4 @@
-#' Variance.
+#' Variance of the MOEZipf distribution.
 #'
 #' Computes the variance of the MOEZipf distribution for given values of \eqn{\alpha} and \eqn{\beta}.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 3}).

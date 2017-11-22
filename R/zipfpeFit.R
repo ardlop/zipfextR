@@ -25,6 +25,7 @@
 #' For a given sample of strictly positive integer values,  usually of the type of ranking data or
 #' frequencies of frequencies data, estimates the parameters of a Zipf-PE
 #' distribution by means of the maximum likelihood method.
+#'
 #' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
 #' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).
