@@ -51,9 +51,9 @@
 #' intervals and the value of the log-likelihood at the maximum likelihood estimations.
 #' @examples
 #' data <- rzipfpe(100, 2.5, 1.3)
-#' data <- zipfExtR_getDataMatrix(data)
-#' obj <- zipfpeFit(data, 1.001, 0.001)
-#' @seealso \code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
+#' data <- as.data.frame(table(data))
+#' obj <- zipfpeFit(data, 1.1, 0.1)
+#' @seealso \code{\link{moezipf_getInitialValues}}.
 #' @export
 zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
   Call <- match.call()
@@ -62,8 +62,9 @@ zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
   }
 
   tryCatch({
-    res <- stats::optim(par = c(init_alpha, init_beta), .loglikexzp, N = sum(data[,2]),
-                        values = data[, 1], freq = data[, 2], hessian = TRUE, ...)
+    res <- stats::optim(par = c(init_alpha, init_beta), .loglikexzp, N = sum(as.numeric(data[,2])),
+                        values = as.numeric(as.character(data[, 1])), freq = data[, 2],
+                        hessian = TRUE, ...)
 
     estAlpha <- as.numeric(res$par[1])
     estBeta <- as.numeric(res$par[2])
@@ -89,7 +90,7 @@ zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
 residuals.zpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
   fitted.values <- fitted(object)
-  residual.values <- dataMatrix[, 2] - fitted.values
+  residual.values <- as.numeric(dataMatrix[, 2]) - fitted.values
   return(residual.values)
 }
 
@@ -97,8 +98,8 @@ residuals.zpeR <- function(object, ...){
 #' @export
 fitted.zpeR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
-  N <- sum(dataMatrix[, 2])
-  fitted.values <- N*sapply(dataMatrix[,1], dmoezipf, alpha = object[['alphaHat']],
+  N <- sum(as.numeric(dataMatrix[, 2]))
+  fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dmoezipf, alpha = object[['alphaHat']],
                             beta = object[['betaHat']])
   return(fitted.values)
 }
@@ -119,11 +120,11 @@ coef.zpeR <- function(object, ...){
 #' @export
 plot.zpeR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
-  graphics::plot(dataMatrix[,1], dataMatrix[,2], log="xy",
+  graphics::plot(as.numeric(as.character(dataMatrix[,1])), as.numeric(dataMatrix[,2]), log="xy",
                  xlab="Observation", ylab="Frequency",
-                 main="Fitting ZPE Distribution", ...)
+                 main="Fitting Zipf-PE Distribution", ...)
 
-  graphics::lines(dataMatrix[,1], fitted(x), col="blue")
+  graphics::lines(as.numeric(as.character(dataMatrix[,1])), fitted(x), col="blue")
 
   graphics::legend("topright",  legend = c('Observations', 'ZPE Distribution'),
                    col=c('black', 'blue'), pch=c(21,NA),
@@ -178,6 +179,6 @@ AIC.zpeR <- function(object, ...){
 #' @export
 BIC.zpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
-  bic <- .get_BIC(object[['logLikelihood']], 2, sum(dataMatrix[, 2]))
+  bic <- .get_BIC(object[['logLikelihood']], 2, sum(as.numeric(dataMatrix[, 2])))
   return(bic)
 }

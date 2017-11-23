@@ -25,9 +25,8 @@
 #' @return Returns the initial value for parameters \eqn{\alpha} and \eqn{\beta}.
 #' @examples
 #' data <- rmoezipf(100, 2.5, 1.3)
-#' data <- zipfExtR_getDataMatrix(data)
+#' data <- as.data.frame(table(data))
 #' initials <- moezipf_getInitialValues(data)
-#' @seealso \code{\link{zipfExtR_getDataMatrix}}
 #' @references{ Güney, Y., Tuaç, Y., & Arslan, O. (2016). Marshall–Olkin distribution: parameter estimation and
 #' application to cancer data. Journal of Applied Statistics, 1-13.}
 #' @export

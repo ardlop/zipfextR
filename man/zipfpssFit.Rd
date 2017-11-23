@@ -75,8 +75,8 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 }
 \examples{
 data <- rzipfpss(100, 2.5, 1.3)
-data <- zipfExtR_getDataMatrix(data)
-obj <- zipfpssFit(data, 1.001, 0.001)
+data <- as.data.frame(table(data))
+obj <- zipfpssFit(data, 1.1, 0.1)
 }
 \references{
 {
@@ -87,5 +87,5 @@ Harry H Panjer. 1981. Recursive evaluation of a family of compound distributions
 }
 }
 \seealso{
-\code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
+\code{\link{moezipf_getInitialValues}}.
 }

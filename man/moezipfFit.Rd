@@ -76,5 +76,5 @@ initValues <- moezipf_getInitialValues(data)
 obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 }
 \seealso{
-\code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
+\code{\link{moezipf_getInitialValues}}.
 }

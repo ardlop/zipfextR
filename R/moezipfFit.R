@@ -32,7 +32,7 @@
 #' data <- as.data.frame(table(data))
 #' initValues <- moezipf_getInitialValues(data)
 #' obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
-#' @seealso \code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
+#' @seealso \code{\link{moezipf_getInitialValues}}.
 #' @importFrom stats AIC BIC coef fitted logLik
 #' @export
 moezipfFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
@@ -79,7 +79,7 @@ residuals.moezipfR <- function(object, ...){
 fitted.moezipfR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
   N <- sum(as.numeric(dataMatrix[, 2]))
-  fitted.values <- N*sapply(as.numeric(dataMatrix[,1]), dmoezipf, alpha = object[['alphaHat']],
+  fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dmoezipf, alpha = object[['alphaHat']],
                             beta = object[['betaHat']])
   return(fitted.values)
 }

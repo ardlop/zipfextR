@@ -49,9 +49,9 @@
 #'
 #' @examples
 #' data <- rzipfpss(100, 2.5, 1.3)
-#' data <- zipfExtR_getDataMatrix(data)
-#' obj <- zipfpssFit(data, 1.001, 0.001)
-#' @seealso \code{\link{zipfExtR_getDataMatrix}}, \code{\link{moezipf_getInitialValues}}.
+#' data <- as.data.frame(table(data))
+#' obj <- zipfpssFit(data, 1.1, 0.1)
+#' @seealso \code{\link{moezipf_getInitialValues}}.
 #' @export
 zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = FALSE, ...){
   Call <- match.call()
@@ -60,8 +60,10 @@ zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = 
   }
 
   tryCatch({
-    res <- stats::optim(par = c(init_alpha, init_lambda), .zpss_mle, values = data[, 1], freq = data[, 2],
-                  truncated = isTruncated, hessian = TRUE, ...)
+    res <- stats::optim(par = c(init_alpha, init_lambda), .zpss_mle,
+                        values = as.numeric(as.character(data[, 1])),
+                        freq = as.numeric(data[, 2]),
+                        truncated = isTruncated, hessian = TRUE, ...)
     estAlpha <- as.numeric(res$par[1])
     estLambda <- as.numeric(res$par[2])
     paramSD <- sqrt(diag(solve(res$hessian)))
@@ -88,7 +90,7 @@ zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = 
 residuals.zpssR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
   fitted.values <- fitted(object)
-  residual.values <- dataMatrix[, 2] - fitted.values
+  residual.values <- as.numeric(dataMatrix[, 2]) - fitted.values
   return(residual.values)
 }
 
@@ -96,9 +98,9 @@ residuals.zpssR <- function(object, ...){
 #' @export
 fitted.zpssR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
-  N <- sum(dataMatrix[, 2])
-  fitted.values <- N*sapply(dataMatrix[,1], dzipfpss, alpha = object[['alphaHat']],
-                            lambda = object[['lambdaHat']])
+  N <- sum(as.numeric(dataMatrix[, 2]))
+  fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dzipfpss,
+                            alpha = object[['alphaHat']], lambda = object[['lambdaHat']])
   return(fitted.values)
 }
 
@@ -118,11 +120,11 @@ coef.zpssR <- function(object, ...){
 #' @export
 plot.zpssR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
-  graphics::plot(dataMatrix[,1], dataMatrix[,2], log="xy",
+  graphics::plot(as.numeric(as.character(dataMatrix[,1])), as.numeric(dataMatrix[,2]), log="xy",
                  xlab="Observation", ylab="Frequency",
-                 main="Fitting Z-PSS Distribution", ...)
+                 main="Fitting Zipf-PSS Distribution", ...)
 
-  graphics::lines(dataMatrix[,1], fitted(x), col="blue")
+  graphics::lines(as.numeric(as.character(dataMatrix[,1])), fitted(x), col="blue")
 
   graphics::legend("topright",  legend = c('Observations', 'Z-PSS Distribution'),
                    col=c('black', 'blue'), pch=c(21,NA),
@@ -177,7 +179,7 @@ AIC.zpssR <- function(object, ...){
 #' @export
 BIC.zpssR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
-  bic <- .get_BIC(object[['logLikelihood']], 2, sum(dataMatrix[, 2]))
+  bic <- .get_BIC(object[['logLikelihood']], 2, sum(as.numeric(dataMatrix[, 2])))
   return(bic)
 }
 

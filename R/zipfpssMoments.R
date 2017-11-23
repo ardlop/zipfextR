@@ -18,9 +18,6 @@
 #' consecutive partial sums differs less than the \code{tolerance} value.
 #' The value of the last partial sum is returned.
 #'
-#' @examples
-#' zipfpssMoments(3, 4.5, 1.3)
-#' zipfpssMoments(3, 4.5, 1.3,  1*10^(-3))
 #' @export
 zipfpssMoments <- function(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-4)){
   if(!is.numeric(k) || !is.numeric(alpha) || !is.numeric(lambda) || !is.numeric(tolerance)){

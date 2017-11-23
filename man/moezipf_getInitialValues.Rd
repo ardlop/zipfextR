@@ -35,13 +35,10 @@ where \eqn{f_1} and \eqn{f_2} are the absolute frequencies of one and two in the
 }
 \examples{
 data <- rmoezipf(100, 2.5, 1.3)
-data <- zipfExtR_getDataMatrix(data)
+data <- as.data.frame(table(data))
 initials <- moezipf_getInitialValues(data)
 }
 \references{
 { Güney, Y., Tuaç, Y., & Arslan, O. (2016). Marshall–Olkin distribution: parameter estimation and
 application to cancer data. Journal of Applied Statistics, 1-13.}
-}
-\seealso{
-\code{\link{zipfExtR_getDataMatrix}}
 }
