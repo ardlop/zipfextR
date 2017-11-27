@@ -126,7 +126,7 @@ plot.zpssR <- function(x, ...){
 
   graphics::lines(as.numeric(as.character(dataMatrix[,1])), fitted(x), col="blue")
 
-  graphics::legend("topright",  legend = c('Observations', 'Z-PSS Distribution'),
+  graphics::legend("topright",  legend = c('Observations', 'Zipf-PSS Distribution'),
                    col=c('black', 'blue'), pch=c(21,NA),
                    lty=c(NA, 1), lwd=c(NA, 2))
 }

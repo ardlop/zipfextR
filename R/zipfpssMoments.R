@@ -20,7 +20,7 @@
 #'
 #' @export
 zipfpssMoments <- function(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-4)){
-  if(!is.numeric(k) || !is.numeric(alpha) || !is.numeric(lambda) || !is.numeric(tolerance)){
+  if(!is.numeric(k) || !is.numeric(alpha) || !is.numeric(lambda) || !is.numeric(tolerance) || !is.logical(isTruncated)){
     stop("Wrong input parameters!!")
   }
 
@@ -34,15 +34,16 @@ zipfpssMoments <- function(k, alpha, lambda, isTruncated = FALSE, tolerance = 10
 
   aux <- -1
   x <- 1001
-  result <- sum(dzipfpss(1:1000, alpha, lambda, isTruncated = isTruncated))
+  result <- sum((1:1000)*dzipfpss(1:1000, alpha, lambda, isTruncated = isTruncated))
+  print(result)
+  px <- -1
 #Comenzar con las mil primeras antes de entrar en el ciclo!
-  while(aux < tolerance) {
+  while(px < tolerance) {
       px <- dzipfpss(x, alpha, lambda, isTruncated = isTruncated)
       aux <- x^k * px
-      print(aux)
-      result <- result + aux
-      print(result)
-
+      result <- result + aux  # Todavía hay que ajustar el valor de tolerancia. proque
+      # después de 1000 valores ya se pasa del valor establecido en el códog y entra en un bucle infinito
+      print(c(result, px, tolerance, px > tolerance ))
       x <- x +1
   }
   return(result)

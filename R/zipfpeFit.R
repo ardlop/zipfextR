@@ -18,7 +18,15 @@
   - ((beta * (N - zeta_a ^ (-1) * val1) + val2) - (N * log(exp(beta) - 1)))
 }
 
+.loglik3 <- function(param, N, values, freq){
+  alpha <- param[1]
+  beta <- param[2]
 
+  -sum(sapply(base::seq_along(values),
+              function(i, alpha, beta, values, freq) {
+                freq[i] * log(dzipfpe(values[i], alpha, beta))
+              }, alpha = alpha, beta = beta, values = values, freq = freq))
+}
 
 #' Zipf-PE parameters estimation.
 #'
@@ -62,7 +70,7 @@ zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
   }
 
   tryCatch({
-    res <- stats::optim(par = c(init_alpha, init_beta), .loglikexzp, N = sum(as.numeric(data[,2])),
+    res <- stats::optim(par = c(init_alpha, init_beta), .loglik3, N = sum(as.numeric(data[,2])),
                         values = as.numeric(as.character(data[, 1])), freq = data[, 2],
                         hessian = TRUE, ...)
 
@@ -99,7 +107,7 @@ residuals.zpeR <- function(object, ...){
 fitted.zpeR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
   N <- sum(as.numeric(dataMatrix[, 2]))
-  fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dmoezipf, alpha = object[['alphaHat']],
+  fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dzipfpe, alpha = object[['alphaHat']],
                             beta = object[['betaHat']])
   return(fitted.values)
 }
@@ -126,7 +134,7 @@ plot.zpeR <- function(x, ...){
 
   graphics::lines(as.numeric(as.character(dataMatrix[,1])), fitted(x), col="blue")
 
-  graphics::legend("topright",  legend = c('Observations', 'ZPE Distribution'),
+  graphics::legend("topright",  legend = c('Observations', 'Zipf-PE Distribution'),
                    col=c('black', 'blue'), pch=c(21,NA),
                    lty=c(NA, 1), lwd=c(NA, 2))
 }
