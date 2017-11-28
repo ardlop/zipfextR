@@ -2,37 +2,37 @@
 % Please edit documentation in R/zipfpssFit.R
 \name{zipfpssFit}
 \alias{zipfpssFit}
-\alias{residuals.zpssR}
-\alias{fitted.zpssR}
-\alias{coef.zpssR}
-\alias{plot.zpssR}
-\alias{print.zpssR}
-\alias{summary.zpssR}
-\alias{logLik.zpssR}
-\alias{AIC.zpssR}
-\alias{BIC.zpssR}
+\alias{residuals.zipfpssR}
+\alias{fitted.zipfpssR}
+\alias{coef.zipfpssR}
+\alias{plot.zipfpssR}
+\alias{print.zipfpssR}
+\alias{summary.zipfpssR}
+\alias{logLik.zipfpssR}
+\alias{AIC.zipfpssR}
+\alias{BIC.zipfpssR}
 \title{Zipf-PSS parameters estimation.}
 \usage{
 zipfpssFit(data, init_alpha, init_lambda, level = 0.95, isTruncated = FALSE,
   ...)
 
-\method{residuals}{zpssR}(object, ...)
+\method{residuals}{zipfpssR}(object, ...)
 
-\method{fitted}{zpssR}(object, ...)
+\method{fitted}{zipfpssR}(object, ...)
 
-\method{coef}{zpssR}(object, ...)
+\method{coef}{zipfpssR}(object, ...)
 
-\method{plot}{zpssR}(x, ...)
+\method{plot}{zipfpssR}(x, ...)
 
-\method{print}{zpssR}(x, ...)
+\method{print}{zipfpssR}(x, ...)
 
-\method{summary}{zpssR}(object, ...)
+\method{summary}{zipfpssR}(object, ...)
 
-\method{logLik}{zpssR}(object, ...)
+\method{logLik}{zipfpssR}(object, ...)
 
-\method{AIC}{zpssR}(object, ...)
+\method{AIC}{zipfpssR}(object, ...)
 
-\method{BIC}{zpssR}(object, ...)
+\method{BIC}{zipfpssR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}

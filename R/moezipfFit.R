@@ -65,7 +65,7 @@ moezipfFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
     })
 }
 
-#' @rdname moezipfFitmoezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
+#' @rdname moezipfFit
 #' @export
 residuals.moezipfR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))

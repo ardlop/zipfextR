@@ -43,29 +43,70 @@ NULL
   }
 }
 
-.panjerRecursion <- function(k, alpha, lambda){
-  p0 <- exp(-lambda)
+# .panjerRecursion <- function(k, alpha, lambda, previousProb = NULL){
+#   p0 <- exp(-lambda)
+#   if(k == 0){
+#     return(p0)
+#   }
+#
+#   z_a <- VGAM::zeta(alpha)
+#   probs <- NULL
+#
+#   if(is.null(previousProb)) {
+#     probs <- array(0, k + 1)
+#     probs[1] <- p0
+#
+#     for(i in 1:k){
+#       probs[i+1] <- (lambda/(i*z_a)) * sum((1:i)^(-alpha + 1) * probs[i:1])
+#     }
+#   } else{
+#     probs <- array(0, k + 1)
+#     lastProbLength <- length(previousProb)
+#     probs[1:lastProbLength] <- previousProb[1:lastProbLength]
+#     for(i in lastProbLength:k){
+#       probs[i+1] <- (lambda/(i*z_a)) * sum((1:i)^(-alpha + 1) * probs[i:1])
+#     }
+#   }
+#   return(probs)
+# }
 
-  if(k == 0){
-    return(p0)
-  }
-
-  probs <- array(0, k + 1)
-  probs[1] <- p0
+.getPanjerProbs <- function(startIndex, finalIndex, probs, alpha, lambda){
   z_a <- VGAM::zeta(alpha)
-
-  for(i in 1:k){
+  for(i in startIndex:finalIndex){
     probs[i+1] <- (lambda/(i*z_a)) * sum((1:i)^(-alpha + 1) * probs[i:1])
   }
   return(probs)
 }
 
-.getProbs <- function(x, alpha, lambda, isTruncated = FALSE){
+.panjerRecursion <- function(k, alpha, lambda, previousProb = NULL){
+  p0 <- exp(-lambda)
+  if(k == 0){
+    return(p0)
+  }
+
+  probs <- NULL
+  if(is.null(previousProb)) {
+    probs <- array(0, k + 1)
+    probs[1] <- p0
+    probs <- .getPanjerProbs(1, k, probs, alpha, lambda)
+  } else{
+    probs <- array(0, k + 1)
+    lastProbLength <- length(previousProb)
+    probs[1:lastProbLength] <- previousProb[1:lastProbLength]
+    probs <- .getPanjerProbs(lastProbLength, k, probs, alpha, lambda)
+  }
+  return(probs)
+}
+
+
+
+
+.getProbs <- function(x, alpha, lambda, isTruncated = FALSE, previousProb = NULL){
   k <- max(x)
   .prec.zipfpss.checkXvalue(k)
   .prec.zipfpss.checkparams(alpha, lambda)
 
-  probs <- .panjerRecursion(k, alpha, lambda)
+  probs <- .panjerRecursion(k, alpha, lambda, previousProb)
 
   if(isTruncated){
     probs <- (probs)/(1 - probs[1])
@@ -77,7 +118,7 @@ NULL
 #' @rdname zipfpss
 #' @export
 dzipfpss <- function(x, alpha, lambda, log = FALSE, isTruncated = FALSE){
-  probs <- .getProbs(x, alpha, lambda)
+  probs <- .getProbs(x, alpha, lambda, isTruncated = isTruncated)
 
   finalProbs <- probs[if(isTruncated) x else (x+1)]#probs[x]#
   if(log){

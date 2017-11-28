@@ -2,36 +2,36 @@
 % Please edit documentation in R/zipfpeFit.R
 \name{zipfpeFit}
 \alias{zipfpeFit}
-\alias{residuals.zpeR}
-\alias{fitted.zpeR}
-\alias{coef.zpeR}
-\alias{plot.zpeR}
-\alias{print.zpeR}
-\alias{summary.zpeR}
-\alias{logLik.zpeR}
-\alias{AIC.zpeR}
-\alias{BIC.zpeR}
+\alias{residuals.zipfpeR}
+\alias{fitted.zipfpeR}
+\alias{coef.zipfpeR}
+\alias{plot.zipfpeR}
+\alias{print.zipfpeR}
+\alias{summary.zipfpeR}
+\alias{logLik.zipfpeR}
+\alias{AIC.zipfpeR}
+\alias{BIC.zipfpeR}
 \title{Zipf-PE parameters estimation.}
 \usage{
 zipfpeFit(data, init_alpha, init_beta, level = 0.95, ...)
 
-\method{residuals}{zpeR}(object, ...)
+\method{residuals}{zipfpeR}(object, ...)
 
-\method{fitted}{zpeR}(object, ...)
+\method{fitted}{zipfpeR}(object, ...)
 
-\method{coef}{zpeR}(object, ...)
+\method{coef}{zipfpeR}(object, ...)
 
-\method{plot}{zpeR}(x, ...)
+\method{plot}{zipfpeR}(x, ...)
 
-\method{print}{zpeR}(x, ...)
+\method{print}{zipfpeR}(x, ...)
 
-\method{summary}{zpeR}(object, ...)
+\method{summary}{zipfpeR}(object, ...)
 
-\method{logLik}{zpeR}(object, ...)
+\method{logLik}{zipfpeR}(object, ...)
 
-\method{AIC}{zpeR}(object, ...)
+\method{AIC}{zipfpeR}(object, ...)
 
-\method{BIC}{zpeR}(object, ...)
+\method{BIC}{zipfpeR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}
@@ -64,8 +64,8 @@ count, while the corresponding second column contains its frequency.
 
 The log-likelihood function is equal to:
 
-\deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{i = 1} ^m  f_{a}(x_{i}) \zeta(\alpha, x_i)) +
-\sum_{i = 1} ^m f_{a}(x_{i})  log(e^{\frac{\beta\, x_{i}^{-\alpha}}{\zeta(\alpha)}} - 1) - N\, log(e^{\beta} - 1), }
+\deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{i = 1} ^m  f_{a}(x_{i})\, \zeta(\alpha, x_i)) +
+\sum_{i = 1} ^m f_{a}(x_{i})\,  log \left( \frac{e^{\frac{\beta\, x_{i}^{-\alpha}}{\zeta(\alpha)}} - 1}{e^{\beta} - 1} \right), }
 where \eqn{m} is the number of different values in the sample, \eqn{N} is the sample size,
 i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)},  being \eqn{f_{a}(x_i)} is the absolute
 frequency of \eqn{x_i}.

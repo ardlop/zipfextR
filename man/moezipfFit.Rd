@@ -2,6 +2,7 @@
 % Please edit documentation in R/moezipfFit.R
 \name{moezipfFit}
 \alias{moezipfFit}
+\alias{residuals.moezipfR}
 \alias{fitted.moezipfR}
 \alias{coef.moezipfR}
 \alias{plot.moezipfR}
@@ -13,6 +14,8 @@
 \title{MOEZipf parameters estimation.}
 \usage{
 moezipfFit(data, init_alpha, init_beta, level = 0.95, ...)
+
+\method{residuals}{moezipfR}(object, ...)
 
 \method{fitted}{moezipfR}(object, ...)
 

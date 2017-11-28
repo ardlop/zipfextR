@@ -18,6 +18,9 @@
 #' consecutive partial sums differs less than the \code{tolerance} value.
 #' The value of the last partial sum is returned.
 #'
+#' @examples
+#' zipfpssMoments(1, 2.5, 2.3)
+#' zipfpssMoments(1, 2.5, 2.3, TRUE)
 #' @export
 zipfpssMoments <- function(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-4)){
   if(!is.numeric(k) || !is.numeric(alpha) || !is.numeric(lambda) || !is.numeric(tolerance) || !is.logical(isTruncated)){
@@ -32,19 +35,15 @@ zipfpssMoments <- function(k, alpha, lambda, isTruncated = FALSE, tolerance = 10
     stop('Wrong moment value!!. You have to provide a possitive and integer value.')
   }
 
-  aux <- -1
+  probs <- dzipfpss(1:1000, alpha, lambda, isTruncated = isTruncated)
+  result <- sum(((1:1000)^k)*probs)
+  aux <- 1000*probs[length(probs)]
   x <- 1001
-  result <- sum((1:1000)*dzipfpss(1:1000, alpha, lambda, isTruncated = isTruncated))
-  print(result)
-  px <- -1
-#Comenzar con las mil primeras antes de entrar en el ciclo!
-  while(px < tolerance) {
-      px <- dzipfpss(x, alpha, lambda, isTruncated = isTruncated)
-      aux <- x^k * px
-      result <- result + aux  # Todavía hay que ajustar el valor de tolerancia. proque
-      # después de 1000 valores ya se pasa del valor establecido en el códog y entra en un bucle infinito
-      print(c(result, px, tolerance, px > tolerance ))
-      x <- x +1
+  while(aux > tolerance) {
+      probs <- .getProbs(x, alpha, lambda, isTruncated=isTruncated, probs)
+      aux <- x^k * probs[if(isTruncated) x else (x+1)]
+      result <- result + aux
+      x <- x + 1
   }
   return(result)
 }

@@ -28,6 +28,22 @@
               }, alpha = alpha, beta = beta, values = values, freq = freq))
 }
 
+.loglik4 <- function(param, N, values, freq) {
+  alpha <- param[1]
+  beta <- param[2]
+  val <- sum(sapply(base::seq_along(values),
+                    function(i, alpha, beta, values, freq){
+                      freq[i] * log((exp((beta*values[i]^(-alpha))/VGAM::zeta(alpha)) -1)/(exp(beta) - 1))
+                    }, alpha = alpha, beta = beta, values = values, freq = freq))
+
+  val1 <- sum(sapply(base::seq_along(values),function(i, alpha, values, freq){
+    freq[i] * .zeta_x(alpha, values[i])
+  }, alpha = alpha, values = values, freq = freq))
+
+  -(beta*(N - VGAM::zeta(alpha)^(-1)*val1) + val)
+
+}
+
 #' Zipf-PE parameters estimation.
 #'
 #' For a given sample of strictly positive integer values,  usually of the type of ranking data or
@@ -48,8 +64,8 @@
 #'
 #' The log-likelihood function is equal to:
 #'
-#' \deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{i = 1} ^m  f_{a}(x_{i}) \zeta(\alpha, x_i)) +
-#' \sum_{i = 1} ^m f_{a}(x_{i})  log(e^{\frac{\beta\, x_{i}^{-\alpha}}{\zeta(\alpha)}} - 1) - N\, log(e^{\beta} - 1), }
+#' \deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{i = 1} ^m  f_{a}(x_{i})\, \zeta(\alpha, x_i)) +
+#' \sum_{i = 1} ^m f_{a}(x_{i})\,  log \left( \frac{e^{\frac{\beta\, x_{i}^{-\alpha}}{\zeta(\alpha)}} - 1}{e^{\beta} - 1} \right), }
 #' where \eqn{m} is the number of different values in the sample, \eqn{N} is the sample size,
 #' i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)},  being \eqn{f_{a}(x_i)} is the absolute
 #' frequency of \eqn{x_i}.
@@ -70,7 +86,7 @@ zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
   }
 
   tryCatch({
-    res <- stats::optim(par = c(init_alpha, init_beta), .loglik3, N = sum(as.numeric(data[,2])),
+    res <- stats::optim(par = c(init_alpha, init_beta), .loglik4, N = sum(as.numeric(data[,2])),
                         values = as.numeric(as.character(data[, 1])), freq = data[, 2],
                         hessian = TRUE, ...)
 
@@ -79,7 +95,7 @@ zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
     paramSD <- sqrt(diag(solve(res$hessian)))
     paramsCI <- .getConfidenceIntervals(paramSD, estAlpha, estBeta, level)
 
-        structure(class = "zpeR", list(alphaHat = estAlpha,
+        structure(class = "zipfpeR", list(alphaHat = estAlpha,
                                    betaHat = estBeta,
                                    alphaSD = paramSD[1],
                                    betaSD = paramSD[2],
@@ -95,7 +111,7 @@ zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
 
 #' @rdname zipfpeFit
 #' @export
-residuals.zpeR <- function(object, ...){
+residuals.zipfpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
   fitted.values <- fitted(object)
   residual.values <- as.numeric(dataMatrix[, 2]) - fitted.values
@@ -104,7 +120,7 @@ residuals.zpeR <- function(object, ...){
 
 #' @rdname zipfpeFit
 #' @export
-fitted.zpeR <- function(object, ...) {
+fitted.zipfpeR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
   N <- sum(as.numeric(dataMatrix[, 2]))
   fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dzipfpe, alpha = object[['alphaHat']],
@@ -114,7 +130,7 @@ fitted.zpeR <- function(object, ...) {
 
 #' @rdname zipfpeFit
 #' @export
-coef.zpeR <- function(object, ...){
+coef.zipfpeR <- function(object, ...){
   estimation <- matrix(nrow = 2, ncol = 4)
   estimation[1, ] <- c(object[['alphaHat']], object[['alphaSD']], object[['alphaCI']][1], object[['alphaCI']][2])
   estimation[2, ] <- c(object[['betaHat']], object[['betaSD']], object[['betaCI']][1], object[['betaCI']][2])
@@ -126,7 +142,7 @@ coef.zpeR <- function(object, ...){
 
 #' @rdname zipfpeFit
 #' @export
-plot.zpeR <- function(x, ...){
+plot.zipfpeR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
   graphics::plot(as.numeric(as.character(dataMatrix[,1])), as.numeric(dataMatrix[,2]), log="xy",
                  xlab="Observation", ylab="Frequency",
@@ -141,7 +157,7 @@ plot.zpeR <- function(x, ...){
 
 #' @rdname zipfpeFit
 #' @export
-print.zpeR <- function(x, ...){
+print.zipfpeR <- function(x, ...){
   cat('Call:\n')
   print(x[['call']])
   cat('\n')
@@ -160,7 +176,7 @@ print.zpeR <- function(x, ...){
 
 #' @rdname zipfpeFit
 #' @export
-summary.zpeR <- function(object, ...){
+summary.zipfpeR <- function(object, ...){
   print(object)
   cat('\n')
   cat('Fitted values:\n')
@@ -169,7 +185,7 @@ summary.zpeR <- function(object, ...){
 
 #' @rdname zipfpeFit
 #' @export
-logLik.zpeR <- function(object, ...){
+logLik.zipfpeR <- function(object, ...){
   if(!is.na(object[['logLikelihood']]) || !is.null(object[['logLikelihood']])){
     return(object[['logLikelihood']])
   }
@@ -178,14 +194,14 @@ logLik.zpeR <- function(object, ...){
 
 #' @rdname zipfpeFit
 #' @export
-AIC.zpeR <- function(object, ...){
+AIC.zipfpeR <- function(object, ...){
   aic <- .get_AIC(object[['logLikelihood']], 2)
   return(aic)
 }
 
 #' @rdname zipfpeFit
 #' @export
-BIC.zpeR <- function(object, ...){
+BIC.zipfpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
   bic <- .get_BIC(object[['logLikelihood']], 2, sum(as.numeric(dataMatrix[, 2])))
   return(bic)

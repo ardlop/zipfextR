@@ -31,3 +31,7 @@ It is computed calculating the partial sums of the serie, and stopping when two
 consecutive partial sums differs less than the \code{tolerance} value.
 The value of the last partial sum is returned.
 }
+\examples{
+zipfpssMoments(1, 2.5, 2.3)
+zipfpssMoments(1, 2.5, 2.3, TRUE)
+}

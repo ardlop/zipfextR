@@ -33,11 +33,11 @@
 #' The \emph{quantiles} of a MOEZipf distribution for a given probability
 #' vector \code{p}, are equal to the quantiles of a Zipf distribution with the same parameter \eqn{\alpha},
 #' and probability vector equal to:
-#' \deqn{p\prime = \frac{p\,\beta}{1 + p\,(\beta - 1)}\, \, \, (1)}
+#' \deqn{p\prime = \frac{p\,\beta}{1 + p\,(\beta - 1)},\, \, \, (1)}
+#' which are obtained by means of the package \emph{tolerance}.
 #'
-#' The random generator function applies the Inversion Method to obtain the random numbers. The function
-#' generates \emph{n} values from the interval (0, 1) using an Uniform distribution and it transforms these
-#' values by applying (1). Finally, the \emph{quantile} function and the \eqn{p\prime} are used to obtain the random values.
+#' The random generator function generates \emph{n} values in the interval (0, 1) using an Uniform
+#' distribution and applies the \emph{quantile} function to obtain the random values.
 #'
 #' @return {
 #' \code{dmoezipf} gives the probability mass function,

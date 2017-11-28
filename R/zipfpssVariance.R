@@ -40,5 +40,9 @@ zipfpssVariance <- function(alpha, lambda, isTruncated = FALSE){
   if(!isTruncated){
     return(lambda*VGAM::zeta(alpha - 2)/zeta_a)
   }
-  (lambda*zeta_a*VGAM::zeta(alpha - 2)*(1-exp(-lambda)) - lambda^2 * VGAM::zeta(alpha - 1)^2 * exp(-lambda))/(zeta_a^2 * (1 - exp(-lambda))^2)
+  (lambda*(zeta_a * VGAM::zeta(alpha - 2) * (1-exp(-lambda))
+           - lambda*(VGAM::zeta(alpha -1)^2))/((zeta_a*(1-exp(-lambda)))^2))
+
+    # *zeta_a*VGAM::zeta(alpha - 2)*(1-exp(-lambda)) - lambda^2 * VGAM::zeta(alpha - 1)^2 * exp(-lambda))/(zeta_a^2 * (1 - exp(-lambda))^2)
+  # (lambda*zeta_a*VGAM::zeta(alpha - 2)*(1-exp(-lambda)) - lambda^2 * VGAM::zeta(alpha - 1)^2 * exp(-lambda))/(zeta_a^2 * (1 - exp(-lambda))^2)
 }

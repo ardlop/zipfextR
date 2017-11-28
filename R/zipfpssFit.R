@@ -69,7 +69,7 @@ zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = 
     paramSD <- sqrt(diag(solve(res$hessian)))
     paramsCI <- .getConfidenceIntervals(paramSD, estAlpha, estLambda, level)
 
-    structure(class = "zpssR", list(alphaHat = estAlpha,
+    structure(class = "zipfpssR", list(alphaHat = estAlpha,
                                    lambdaHat = estLambda,
                                    alphaSD = paramSD[1],
                                    lambdaSD = paramSD[2],
@@ -87,7 +87,7 @@ zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = 
 
 #' @rdname zipfpssFit
 #' @export
-residuals.zpssR <- function(object, ...){
+residuals.zipfpssR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
   fitted.values <- fitted(object)
   residual.values <- as.numeric(dataMatrix[, 2]) - fitted.values
@@ -96,7 +96,7 @@ residuals.zpssR <- function(object, ...){
 
 #' @rdname zipfpssFit
 #' @export
-fitted.zpssR <- function(object, ...) {
+fitted.zipfpssR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
   N <- sum(as.numeric(dataMatrix[, 2]))
   fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dzipfpss,
@@ -106,7 +106,7 @@ fitted.zpssR <- function(object, ...) {
 
 #' @rdname zipfpssFit
 #' @export
-coef.zpssR <- function(object, ...){
+coef.zipfpssR <- function(object, ...){
   estimation <- matrix(nrow = 2, ncol = 4)
   estimation[1, ] <- c(object[['alphaHat']], object[['alphaSD']], object[['alphaCI']][1], object[['alphaCI']][2])
   estimation[2, ] <- c(object[['lambdaHat']], object[['lambdaSD']], object[['lambdaCI']][1], object[['lambdaCI']][2])
@@ -118,7 +118,7 @@ coef.zpssR <- function(object, ...){
 
 #' @rdname zipfpssFit
 #' @export
-plot.zpssR <- function(x, ...){
+plot.zipfpssR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
   graphics::plot(as.numeric(as.character(dataMatrix[,1])), as.numeric(dataMatrix[,2]), log="xy",
                  xlab="Observation", ylab="Frequency",
@@ -133,7 +133,7 @@ plot.zpssR <- function(x, ...){
 
 #' @rdname zipfpssFit
 #' @export
-print.zpssR <- function(x, ...){
+print.zipfpssR <- function(x, ...){
   cat('Call:\n')
   print(x[['call']])
   cat('\n')
@@ -152,7 +152,7 @@ print.zpssR <- function(x, ...){
 
 #' @rdname zipfpssFit
 #' @export
-summary.zpssR <- function(object, ...){
+summary.zipfpssR <- function(object, ...){
   print(object)
   cat('\n')
   cat('Fitted values:\n')
@@ -161,7 +161,7 @@ summary.zpssR <- function(object, ...){
 
 #' @rdname zipfpssFit
 #' @export
-logLik.zpssR <- function(object, ...){
+logLik.zipfpssR <- function(object, ...){
   if(!is.na(object[['logLikelihood']]) || !is.null(object[['logLikelihood']])){
     return(object[['logLikelihood']])
   }
@@ -170,14 +170,14 @@ logLik.zpssR <- function(object, ...){
 
 #' @rdname zipfpssFit
 #' @export
-AIC.zpssR <- function(object, ...){
+AIC.zipfpssR <- function(object, ...){
   aic <- .get_AIC(object[['logLikelihood']], 2)
   return(aic)
 }
 
 #' @rdname zipfpssFit
 #' @export
-BIC.zpssR <- function(object, ...){
+BIC.zipfpssR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
   bic <- .get_BIC(object[['logLikelihood']], 2, sum(as.numeric(dataMatrix[, 2])))
   return(bic)
