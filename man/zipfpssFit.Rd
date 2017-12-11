@@ -16,23 +16,23 @@
 zipfpssFit(data, init_alpha, init_lambda, level = 0.95, isTruncated = FALSE,
   ...)
 
-\method{residuals}{zipfpssR}(object, ...)
+residuals.zipfpssR(object, ...)
 
-\method{fitted}{zipfpssR}(object, ...)
+fitted.zipfpssR(object, ...)
 
-\method{coef}{zipfpssR}(object, ...)
+coef.zipfpssR(object, ...)
 
-\method{plot}{zipfpssR}(x, ...)
+plot.zipfpssR(x, ...)
 
 \method{print}{zipfpssR}(x, ...)
 
-\method{summary}{zipfpssR}(object, ...)
+summary.zipfpssR(object, ...)
 
-\method{logLik}{zipfpssR}(object, ...)
+logLik.zipfpssR(object, ...)
 
-\method{AIC}{zipfpssR}(object, ...)
+AIC.zipfpssR(object, ...)
 
-\method{BIC}{zipfpssR}(object, ...)
+BIC.zipfpssR(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}

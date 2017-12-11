@@ -15,23 +15,23 @@
 \usage{
 moezipfFit(data, init_alpha, init_beta, level = 0.95, ...)
 
-\method{residuals}{moezipfR}(object, ...)
+residuals.moezipfR(object, ...)
 
-\method{fitted}{moezipfR}(object, ...)
+fitted.moezipfR(object, ...)
 
-\method{coef}{moezipfR}(object, ...)
+coef.moezipfR(object, ...)
 
-\method{plot}{moezipfR}(x, ...)
+plot.moezipfR(x, ...)
 
 \method{print}{moezipfR}(x, ...)
 
-\method{summary}{moezipfR}(object, ...)
+summary.moezipfR(object, ...)
 
-\method{logLik}{moezipfR}(object, ...)
+logLik.moezipfR(object, ...)
 
-\method{AIC}{moezipfR}(object, ...)
+AIC.moezipfR(object, ...)
 
-\method{BIC}{moezipfR}(object, ...)
+BIC.moezipfR(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}

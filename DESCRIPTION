@@ -7,7 +7,7 @@ Maintainer: Ariel Duarte-López <aduarte@ac.upc.edu>
 Description: Implementation of the Marshall-Olkin Extended Zipf (MOEZipf), 
   the Zipf-Poisson Extreme (Zipf-PE) and the Zipf-Poisson Stopped Sum (Zipf-PSS) distributions. 
   These distributions are a two-parameter extensions of the widely used Zipf model. The two 
-  first extrension allow concavity (convexity) at the first values of the distributions while 
+  first extensions allow concavity (convexity) at the first values of the distributions while 
   the Zipf-PSS allows convexity. All the extensions maintain the linearity, associated with 
   the Zipf model, in the tail. This can be appreciated by plotting the probabilities 
   in log-log scale. 

@@ -15,23 +15,23 @@
 \usage{
 zipfpeFit(data, init_alpha, init_beta, level = 0.95, ...)
 
-\method{residuals}{zipfpeR}(object, ...)
+residuals.zipfpeR(object, ...)
 
-\method{fitted}{zipfpeR}(object, ...)
+fitted.zipfpeR(object, ...)
 
-\method{coef}{zipfpeR}(object, ...)
+coef.zipfpeR(object, ...)
 
-\method{plot}{zipfpeR}(x, ...)
+plot.zipfpeR(x, ...)
 
 \method{print}{zipfpeR}(x, ...)
 
-\method{summary}{zipfpeR}(object, ...)
+summary.zipfpeR(object, ...)
 
-\method{logLik}{zipfpeR}(object, ...)
+logLik.zipfpeR(object, ...)
 
-\method{AIC}{zipfpeR}(object, ...)
+AIC.zipfpeR(object, ...)
 
-\method{BIC}{zipfpeR}(object, ...)
+BIC.zipfpeR(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}
