@@ -55,7 +55,7 @@ moezipfFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
                                          betaSD = paramSD[2],
                                          alphaCI = c(paramsCI[1,1],paramsCI[1,2]),
                                          betaCI = c(paramsCI[2,1],paramsCI[2,2]),
-                                         logLikelihood = estResults$results$value,
+                                         logLikelihood = -estResults$results$value,
                                          hessian = estResults$results$hessian,
                                          call = Call))
     },

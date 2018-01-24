@@ -75,7 +75,7 @@ zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = 
                                    lambdaSD = paramSD[2],
                                    alphaCI = c(paramsCI[1,1],paramsCI[1,2]),
                                    lambdaCI = c(paramsCI[2,1],paramsCI[2,2]),
-                                   logLikelihood = res$value,
+                                   logLikelihood = -res$value,
                                    hessian = res$hessian,
                                    call = Call))
 
