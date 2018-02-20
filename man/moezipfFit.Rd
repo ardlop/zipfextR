@@ -15,23 +15,23 @@
 \usage{
 moezipfFit(data, init_alpha, init_beta, level = 0.95, ...)
 
-residuals.moezipfR(object, ...)
+\method{residuals}{moezipfR}(object, ...)
 
-fitted.moezipfR(object, ...)
+\method{fitted}{moezipfR}(object, ...)
 
-coef.moezipfR(object, ...)
+\method{coef}{moezipfR}(object, ...)
 
-plot.moezipfR(x, ...)
+\method{plot}{moezipfR}(x, ...)
 
 \method{print}{moezipfR}(x, ...)
 
-summary.moezipfR(object, ...)
+\method{summary}{moezipfR}(object, ...)
 
-logLik.moezipfR(object, ...)
+\method{logLik}{moezipfR}(object, ...)
 
-AIC.moezipfR(object, ...)
+\method{AIC}{moezipfR}(object, ...)
 
-BIC.moezipfR(object, ...)
+\method{BIC}{moezipfR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}
@@ -56,7 +56,7 @@ maximum likelihood estimator.
 \description{
 For a given sample of strictly positive integer numbers,  usually of the type of ranking data or
 frequencies of frequencies data, estimates the parameters of a MOEZipf distribution by means of
-the maximum likelihood method.
+the maximum likelihood method. Note that the input data should be provided as a frequency matrix.
 }
 \details{
 The argument \code{data} is a two column matrix such that the first column of each row contains a
@@ -75,6 +75,7 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 \examples{
 data <- rmoezipf(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
+data[,1] <- as.numeric(data[,1])
 initValues <- moezipf_getInitialValues(data)
 obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 }

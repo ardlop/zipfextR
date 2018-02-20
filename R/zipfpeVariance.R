@@ -9,7 +9,7 @@
 #' @details
 #' The variance of the distribution only exists for \eqn{\alpha} strictly greater than 3.
 #' In this case, it is calculated as:
-#' \deqn{Var[Y] = E[Y^2] - (E[Y])^2},
+#' \deqn{Var[Y] = E[Y^2] - (E[Y])^{2},}
 #' where the first and the second moments are computed using the \emph{zipfpeMoments} function.
 #'
 #' @examples

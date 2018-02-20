@@ -2,7 +2,7 @@
 #'
 #' For a given sample of strictly positive integer numbers,  usually of the type of ranking data or
 #' frequencies of frequencies data, estimates the parameters of a MOEZipf distribution by means of
-#' the maximum likelihood method.
+#' the maximum likelihood method. Note that the input data should be provided as a frequency matrix.
 #'
 #' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
@@ -30,6 +30,7 @@
 #' @examples
 #' data <- rmoezipf(100, 2.5, 1.3)
 #' data <- as.data.frame(table(data))
+#' data[,1] <- as.numeric(data[,1])
 #' initValues <- moezipf_getInitialValues(data)
 #' obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 #' @seealso \code{\link{moezipf_getInitialValues}}.

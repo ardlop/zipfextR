@@ -26,6 +26,7 @@
 #' @examples
 #' data <- rmoezipf(100, 2.5, 1.3)
 #' data <- as.data.frame(table(data))
+#' data[,1] <- as.numeric(data[,1])
 #' initials <- moezipf_getInitialValues(data)
 #' @references{ Güney, Y., Tuaç, Y., & Arslan, O. (2016). Marshall–Olkin distribution: parameter estimation and
 #' application to cancer data. Journal of Applied Statistics, 1-13.}

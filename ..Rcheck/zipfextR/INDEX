@@ -1,0 +1,21 @@
+moezipf                 The Marshal-Olkin Extended Zipf Distribution
+                        (MOEZipf).
+moezipfFit              MOEZipf parameters estimation.
+moezipfMean             Expected value.
+moezipfMoments          Distribution Moments.
+moezipfVariance         Variance of the MOEZipf distribution.
+moezipf_getInitialValues
+                        Calculates initial values for the alpha and
+                        beta parameters.
+zipfpe                  The Zipf-Poisson Extreme Distribution
+                        (Zipf-PE).
+zipfpeFit               Zipf-PE parameters estimation.
+zipfpeMean              Expected value of the Zipf-PE distribution.
+zipfpeMoments           Distribution Moments.
+zipfpeVariance          Variance of the Zipf-PE distribution.
+zipfpss                 The Zipf-Poisson Stop Sum Distribution
+                        (Zipf-PSS).
+zipfpssFit              Zipf-PSS parameters estimation.
+zipfpssMean             Expected value of the Zipf-PSS distribution.
+zipfpssMoments          Distribution Moments.
+zipfpssVariance         Variance of the Zipf-PSS distribution.

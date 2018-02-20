@@ -48,7 +48,8 @@
 #'
 #' For a given sample of strictly positive integer values,  usually of the type of ranking data or
 #' frequencies of frequencies data, estimates the parameters of a Zipf-PE
-#' distribution by means of the maximum likelihood method.
+#' distribution by means of the maximum likelihood method.Note that the input data
+#' should be provided as a frequency matrix.
 #'
 #' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
@@ -76,6 +77,7 @@
 #' @examples
 #' data <- rzipfpe(100, 2.5, 1.3)
 #' data <- as.data.frame(table(data))
+#' data[,1] <- as.numeric(data[,1])
 #' obj <- zipfpeFit(data, 1.1, 0.1)
 #' @seealso \code{\link{moezipf_getInitialValues}}.
 #' @export

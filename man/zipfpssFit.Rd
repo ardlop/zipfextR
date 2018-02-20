@@ -16,23 +16,23 @@
 zipfpssFit(data, init_alpha, init_lambda, level = 0.95, isTruncated = FALSE,
   ...)
 
-residuals.zipfpssR(object, ...)
+\method{residuals}{zipfpssR}(object, ...)
 
-fitted.zipfpssR(object, ...)
+\method{fitted}{zipfpssR}(object, ...)
 
-coef.zipfpssR(object, ...)
+\method{coef}{zipfpssR}(object, ...)
 
-plot.zipfpssR(x, ...)
+\method{plot}{zipfpssR}(x, ...)
 
 \method{print}{zipfpssR}(x, ...)
 
-summary.zipfpssR(object, ...)
+\method{summary}{zipfpssR}(object, ...)
 
-logLik.zipfpssR(object, ...)
+\method{logLik}{zipfpssR}(object, ...)
 
-AIC.zipfpssR(object, ...)
+\method{AIC}{zipfpssR}(object, ...)
 
-BIC.zipfpssR(object, ...)
+\method{BIC}{zipfpssR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}
@@ -60,14 +60,14 @@ maximum likelihood estimator.
 \description{
 For a given sample of strictly positive integer numbers,  usually of the type of ranking data or
 frequencies of frequencies data, estimates the parameters of a Zipf-PSS distribution by means of
-the maximum likelihood method.
+the maximum likelihood method. Note that the input data should be provided as a frequency matrix.
 }
 \details{
 The argument \code{data} is a two column matrix such that the first column of each row contains a
 count, while the corresponding second column contains its frequency.
 
 The log-likelihood function is equalt to:
-\deqn{l(\alpha, \lambda, x) = \sum_{i =1} ^{m} f_a(x_i)\, log(P(Y = x_i))},
+\deqn{l(\alpha, \lambda, x) = \sum_{i =1} ^{m} f_a(x_i)\, log(P(Y = x_i)),}
 where \eqn{m} is the number of different values in the sample, being \eqn{f_{a}(x_i)} is the absolute
 frequency of \eqn{x_i}.The probabilities are calculated applying the Panjer recursion.
 
@@ -76,6 +76,7 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 \examples{
 data <- rzipfpss(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
+data[,1] <- as.numeric(data[,1])
 obj <- zipfpssFit(data, 1.1, 0.1)
 }
 \references{

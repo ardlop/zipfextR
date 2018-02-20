@@ -38,7 +38,7 @@ qzipfpss(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
 \item{p}{Vector of probabilities.}
 }
 \description{
-Probability Mass function, Cumulative function, Quantile function and Random Number Generation
+Probability mass function, cumulative function, quantile function and random number generation
 for the Zipf-PSS distribution with parameters \eqn{\alpha} and \eqn{\lambda}.
 }
 \references{

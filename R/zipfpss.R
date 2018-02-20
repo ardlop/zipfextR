@@ -1,7 +1,7 @@
 
 #' The Zipf-Poisson Stop Sum Distribution (Zipf-PSS).
 #'
-#' Probability Mass function, Cumulative function, Quantile function and Random Number Generation
+#' Probability mass function, cumulative function, quantile function and random number generation
 #' for the Zipf-PSS distribution with parameters \eqn{\alpha} and \eqn{\lambda}.
 #'
 #' @name zipfpss

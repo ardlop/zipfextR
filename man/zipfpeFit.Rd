@@ -15,23 +15,23 @@
 \usage{
 zipfpeFit(data, init_alpha, init_beta, level = 0.95, ...)
 
-residuals.zipfpeR(object, ...)
+\method{residuals}{zipfpeR}(object, ...)
 
-fitted.zipfpeR(object, ...)
+\method{fitted}{zipfpeR}(object, ...)
 
-coef.zipfpeR(object, ...)
+\method{coef}{zipfpeR}(object, ...)
 
-plot.zipfpeR(x, ...)
+\method{plot}{zipfpeR}(x, ...)
 
 \method{print}{zipfpeR}(x, ...)
 
-summary.zipfpeR(object, ...)
+\method{summary}{zipfpeR}(object, ...)
 
-logLik.zipfpeR(object, ...)
+\method{logLik}{zipfpeR}(object, ...)
 
-AIC.zipfpeR(object, ...)
+\method{AIC}{zipfpeR}(object, ...)
 
-BIC.zipfpeR(object, ...)
+\method{BIC}{zipfpeR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}
@@ -56,7 +56,8 @@ intervals and the value of the log-likelihood at the maximum likelihood estimati
 \description{
 For a given sample of strictly positive integer values,  usually of the type of ranking data or
 frequencies of frequencies data, estimates the parameters of a Zipf-PE
-distribution by means of the maximum likelihood method.
+distribution by means of the maximum likelihood method.Note that the input data
+should be provided as a frequency matrix.
 }
 \details{
 The argument \code{data} is a two column matrix such that the first column of each row contains a
@@ -75,6 +76,7 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 \examples{
 data <- rzipfpe(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
+data[,1] <- as.numeric(data[,1])
 obj <- zipfpeFit(data, 1.1, 0.1)
 }
 \seealso{

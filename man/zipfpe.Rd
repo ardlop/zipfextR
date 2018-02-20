@@ -40,7 +40,7 @@ rzipfpe(n, alpha, beta)
 \code{rzipfpe} generates random values from a Zipf-PE distribution.  }
 }
 \description{
-Probability Mass function, Cumulative function, Quantile function and Random Number Generation
+Probability mass function, cumulative function, quantile function and random number generation
 for the Zipf-PE distribution with parameters \eqn{\alpha} and \eqn{\beta}.
 }
 \details{
@@ -57,15 +57,16 @@ The \emph{cumulative distribution function}, \eqn{F(x)}, at a given positive int
  is calcuted as:
 \deqn{F(x) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{\beta} -1}}
 
-The \emph{quantiles} of a Zipf-PE distribution for a given probability
-vector \code{p}, are equal to the quantiles of a Zipf distribution with the same parameter
-\eqn{\alpha}, and probability vector equal to:
+The quantile of the Zipf-PE\eqn{(\alpha, \beta)} distribution of a given probability value p,
+is equal to the quantile of the Zipf\eqn{(\alpha)} distribution at the value:
 
 \deqn{p\prime = \frac{log(p\, (e^{\beta} - 1) + 1)}{\beta}}
+The quantiles of the Zipf\eqn{(\alpha)} distribution are computed by means of the \emph{tolerance}
+package.
 
-The random generator function applies the Inversion Method to obtain the random numbers. The function
-generates \emph{n} values from the interval (0, 1) using an Uniform distribution and it transforms these
-values by applying (1). Finally, the \emph{quantile} function and the \eqn{p\prime} are used to obtain the random values.
+The random generator function applies the \emph{quantile} function over \emph{n} values
+from an Uniform distribution in the interval (0, 1,) in order to obtain
+the random values.
 }
 \examples{
 dzipfpe(1:10, 2.5, -1.5)

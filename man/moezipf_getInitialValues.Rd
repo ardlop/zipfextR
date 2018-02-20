@@ -36,6 +36,7 @@ where \eqn{f_1} and \eqn{f_2} are the absolute frequencies of one and two in the
 \examples{
 data <- rmoezipf(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
+data[,1] <- as.numeric(data[,1])
 initials <- moezipf_getInitialValues(data)
 }
 \references{

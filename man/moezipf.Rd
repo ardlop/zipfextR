@@ -35,13 +35,13 @@ rmoezipf(n, alpha, beta)
 \value{
 {
 \code{dmoezipf} gives the probability mass function,
-\code{pmoezipf} gives the cumulative function,
+\code{pmoezipf} gives the cumulative distribution function,
 \code{qmoezipf} gives the quantile function, and
 \code{rmoezipf} generates random values from a MOEZipf distribution.}
 }
 \description{
-Probability Mass Function, Cumulative Function, Quantile Function and Random Number
-Generation for the MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta}.
+Probability mass function, cumulative function, quantile function and random number
+generation for the MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta}.
 }
 \details{
 The \emph{probability mass function} at a positive integer value \eqn{x} of the MOEZipf distribution with
@@ -52,20 +52,20 @@ parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
 where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, \eqn{\zeta(\alpha, x)}
 is the Hurtwitz zeta function with arguments \eqn{\alpha} and x, and \eqn{\bar{\beta} = 1 - \beta}.
 
-The \emph{cumulative distribution function}, \eqn{F(x)}, at a given positive integer value \eqn{x},
- is calcuted from the survival function \eqn{S(x)} as:
-\deqn{F(x) = 1 - S(x), }
-the survival function \eqn{S(x)} is equal to:
+The \emph{cumulative distribution function}, at a given positive integer value \eqn{x},
+ is computed as \eqn{F(x) = 1 - S(x)}, where the survival function \eqn{S(x)} is equal to:
 \deqn{S(x) = \frac{\beta\, \zeta(\alpha, x + 1)}{\zeta(\alpha) - \bar{\beta}\,\zeta(\alpha, x + 1)},\, x = 1, 2, .. }
 
-The \emph{quantiles} of a MOEZipf distribution for a given probability
-vector \code{p}, are equal to the quantiles of a Zipf distribution with the same parameter \eqn{\alpha},
-and probability vector equal to:
-\deqn{p\prime = \frac{p\,\beta}{1 + p\,(\beta - 1)},\, \, \, (1)}
-which are obtained by means of the package \emph{tolerance}.
+The quantile of the MOEZipf\eqn{(\alpha, \beta)} distribution of a given probability value p,
+is equal to the quantile of the Zipf\eqn{(\alpha)} distribution at the value:
+\deqn{p\prime = \frac{p\,\beta}{1 + p\,(\beta - 1)}}
 
-The random generator function generates \emph{n} values in the interval (0, 1) using an Uniform
-distribution and applies the \emph{quantile} function to obtain the random values.
+The quantiles of the Zipf\eqn{(\alpha)} distribution are computed by means of the \emph{tolerance}
+package.
+
+The random generator function applies the \emph{quantile} function over \emph{n} values
+from an Uniform distribution in the interval (0, 1,) in order to obtain
+the random values.
 }
 \examples{
 dmoezipf(1:10, 2.5, 1.3)
