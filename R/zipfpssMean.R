@@ -11,18 +11,18 @@
 #'
 #' @details
 #' The expected value of the Zipf-PSS distribution only exists for \eqn{\alpha} values strictly
-#' greater than 2. The value is derived from \eqn{E[Y] = E[N]\, E[X]} where E[X] is the mean value
-#' of the Zipf distribution and E[N] is the expected value of a Poisson one.
-#'
-#' The resulting expression is set to be equal to:
+#' greater than 2. The value is obtained from the \emph{law of total expectation} that says that: \deqn{E[Y] = E[N]\, E[X],}
+#' where E[X] is the mean value of the Zipf distribution and E[N] is the expected value of a Poisson one.
+#' From where one has that:
 #' \deqn{E[Y] = \lambda\, \frac{\zeta(\alpha - 1)}{\zeta(\alpha)}}
 #'
-#' Particularlly, if one is dealing with the zero-truncated version of the Zipf-PSS distribution.
-#' This values is calculated as:
+#' Particularlly, if one is working with the zero-truncated version of the Zipf-PSS distribution.
+#' This values is computed as:
 #' \deqn{E[Y^{ZT}] = \frac{\lambda\, \zeta(\alpha - 1)}{\zeta(\alpha)\, (1 - e^{-\lambda})}}
 #'
 #' @references {
-#' Sarabia Alegría, JM. and Gómez Déniz, E. and Vázquez Polo, F. Estadística actuarial: teoría y aplicaciones. Pearson Prentice Hall.
+#' Sarabia Alegría, J. M., Gómez Déniz, E. M. I. L. I. O., & Vázquez Polo, F. (2007).
+#' Estadística actuarial: teoría y aplicaciones. Pearson Prentice Hall.
 #' }
 #' @examples
 #' zipfpssMean(2.5, 1.3)

@@ -1,12 +1,12 @@
 #' Distribution Moments.
 #'
-#' General function to compute the k-th moment of the Zipf-PE distribution, for any integer value
-#' \eqn{k \geq 1} when it exists. Note that the k-th moment exists if and
-#' only if \eqn{\alpha > k + 1}.
+#' General function to compute the k-th moment of the Zipf-PE distribution for any integer value \eqn{k \geq 1},
+#' when it exists. The k-th moment exists if and only if  \eqn{\alpha > k + 1}.
+#' For k = 1, this function returns the same value as the \link{zipfpeMean} function.
 #'
 #' @param k Order of the moment to compute.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > k + 1}).
-#' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).
+#' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).
 #' @param tolerance Tolerance used in the calculations (default = \eqn{10^{-4}}).
 #'
 #' @return A positive real value corresponding to the k-th moment of the distribution.

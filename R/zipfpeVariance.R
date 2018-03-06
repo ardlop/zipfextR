@@ -2,15 +2,14 @@
 #'
 #' Computes the variance of the Zipf-PE distribution for given values of \eqn{\alpha} and \eqn{\beta}.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 3}).
-#' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).
+#' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).
 #' @param tolerance Tolerance used in the calculations. (default = \eqn{10^{-4}})
 #' @return A positive real value corresponding to the variance of the distribution.
 #'
 #' @details
 #' The variance of the distribution only exists for \eqn{\alpha} strictly greater than 3.
-#' In this case, it is calculated as:
-#' \deqn{Var[Y] = E[Y^2] - (E[Y])^{2},}
-#' where the first and the second moments are computed using the \emph{zipfpeMoments} function.
+#' In this case, it is calculated as from the two first
+#' which are computed using the \emph{zipfpeMoments} function.
 #'
 #' @examples
 #' zipfpeVariance(3.5, 1.3)

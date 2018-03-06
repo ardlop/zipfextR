@@ -11,7 +11,7 @@ zipfpeMoments(k, alpha, beta, tolerance = 10^(-4))
 
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > k + 1}).}
 
-\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).}
+\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).}
 
 \item{tolerance}{Tolerance used in the calculations (default = \eqn{10^{-4}}).}
 }
@@ -19,9 +19,9 @@ zipfpeMoments(k, alpha, beta, tolerance = 10^(-4))
 A positive real value corresponding to the k-th moment of the distribution.
 }
 \description{
-General function to compute the k-th moment of the Zipf-PE distribution, for any integer value
-\eqn{k \geq 1} when it exists. Note that the k-th moment exists if and
-only if \eqn{\alpha > k + 1}.
+General function to compute the k-th moment of the Zipf-PE distribution for any integer value \eqn{k \geq 1},
+when it exists. The k-th moment exists if and only if  \eqn{\alpha > k + 1}.
+For k = 1, this function returns the same value as the \link{zipfpeMean} function.
 }
 \details{
 The k-th moment of the Zipf-PE distribution is finite for \eqn{\alpha} values strictly greater than \eqn{k + 1}.

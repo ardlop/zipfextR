@@ -11,14 +11,13 @@
 #'
 #' @details
 #' The variance of the Zipf-PSS distribution only exists for \eqn{\alpha} values strictly greater than 3.
-#' The value is derived from \eqn{Var[Y] = E[N]\, Var[X] + E[X]^2 \, Var[N]} where E[X] and
-#' E[N] are the expected value of the Zipf and the Poisson distributions respectively.
-#' In the same way the values of Var[X] and Var[N] stand for the variances of the Zipf and
-#' the Poisson distributions. The resulting expression is set to be equal to:
+#' The value is obtained from the \emph{law of total variance} that says that: \deqn{Var[Y] = E[N]\, Var[X] + E[X]^2 \, Var[N],}
+#' where X follows a Zipf distribution with parameter \eqn{\alpha}, and N follows a Poisson distribution with
+#' parameter \eqn{\lambda}. From where one has that:
 #'
 #' \deqn{Var[Y] = \lambda\, \frac{\zeta(\alpha - 2)}{\zeta(\alpha)}}
-#' Particularlly, the variance of the zero-truncated version of the Zipf-PSS distribution is
-#' calculated as:
+#' Particularlly, if one is working with the zero-truncated version of the Zipf-PSS distribution.
+#' This values is computed as:
 #' \deqn{Var[Y^{ZT}] = \frac{\lambda\, \zeta(\alpha)\, \zeta(\alpha - 2)\, (1 - e^{-\lambda}) - \lambda^2 \, \zeta(\alpha - 1)^2 \, e^{-\lambda}}{\zeta(\alpha)^2 \, (1 - e^{-\lambda})^2}}
 #'
 #' @references {

@@ -47,39 +47,39 @@
 #' Zipf-PE parameters estimation.
 #'
 #' For a given sample of strictly positive integer values,  usually of the type of ranking data or
-#' frequencies of frequencies data, estimates the parameters of a Zipf-PE
-#' distribution by means of the maximum likelihood method.Note that the input data
-#' should be provided as a frequency matrix.
+#' frequencies of frequencies data, estimates the parameters of the Zipf-PE
+#' distribution by means of the maximum likelihood method. The input data should be provided as a frequency matrix.
 #'
 #' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
-#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).
+#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).
 #' @param level Confidence level used to calculate the confidence intervals (default 0.95).
 #' @param object An object from class "zpeR" (output of \emph{zipfpeFit} function).
 #' @param x An object from class "zpeR" (output of \emph{zipfpeFit} function).
 #' @param ... Further arguments to the generic functions.The extra arguments are passing
 #' to the \emph{\link{optim}} function.
 #' @details
-#' The argument \code{data} is a two column matrix such that the first column of each row contains a
-#' count, while the corresponding second column contains its frequency.
+#' The argument \code{data} is a two column matrix with the first column containing the observations and
+#' the second column containing their frequencies.
 #'
 #' The log-likelihood function is equal to:
 #'
 #' \deqn{l(\alpha, \beta; x) = \beta\, (N - \zeta(\alpha)^{-1}\, \sum_{i = 1} ^m  f_{a}(x_{i})\, \zeta(\alpha, x_i)) +
 #' \sum_{i = 1} ^m f_{a}(x_{i})\,  log \left( \frac{e^{\frac{\beta\, x_{i}^{-\alpha}}{\zeta(\alpha)}} - 1}{e^{\beta} - 1} \right), }
-#' where \eqn{m} is the number of different values in the sample, \eqn{N} is the sample size,
-#' i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)},  being \eqn{f_{a}(x_i)} is the absolute
-#' frequency of \eqn{x_i}.
+#' where \eqn{f_{a}(x_i)} is the absolute frequency of \eqn{x_i}, \eqn{m} is the number of different values in the sample and \eqn{N} is the sample size,
+#' i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)}.
 #'
 #' The function \emph{\link{optim}} is used to estimate the parameters.
-#' @return Returns an object composed by the maximum likelihood parameter estimations, their standard deviation, their confidence
-#' intervals and the value of the log-likelihood at the maximum likelihood estimations.
+#' @return Returns an object composed by the maximum likelihood parameter estimations
+#' jointly with their standard deviation and confidence intervals. It also contains
+#' the value of the log-likelihood at the maximum likelihood estimator.
 #' @examples
 #' data <- rzipfpe(100, 2.5, 1.3)
 #' data <- as.data.frame(table(data))
-#' data[,1] <- as.numeric(data[,1])
-#' obj <- zipfpeFit(data, 1.1, 0.1)
-#' @seealso \code{\link{moezipf_getInitialValues}}.
+#' data[,1] <- as.numeric(levels(data[,1])[data[,1]])
+#' initValues <- getInitialValues(data, model='zipfpe')
+#' obj <- zipfpeFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_p2)
+#' @seealso \code{\link{getInitialValues}}.
 #' @export
 zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
   Call <- match.call()

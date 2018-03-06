@@ -29,7 +29,7 @@ qzipfpss(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
 
 \item{log, log.p}{Logical; if TRUE, probabilities p are given as log(p).}
 
-\item{isTruncated}{Logical; if TRUE, the truncated version of the distribution is returned.}
+\item{isTruncated}{Logical; if TRUE, the zero truncated version of the distribution is returned.}
 
 \item{lower.tail}{Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.}
 
@@ -38,14 +38,17 @@ qzipfpss(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
 \item{p}{Vector of probabilities.}
 }
 \description{
-Probability mass function, cumulative function, quantile function and random number generation
-for the Zipf-PSS distribution with parameters \eqn{\alpha} and \eqn{\lambda}.
+Probability mass function, cumulative distribution function, quantile function and random number
+generation for the Zipf-PSS distribution with parameters \eqn{\alpha} and \eqn{\lambda}. The support of the Zipf-PSS
+distribution are the positive integer numbers including the zero value. In order to work with its zero-truncated version
+the parameter \code{isTruncated} should be equal to True.
 }
 \references{
 {
-Bjørn Sundt and William S Jewell. 1981. Further results on recursive evaluation of compound distributions. ASTIN
-Bulletin: The Journal of the IAA 12, 1 (1981), 27–39.
+Panjer, H. H. (1981). Recursive evaluation of a family of compound
+distributions. ASTIN Bulletin: The Journal of the IAA, 12(1), 22-26.
 
-Harry H Panjer. 1981. Recursive evaluation of a family of compound distributions. Astin Bulletin 12, 01 (1981), 22–26.
+Sundt, B., & Jewell, W. S. (1981). Further results on recursive evaluation of
+compound distributions. ASTIN Bulletin: The Journal of the IAA, 12(1), 27-39.
 }
 }

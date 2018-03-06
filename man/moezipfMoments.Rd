@@ -19,10 +19,9 @@ moezipfMoments(k, alpha, beta, tolerance = 10^(-4))
 A positive real value corresponding to the k-th moment of the distribution.
 }
 \description{
-General function to compute the k-th moment of the MOEZipf distribution, for any integer value \eqn{k \geq 1}
-when it exists. Note that the k-th moment exists if and only if  \eqn{\alpha > k + 1}.
-When k = 1, this function returns the same value as the
-\link{moezipfMean} function.
+General function to compute the k-th moment of the MOEZipf distribution for any integer value \eqn{k \geq 1},
+when it exists. The k-th moment exists if and only if  \eqn{\alpha > k + 1}.
+For k = 1, this function returns the same value as the \link{moezipfMean} function.
 }
 \details{
 The k-th moment of the MOEZipf distribution is finite for \eqn{\alpha} values strictly greater than \eqn{k + 1}.

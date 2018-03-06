@@ -5,10 +5,9 @@
 
 #' Distribution Moments.
 #'
-#' General function to compute the k-th moment of the MOEZipf distribution, for any integer value \eqn{k \geq 1}
-#' when it exists. Note that the k-th moment exists if and only if  \eqn{\alpha > k + 1}.
-#' When k = 1, this function returns the same value as the
-#' \link{moezipfMean} function.
+#' General function to compute the k-th moment of the MOEZipf distribution for any integer value \eqn{k \geq 1},
+#' when it exists. The k-th moment exists if and only if  \eqn{\alpha > k + 1}.
+#' For k = 1, this function returns the same value as the \link{moezipfMean} function.
 #'
 #' @param k Order of the moment to compute.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > k + 1}).

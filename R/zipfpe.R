@@ -1,7 +1,8 @@
 #' The Zipf-Poisson Extreme Distribution (Zipf-PE).
 #'
-#' Probability mass function, cumulative function, quantile function and random number generation
-#' for the Zipf-PE distribution with parameters \eqn{\alpha} and \eqn{\beta}.
+#' Probability mass function, cumulative distribution function, quantile function and random number
+#' generation for the Zipf-PE distribution with parameters \eqn{\alpha} and \eqn{\beta}. The support of the Zipf-PE
+#' distribution are the strictly positive integer numbers large or equal than one.
 #'
 #' @name zipfpe
 #' @aliases dzipfpe
@@ -16,8 +17,8 @@
 #' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta > 0} ).
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.
-#' @details The \emph{probability mass function} of the Zipf-PE distribution at a positive integer
-#' value \eqn{x} with parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
+#' @details The \emph{probability mass function} of the Zipf-PE distribution with parameters \eqn{\alpha} and \eqn{\beta}
+#' at a positive integer value \eqn{x} is computed as follows:
 #'
 #' \deqn{p(x | \alpha, \beta) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x)}{\zeta(\alpha)})} (e^{\beta \frac{x^{-\alpha}}{\zeta(\alpha)}} - 1)}
 #' {e^{\beta} - 1},\, x= 1,2,...,\, \alpha > 1,\, -\infty < \beta < +\infty,}
@@ -25,20 +26,19 @@
 #' where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, and \eqn{\zeta(\alpha, x)}
 #' is the Hurtwitz zeta function with arguments \eqn{\alpha} and x.
 #'
-#' The \emph{cumulative distribution function}, \eqn{F(x)}, at a given positive integer value \eqn{x},
-#'  is calcuted as:
+#' The \emph{cumulative distribution function} at a given positive
+#' integer value \eqn{x}, \eqn{F(x)}, is calcuted as:
 #' \deqn{F(x) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{\beta} -1}}
 #'
-#' The quantile of the Zipf-PE\eqn{(\alpha, \beta)} distribution of a given probability value p,
+#' The quantile of the Zipf-PE\eqn{(\alpha, \beta)} distribution of a given probability value p
 #' is equal to the quantile of the Zipf\eqn{(\alpha)} distribution at the value:
 #'
 #' \deqn{p\prime = \frac{log(p\, (e^{\beta} - 1) + 1)}{\beta}}
 #' The quantiles of the Zipf\eqn{(\alpha)} distribution are computed by means of the \emph{tolerance}
 #' package.
 #'
-#' The random generator function applies the \emph{quantile} function over \emph{n} values
-#' from an Uniform distribution in the interval (0, 1,) in order to obtain
-#' the random values.
+#' To generate random data from a Zipf-PE one applies the \emph{quantile} function over \emph{n} values randomly generated
+#' from an Uniform distribution in the interval (0, 1).
 #'
 #' @return {
 #' \code{dzipfpe} gives the probability mass function,

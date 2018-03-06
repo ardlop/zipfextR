@@ -9,7 +9,7 @@ zipfpeMean(alpha, beta, tolerance = 10^(-4))
 \arguments{
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 2}).}
 
-\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).}
+\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).}
 
 \item{tolerance}{Tolerance used in the calculations (default = \eqn{10^{-4}}).}
 }
@@ -22,8 +22,8 @@ Computes the expected value of the Zipf-PE distribution for given values of para
 }
 \details{
 The mean of the distribution only exists for \eqn{\alpha} strictly greater than 2.
-It is computed calculating the partial sums of the serie, and stopping when two
-consecutive partial sums differs less than the \code{tolerance} value.
+It is computed by calculating the partial sums of the serie, and stopping when two
+consecutive partial sums differ less than the \code{tolerance} value.
 The value of the last partial sum is returned.
 }
 \examples{

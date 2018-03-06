@@ -9,7 +9,7 @@ zipfpeVariance(alpha, beta, tolerance = 10^(-4))
 \arguments{
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 3}).}
 
-\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).}
+\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).}
 
 \item{tolerance}{Tolerance used in the calculations. (default = \eqn{10^{-4}})}
 }
@@ -21,9 +21,8 @@ Computes the variance of the Zipf-PE distribution for given values of \eqn{\alph
 }
 \details{
 The variance of the distribution only exists for \eqn{\alpha} strictly greater than 3.
-In this case, it is calculated as:
-\deqn{Var[Y] = E[Y^2] - (E[Y])^{2},}
-where the first and the second moments are computed using the \emph{zipfpeMoments} function.
+In this case, it is calculated as from the two first
+which are computed using the \emph{zipfpeMoments} function.
 }
 \examples{
 zipfpeVariance(3.5, 1.3)

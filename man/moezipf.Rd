@@ -40,8 +40,9 @@ rmoezipf(n, alpha, beta)
 \code{rmoezipf} generates random values from a MOEZipf distribution.}
 }
 \description{
-Probability mass function, cumulative function, quantile function and random number
-generation for the MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta}.
+Probability mass function, cumulative distribution function, quantile function and random number
+generation for the MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta}. The support of the MOEZipf
+distribution are the strictly positive integer numbers large or equal than one.
 }
 \details{
 The \emph{probability mass function} at a positive integer value \eqn{x} of the MOEZipf distribution with
@@ -56,16 +57,15 @@ The \emph{cumulative distribution function}, at a given positive integer value \
  is computed as \eqn{F(x) = 1 - S(x)}, where the survival function \eqn{S(x)} is equal to:
 \deqn{S(x) = \frac{\beta\, \zeta(\alpha, x + 1)}{\zeta(\alpha) - \bar{\beta}\,\zeta(\alpha, x + 1)},\, x = 1, 2, .. }
 
-The quantile of the MOEZipf\eqn{(\alpha, \beta)} distribution of a given probability value p,
+The quantile of the MOEZipf\eqn{(\alpha, \beta)} distribution of a given probability value p
 is equal to the quantile of the Zipf\eqn{(\alpha)} distribution at the value:
 \deqn{p\prime = \frac{p\,\beta}{1 + p\,(\beta - 1)}}
 
 The quantiles of the Zipf\eqn{(\alpha)} distribution are computed by means of the \emph{tolerance}
 package.
 
-The random generator function applies the \emph{quantile} function over \emph{n} values
-from an Uniform distribution in the interval (0, 1,) in order to obtain
-the random values.
+To generate random data from a MOEZipf one applies the \emph{quantile} function over \emph{n} values randomly generated
+from an Uniform distribution in the interval (0, 1).
 }
 \examples{
 dmoezipf(1:10, 2.5, 1.3)
@@ -80,7 +80,7 @@ Casellas, A. (2013) \emph{La distribució Zipf Estesa segons la transformació M
 
 Devroye L. (1986) Non-Uniform Random Variate Generation. Springer, New York, NY.
 
-Duarte-López, A., Prat-Pérez, A., & Pérez-Casany, M. (2015, August). \emph{Using the Marshall-Olkin Extended Zipf Distribution in Graph Generation}. In European Conference on Parallel Processing (pp. 493-502). Springer International Publishing.
+Duarte-López, A., Prat-Pérez, A., & Pérez-Casany, M. (2015). \emph{Using the Marshall-Olkin Extended Zipf Distribution in Graph Generation}. European Conference on Parallel Processing, pp. 493-502, Springer International Publishing.
 
 Pérez-Casany, M. and Casellas, A. (2013) \emph{Marshall-Olkin Extended Zipf Distribution}. arXiv preprint arXiv:1304.4540.
 

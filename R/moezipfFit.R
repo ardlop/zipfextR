@@ -1,10 +1,10 @@
 #' MOEZipf parameters estimation.
 #'
 #' For a given sample of strictly positive integer numbers,  usually of the type of ranking data or
-#' frequencies of frequencies data, estimates the parameters of a MOEZipf distribution by means of
-#' the maximum likelihood method. Note that the input data should be provided as a frequency matrix.
+#' frequencies of frequencies data, estimates the parameters of the MOEZipf distribution by means of
+#' the maximum likelihood method. The input data should be provided as a frequency matrix.
 #'
-#' @param data Matrix of count data in form of table of frequencies.
+#' @param data Matrix of count data in form of a table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
 #' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta > 0}).
 #' @param level Confidence level used to calculate the confidence intervals (default 0.95).
@@ -12,28 +12,28 @@
 #' @param x An object from class "moezipfR" (output of \emph{moezipfFit} function).
 #' @param ... Further arguments to the generic functions. The extra arguments are passing to the \emph{\link{optim}} function.
 #' @details
-#' The argument \code{data} is a two column matrix such that the first column of each row contains a
-#' count, while the corresponding second column contains its frequency.
+#' The argument \code{data} is a two column matrix with the first column containing the observations and
+#' the second column containing their frequencies.
 #'
-#' The log-likelihood function is equalt to:
+#' The log-likelihood function is equal to:
 #'
 #' \deqn{l(\alpha, \beta; x) = -\alpha \sum_{i = 1} ^m f_{a}(x_{i}) log(x_{i}) + N (log(\beta) + \log(\zeta(\alpha)))}
 #' \deqn{ - \sum_{i = 1} ^m f_a(x_i) log[(\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x_i)(\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x_i + 1)))], }
-#' where \eqn{m} is the number of different values in the sample, \eqn{N} is the sample size,
-#' i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)},  being \eqn{f_{a}(x_i)} is the absolute
-#' frequency of \eqn{x_i}.
+#' where \eqn{f_{a}(x_i)} is the absolute frequency of \eqn{x_i}, \eqn{m} is the number of different values in the sample and \eqn{N} is the sample size,
+#' i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)}.
 #'
 #' The function \emph{\link{optim}} is used to estimate the parameters.
-#' @return Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations,
-#' their standard deviation, their confidence intervals and the value of the log-likelihood at the
-#' maximum likelihood estimator.
+#' @return Returns a \emph{moezipfR} object composed by the maximum likelihood parameter estimations
+#' jointly with their standard deviation and confidence intervals. It also contains
+#' the value of the log-likelihood at the maximum likelihood estimator.
+#'
 #' @examples
 #' data <- rmoezipf(100, 2.5, 1.3)
 #' data <- as.data.frame(table(data))
-#' data[,1] <- as.numeric(data[,1])
-#' initValues <- moezipf_getInitialValues(data)
-#' obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
-#' @seealso \code{\link{moezipf_getInitialValues}}.
+#' data[,1] <- as.numeric(levels(data[,1])[data[,1]])
+#' initValues <- getInitialValues(data, model='moezipf')
+#' obj <- moezipfFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_p2)
+#' @seealso \code{\link{getInitialValues}}.
 #' @importFrom stats AIC BIC coef fitted logLik
 #' @export
 moezipfFit <- function(data, init_alpha, init_beta, level = 0.95, ...){

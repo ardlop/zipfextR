@@ -21,14 +21,14 @@ zipfpssMoments(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-4))
 A positive real value corresponding to the k-th moment of the distribution.
 }
 \description{
-General function to compute the k-th moment of the Zipf-PSS distribution, for any integer value \eqn{k \geq 1}
-when it exists. Note that the k-th moment exists if and only if  \eqn{\alpha > k + 1}.
+General function to compute the k-th moment of the Zipf-PSS distribution for any integer value \eqn{k \geq 1},
+when it exists. The k-th moment exists if and only if  \eqn{\alpha > k + 1}.
 }
 \details{
 The k-th moment of the Zipf-PSS distribution is finite for \eqn{\alpha} values
 strictly greater than \eqn{k + 1}.
 It is computed calculating the partial sums of the serie, and stopping when two
-consecutive partial sums differs less than the \code{tolerance} value.
+consecutive partial sums differ less than the \code{tolerance} value.
 The value of the last partial sum is returned.
 }
 \examples{
