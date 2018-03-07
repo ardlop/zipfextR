@@ -22,7 +22,7 @@ rzipfpe(n, alpha, beta)
 
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).}
 
-\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta > 0} ).}
+\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta\in (-\infty, +\infty)} ).}
 
 \item{log, log.p}{Logical; if TRUE, probabilities p are given as log(p).}
 
@@ -55,7 +55,7 @@ where \eqn{\zeta(\alpha)} is the Riemann-zeta function at \eqn{\alpha}, and \eqn
 is the Hurtwitz zeta function with arguments \eqn{\alpha} and x.
 
 The \emph{cumulative distribution function} at a given positive
-integer value \eqn{x}, \eqn{F(x)}, is calcuted as:
+integer value \eqn{x}, \eqn{F(x)}, is equal to:
 \deqn{F(x) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{\beta} -1}}
 
 The quantile of the Zipf-PE\eqn{(\alpha, \beta)} distribution of a given probability value p

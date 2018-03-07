@@ -11,7 +11,7 @@ zipfpeMoments(k, alpha, beta, tolerance = 10^(-4))
 
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > k + 1}).}
 
-\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).}
+\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).}
 
 \item{tolerance}{Tolerance used in the calculations (default = \eqn{10^{-4}}).}
 }
@@ -25,8 +25,8 @@ For k = 1, this function returns the same value as the \link{zipfpeMean} functio
 }
 \details{
 The k-th moment of the Zipf-PE distribution is finite for \eqn{\alpha} values strictly greater than \eqn{k + 1}.
-It is computed calculating the partial sums of the serie, and stopping when two
-consecutive partial sums differs less than the \code{tolerance} value.
+It is computed by calculating the partial sums of the serie, and stopping when two
+consecutive partial sums differ less than the \code{tolerance} value.
 The value of the last partial sum is returned.
 }
 \examples{

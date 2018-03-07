@@ -38,7 +38,7 @@ zipfpeFit(data, init_alpha, init_beta, level = 0.95, ...)
 
 \item{init_alpha}{Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).}
 
-\item{init_beta}{Initial value of \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).}
+\item{init_beta}{Initial value of \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).}
 
 \item{level}{Confidence level used to calculate the confidence intervals (default 0.95).}
 
@@ -75,7 +75,7 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 \examples{
 data <- rzipfpe(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
-data[,1] <- as.numeric(data[,1])
+data[,1] <- as.numeric(levels(data[,1])[data[,1]])
 initValues <- getInitialValues(data, model='zipfpe')
 obj <- zipfpeFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_p2)
 }

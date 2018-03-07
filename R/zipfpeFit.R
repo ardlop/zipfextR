@@ -52,7 +52,7 @@
 #'
 #' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
-#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).
+#' @param init_beta Initial value of \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).
 #' @param level Confidence level used to calculate the confidence intervals (default 0.95).
 #' @param object An object from class "zpeR" (output of \emph{zipfpeFit} function).
 #' @param x An object from class "zpeR" (output of \emph{zipfpeFit} function).

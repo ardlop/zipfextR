@@ -9,7 +9,7 @@ zipfpeMean(alpha, beta, tolerance = 10^(-4))
 \arguments{
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 2}).}
 
-\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in \mathbb{R}}).}
+\item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta \in (-\infty, +\infty)}).}
 
 \item{tolerance}{Tolerance used in the calculations (default = \eqn{10^{-4}}).}
 }

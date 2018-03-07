@@ -21,9 +21,10 @@ Computes the variance of the MOEZipf distribution for given values of \eqn{\alph
 }
 \details{
 The variance of the distribution only exists for \eqn{\alpha} strictly greater than 3.
-In this case, it is calculated as from the two first
-which are computed using the \emph{moezipfMoments} function.
 }
 \examples{
 moezipfVariance(3.5, 1.3)
+}
+\seealso{
+\code{\link{moezipfMoments}}, \code{\link{moezipfMean}}.
 }

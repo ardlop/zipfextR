@@ -4,7 +4,7 @@
 #' \eqn{\alpha} and \eqn{\lambda}.
 #'
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 2}).
-#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).
+#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0}).
 #' @param isTruncated Logical; if TRUE Use the zero-truncated version of the distribution to calculate the expected value (default = FALSE).
 #'
 #' @return A positive real value corresponding to the mean value of the distribution.

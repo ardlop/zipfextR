@@ -14,11 +14,15 @@
 #' @param x,q Vector of positive integer values.
 #' @param p Vector of probabilities.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).
-#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0} ).
+#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0} ).
 #' @param n Number of random values to return.
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.
 #' @param isTruncated Logical; if TRUE, the zero truncated version of the distribution is returned.
+#'
+#' @details
+#' The support of the \eqn{\lambda} parameter increases when the distribution is truncated at zero being
+#' \eqn{\lambda \geq 0}. It has been proved that when \eqn{\lambda = 0} one has the degenerated version of the distribution at one.
 #'
 #' @references {
 #' Panjer, H. H. (1981). Recursive evaluation of a family of compound
@@ -121,13 +125,17 @@ NULL
 #' @rdname zipfpss
 #' @export
 dzipfpss <- function(x, alpha, lambda, log = FALSE, isTruncated = FALSE){
-  probs <- .getProbs(x, alpha, lambda, isTruncated = isTruncated)
+  if(lambda == 0){
+    return(.999999)
+  } else {
+    probs <- .getProbs(x, alpha, lambda, isTruncated = isTruncated)
 
-  finalProbs <- probs[if(isTruncated) x else (x+1)]#probs[x]#
-  if(log){
-    return(log(finalProbs))
+    finalProbs <- probs[if(isTruncated) x else (x+1)]#probs[x]#
+    if(log){
+      return(log(finalProbs))
+    }
+    return(finalProbs)
   }
-  return(finalProbs)
 }
 
 #' @rdname zipfpss
@@ -173,7 +181,7 @@ rzipfpss <- function(n, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTrunc
   # }
 
   u <- stats::runif(n)
-  data <- sapply(u, qzipfpss, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTruncated = FALSE)
+  data <- sapply(u, qzipfpss, alpha, lambda, log.p, lower.tail, isTruncated)
   #data <- tolerance::qzipfman(u, s = alpha, b = NULL, N = Inf)
   return(data)
 }

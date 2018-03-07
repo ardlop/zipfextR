@@ -24,14 +24,8 @@ when it exists. The k-th moment exists if and only if  \eqn{\alpha > k + 1}.
 For k = 1, this function returns the same value as the \link{moezipfMean} function.
 }
 \details{
-The k-th moment of the MOEZipf distribution is finite for \eqn{\alpha} values strictly greater than \eqn{k + 1}.
-For a random variable Y that follows a MOEZipf distribution with parameters \eqn{\alpha} and \eqn{\beta},
-the k-th moment is equal to:
-
-\deqn{E(Y^k) = \sum_{x = 1} ^\infty \frac{\beta \zeta(\alpha) x^{-\alpha + k}}{[\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x)][\zeta(\alpha) - \bar{\beta}\zeta(\alpha, x + 1)]}\,, \alpha \geq k + 1\,, \beta > 0}
-
-The k-th moment is computed calculating the partial sums of the serie, and stopping when two
-consecutive partial sums differs less than the \code{tolerance} value.
+The k-th moment is computed by calculating the partial sums of the serie, and stopping when two
+consecutive partial sums differ less than the \code{tolerance} value.
 The value of the last partial sum is returned.
 }
 \examples{

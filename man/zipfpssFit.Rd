@@ -39,7 +39,7 @@ zipfpssFit(data, init_alpha, init_lambda, level = 0.95, isTruncated = FALSE,
 
 \item{init_alpha}{Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).}
 
-\item{init_lambda}{Initial value of \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).}
+\item{init_lambda}{Initial value of \eqn{\lambda} parameter (\eqn{\lambda > 0}).}
 
 \item{level}{Confidence level used to calculate the confidence intervals (default 0.95).}
 
@@ -53,8 +53,8 @@ to the \emph{\link{optim}} function.}
 \item{x}{An object from class "zpssR" (output of \emph{zipfpssFit} function).}
 }
 \value{
-Returns a \emph{zpssR} object composed by the maximum likelihood parameter estimations,
-their standard deviation, their confidence intervals and the value of the log-likelihood at the
+Returns a \emph{zpssR} object composed by the maximum likelihood parameter estimations jointly
+with their standard deviation and confidence intervals and the value of the log-likelihood at the
 maximum likelihood estimator.
 }
 \description{
@@ -76,7 +76,7 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 \examples{
 data <- rzipfpss(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
-data[,1] <- as.numeric(data[,1])
+data[,1] <- as.numeric(levels(data[,1])[data[,1]])
 initValues <- getInitialValues(data, model='zipfpss')
 obj <- zipfpssFit(data, init_alpha = initValues$init_alpha, init_lambda = initValues$init_p2)
 }

@@ -14,7 +14,7 @@
 #' @param p Vector of probabilities.
 #' @param n Number of random values to return.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).
-#' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta > 0} ).
+#' @param beta Value of the \eqn{\beta} parameter (\eqn{\beta\in (-\infty, +\infty)} ).
 #' @param log,log.p Logical; if TRUE, probabilities p are given as log(p).
 #' @param lower.tail Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.
 #' @details The \emph{probability mass function} of the Zipf-PE distribution with parameters \eqn{\alpha} and \eqn{\beta}
@@ -27,7 +27,7 @@
 #' is the Hurtwitz zeta function with arguments \eqn{\alpha} and x.
 #'
 #' The \emph{cumulative distribution function} at a given positive
-#' integer value \eqn{x}, \eqn{F(x)}, is calcuted as:
+#' integer value \eqn{x}, \eqn{F(x)}, is equal to:
 #' \deqn{F(x) = \frac{e^{\beta (1 - \frac{\zeta(\alpha, x + 1)}{\zeta(\alpha)})} - 1}{e^{\beta} -1}}
 #'
 #' The quantile of the Zipf-PE\eqn{(\alpha, \beta)} distribution of a given probability value p

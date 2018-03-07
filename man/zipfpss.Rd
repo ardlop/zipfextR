@@ -25,7 +25,7 @@ qzipfpss(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE,
 
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).}
 
-\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0} ).}
+\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0} ).}
 
 \item{log, log.p}{Logical; if TRUE, probabilities p are given as log(p).}
 
@@ -42,6 +42,10 @@ Probability mass function, cumulative distribution function, quantile function a
 generation for the Zipf-PSS distribution with parameters \eqn{\alpha} and \eqn{\lambda}. The support of the Zipf-PSS
 distribution are the positive integer numbers including the zero value. In order to work with its zero-truncated version
 the parameter \code{isTruncated} should be equal to True.
+}
+\details{
+The support of the \eqn{\lambda} parameter increases when the distribution is truncated at zero being
+\eqn{\lambda \geq 0}. It has been proved that when \eqn{\lambda = 0} one has the degenerated version of the distribution at one.
 }
 \references{
 {

@@ -19,7 +19,7 @@
 #'
 #' @param data Matrix of count data in form of table of frequencies.
 #' @param init_alpha Initial value of \eqn{\alpha} parameter (\eqn{\alpha > 1}).
-#' @param init_lambda Initial value of \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).
+#' @param init_lambda Initial value of \eqn{\lambda} parameter (\eqn{\lambda > 0}).
 #' @param level Confidence level used to calculate the confidence intervals (default 0.95).
 #' @param isTruncated Logical; if TRUE, the truncated version of the distribution is returned.(default = FALSE)
 #' @param object An object from class "zpssR" (output of \emph{zipfpssFit} function).
@@ -37,8 +37,8 @@
 #' frequency of \eqn{x_i}.The probabilities are calculated applying the Panjer recursion.
 #'
 #' The function \emph{\link{optim}} is used to estimate the parameters.
-#' @return Returns a \emph{zpssR} object composed by the maximum likelihood parameter estimations,
-#' their standard deviation, their confidence intervals and the value of the log-likelihood at the
+#' @return Returns a \emph{zpssR} object composed by the maximum likelihood parameter estimations jointly
+#' with their standard deviation and confidence intervals and the value of the log-likelihood at the
 #' maximum likelihood estimator.
 #' @references {
 #' Panjer, H. H. (1981). Recursive evaluation of a family of compound

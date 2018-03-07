@@ -6,10 +6,10 @@ Author: Ariel Duarte-López and Marta Pérez-Casany
 Maintainer: Ariel Duarte-López <aduarte@ac.upc.edu>
 Description: Implementation of three extensions of the Zipf distribution: the Marshall-Olkin 
   Extended Zipf (MOEZipf), the Zipf-Poisson Extreme (Zipf-PE) and the 
-  Zipf-Poisson Stopped Sum (Zipf-PSS) distributions. In log-log scale, the two first extensions allow for 
+  Zipf-Poisson Stopped Sum (Zipf-PSS) distributions. 
+  In log-log scale, the two first extensions allow for 
   top-concavity and top-convexity while the third one only allows for top-concavity. 
-  All the extensions maintain the linearity associated with the 
-  Zipf model in the tail.
+  All the extensions maintain the linearity associated with the Zipf model in the tail.
 License: GPL-3
 Depends: R (>= 2.0.1)
 Imports: VGAM (>= 0.9.8), tolerance(>= 1.2.0)

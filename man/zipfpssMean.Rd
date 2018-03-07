@@ -9,7 +9,7 @@ zipfpssMean(alpha, lambda, isTruncated = FALSE)
 \arguments{
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > 2}).}
 
-\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).}
+\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0}).}
 
 \item{isTruncated}{Logical; if TRUE Use the zero-truncated version of the distribution to calculate the expected value (default = FALSE).}
 }
