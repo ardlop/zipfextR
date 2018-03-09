@@ -35,7 +35,7 @@
 #' \deqn{l(\alpha, \lambda, x) = \sum_{i =1} ^{m} f_a(x_i)\, log(P(Y = x_i)),}
 #' where \eqn{m} is the number of different values in the sample, being \eqn{f_{a}(x_i)} is the absolute
 #' frequency of \eqn{x_i}.The probabilities are calculated applying the Panjer recursion.
-#'
+#' By default the initial values of the parameters are computed using the function \code{getInitialValues}.
 #' The function \emph{\link{optim}} is used to estimate the parameters.
 #' @return Returns a \emph{zpssR} object composed by the maximum likelihood parameter estimations jointly
 #' with their standard deviation and confidence intervals and the value of the log-likelihood at the
@@ -53,11 +53,24 @@
 #' data <- as.data.frame(table(data))
 #' data[,1] <- as.numeric(levels(data[,1])[data[,1]])
 #' initValues <- getInitialValues(data, model='zipfpss')
-#' obj <- zipfpssFit(data, init_alpha = initValues$init_alpha, init_lambda = initValues$init_p2)
+#' obj <- zipfpssFit(data, init_alpha = initValues$init_alpha, init_lambda = initValues$init_lambda)
 #' @seealso \code{\link{getInitialValues}}.
 #' @export
-zipfpssFit <- function(data, init_alpha, init_lambda, level=0.95, isTruncated = FALSE, ...){
+zipfpssFit <- function(data, init_alpha = NULL, init_lambda = NULL, level=0.95, isTruncated = FALSE, ...){
   Call <- match.call()
+
+  if(is.null(init_alpha) || is.null(init_lambda)){
+    if(isTruncated){
+      model <- 'zt_zipfpss'
+    } else {
+      model <- 'zipfpss'
+    }
+
+    initValues <- getInitialValues(data, model = model)
+    init_alpha <- initValues$init_alpha
+    init_lambda <- initValues$init_lambda
+  }
+
   if(!is.numeric(init_alpha) || !is.numeric(init_lambda)){
     stop('Wrong intial values for the parameters.')
   }

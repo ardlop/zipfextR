@@ -69,6 +69,8 @@
 #' where \eqn{f_{a}(x_i)} is the absolute frequency of \eqn{x_i}, \eqn{m} is the number of different values in the sample and \eqn{N} is the sample size,
 #' i.e.  \eqn{N = \sum_{i = 1} ^m x_i f_a(x_i)}.
 #'
+#' By default the initial values of the parameters are computed using the function \code{getInitialValues}.
+#'
 #' The function \emph{\link{optim}} is used to estimate the parameters.
 #' @return Returns an object composed by the maximum likelihood parameter estimations
 #' jointly with their standard deviation and confidence intervals. It also contains
@@ -78,11 +80,18 @@
 #' data <- as.data.frame(table(data))
 #' data[,1] <- as.numeric(levels(data[,1])[data[,1]])
 #' initValues <- getInitialValues(data, model='zipfpe')
-#' obj <- zipfpeFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_p2)
+#' obj <- zipfpeFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 #' @seealso \code{\link{getInitialValues}}.
 #' @export
-zipfpeFit <- function(data, init_alpha, init_beta, level = 0.95, ...){
+zipfpeFit <- function(data, init_alpha = NULL, init_beta = NULL, level = 0.95, ...){
   Call <- match.call()
+
+  if(is.null(init_alpha) || is.null(init_beta)){
+    initValues <- getInitialValues(data, model = 'zipfpe')
+    init_alpha <- initValues$init_alpha
+    init_beta <- initValues$init_beta
+  }
+
   if(!is.numeric(init_alpha) || !is.numeric(init_beta)){
     stop('Wrong intial values for the parameters.')
   }

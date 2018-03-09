@@ -13,8 +13,8 @@
 \alias{BIC.zipfpssR}
 \title{Zipf-PSS parameters estimation.}
 \usage{
-zipfpssFit(data, init_alpha, init_lambda, level = 0.95, isTruncated = FALSE,
-  ...)
+zipfpssFit(data, init_alpha = NULL, init_lambda = NULL, level = 0.95,
+  isTruncated = FALSE, ...)
 
 \method{residuals}{zipfpssR}(object, ...)
 
@@ -70,7 +70,7 @@ The log-likelihood function is equal to:
 \deqn{l(\alpha, \lambda, x) = \sum_{i =1} ^{m} f_a(x_i)\, log(P(Y = x_i)),}
 where \eqn{m} is the number of different values in the sample, being \eqn{f_{a}(x_i)} is the absolute
 frequency of \eqn{x_i}.The probabilities are calculated applying the Panjer recursion.
-
+By default the initial values of the parameters are computed using the function \code{getInitialValues}.
 The function \emph{\link{optim}} is used to estimate the parameters.
 }
 \examples{
@@ -78,7 +78,7 @@ data <- rzipfpss(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
 data[,1] <- as.numeric(levels(data[,1])[data[,1]])
 initValues <- getInitialValues(data, model='zipfpss')
-obj <- zipfpssFit(data, init_alpha = initValues$init_alpha, init_lambda = initValues$init_p2)
+obj <- zipfpssFit(data, init_alpha = initValues$init_alpha, init_lambda = initValues$init_lambda)
 }
 \references{
 {

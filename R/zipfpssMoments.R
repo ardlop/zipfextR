@@ -5,7 +5,7 @@
 #'
 #' @param k Order of the moment to compute.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > k + 1}).
-#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).
+#' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0}).
 #' @param isTruncated Logical; if TRUE, the truncated version of the distribution is returned.
 #' @param tolerance Tolerance used in the calculations (default = \eqn{10^{-4}}).
 #'

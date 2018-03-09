@@ -11,7 +11,7 @@ zipfpssMoments(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-4))
 
 \item{alpha}{Value of the \eqn{\alpha} parameter (\eqn{\alpha > k + 1}).}
 
-\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda \geq 0}).}
+\item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0}).}
 
 \item{isTruncated}{Logical; if TRUE, the truncated version of the distribution is returned.}
 
