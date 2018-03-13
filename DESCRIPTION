@@ -2,10 +2,17 @@ Package: zipfextR
 Type: Package
 Title: Zipf Extended Distributions
 Version: 1.0.0
-Author: Ariel Duarte-López and Marta Pérez-Casany
+Authors@R: c(person("Ariel", "Duarte-López", role = c("aut", "cre"),
+                    email = "aduarte@ac.upc.edu",
+		    comment = c(ORCID = "0000-0002-7432-0344")),
+  person("Marta", "Pérez-Casany", role = c("aut"),
+                    email = "marta.perez@upc.edu",
+		    comment = c(ORCID = "0000-0003-3675-6902")))
+Author: Ariel Duarte-López [aut, cre] (0000-0002-7432-0344),
+  Marta Pérez-Casany [aut] (0000-0003-3675-6902)
 Maintainer: Ariel Duarte-López <aduarte@ac.upc.edu>
 Description: Implementation of three extensions of the Zipf distribution: the Marshall-Olkin 
-  Extended Zipf (MOEZipf), the Zipf-Poisson Extreme (Zipf-PE) and the 
+  Extended Zipf (MOEZipf) Pérez-Casany, M., & Casellas, A. (2013) <arXiv:1304.4540>, the Zipf-Poisson Extreme (Zipf-PE) and the 
   Zipf-Poisson Stopped Sum (Zipf-PSS) distributions. 
   In log-log scale, the two first extensions allow for top-concavity 
   and top-convexity while the third one only allows for top-concavity. 

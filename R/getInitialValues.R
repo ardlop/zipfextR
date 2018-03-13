@@ -51,25 +51,25 @@ getInitialValues <- function(data, model='zipf'){
   freq2 <- data[which(data[,1] == 2),][2][[1]]
 
   if(length(freq1) == 0 || length(freq2) == 0){
-    alpha0 <- 1.0001
+    alpha0 <- 1.001
   } else{
-    alpha0 <- max(log2(freq1/freq2), 1.0001, na.rm = TRUE)
+    alpha0 <- max(log2(freq1/freq2), 1.001, na.rm = TRUE)
   }
 
   if(model=='zipf'){
     return(list(init_alpha = round(alpha0, 4)))
   } else if(model=='moezipf'){
-    return(list(init_alpha = round(alpha0, 4), init_beta = 1))
+    return(list(init_alpha = round(alpha0, 4), init_beta = 1.001))
   } else if(model == 'zipfpe'){
-    return(list(init_alpha = round(alpha0, 4), init_beta = 0))
+    return(list(init_alpha = round(alpha0, 4), init_beta = 0.001))
   } else if(model == 'zt_zipfpss'){
-    return(list(init_alpha = round(alpha0, 4), init_lambda = round(0, 4)))
+    return(list(init_alpha = round(alpha0, 4), init_lambda = 0.001))
   } else if(model=='zipfpss'){
     if(length(freq1) == 0 || length(freq2) == 0){
-      lambda0 <- 0.0001
-      alpha0 <- 1.0001
+      lambda0 <- 0.001
+      alpha0 <- 1.001
     } else{
-      lambda0 <- max(-log(freq1/sum(data[,2])), 0.0001)
+      lambda0 <- max(-log(freq1/sum(data[,2])), 0.001)
       value <- lambda0*freq1/freq2
       est <- stats::optim(1.01,
             .zpssAlphaHat,
@@ -77,10 +77,9 @@ getInitialValues <- function(data, model='zipf'){
             method = 'L-BFGS-B',
             lower=1.001,
             upper = 30)
-      alpha0 <- max(1.0001, round(est$par, 4))
+      alpha0 <- max(1.001, round(est$par, 4))
     }
     return(list(init_alpha = alpha0, init_lambda = round(lambda0, 4)))
-
   } else{
     stop('You should introduced a valid model')
   }
