@@ -51,7 +51,8 @@
 #' @examples
 #' data <- rzipfpss(100, 2.5, 1.3)
 #' data <- as.data.frame(table(data))
-#' data[,1] <- as.numeric(levels(data[,1])[data[,1]])
+#' data[,1] <- as.numeric(as.character(data[,1]))
+#' data[,2] <- as.numeric(as.character(data[,2]))
 #' initValues <- getInitialValues(data, model='zipfpss')
 #' obj <- zipfpssFit(data, init_alpha = initValues$init_alpha, init_lambda = initValues$init_lambda)
 #' @seealso \code{\link{getInitialValues}}.
@@ -103,20 +104,27 @@ zipfpssFit <- function(data, init_alpha = NULL, init_lambda = NULL, level=0.95, 
 
 #' @rdname zipfpssFit
 #' @export
-residuals.zipfpssR <- function(object, ...){
+residuals.zipfpssR <- function(object, isTruncated = FALSE, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
-  fitted.values <- fitted(object)
-  residual.values <- as.numeric(dataMatrix[, 2]) - fitted.values
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+
+  fitted.values <- fitted(object, isTruncated)
+  residual.values <- dataMatrix[, 2] - fitted.values
   return(residual.values)
 }
 
 #' @rdname zipfpssFit
 #' @export
-fitted.zipfpssR <- function(object, ...) {
+fitted.zipfpssR <- function(object, isTruncated = FALSE, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
-  N <- sum(as.numeric(dataMatrix[, 2]))
-  fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dzipfpss,
-                            alpha = object[['alphaHat']], lambda = object[['lambdaHat']])
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+
+  N <- sum(dataMatrix[, 2])
+  fitted.values <- N*sapply(dataMatrix[,1], dzipfpss,
+                            alpha = object[['alphaHat']], lambda = object[['lambdaHat']],
+                            isTruncated = isTruncated)
   return(fitted.values)
 }
 
@@ -134,13 +142,16 @@ coef.zipfpssR <- function(object, ...){
 
 #' @rdname zipfpssFit
 #' @export
-plot.zipfpssR <- function(x, ...){
+plot.zipfpssR <- function(x, isTruncated = FALSE, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
-  graphics::plot(as.numeric(as.character(dataMatrix[,1])), as.numeric(dataMatrix[,2]), log="xy",
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+
+  graphics::plot(dataMatrix[,1], dataMatrix[,2], log="xy",
                  xlab="Observation", ylab="Frequency",
                  main="Fitting Zipf-PSS Distribution", ...)
 
-  graphics::lines(as.numeric(as.character(dataMatrix[,1])), fitted(x), col="blue")
+  graphics::lines(dataMatrix[,1], fitted(x, isTruncated), col="blue")
 
   graphics::legend("topright",  legend = c('Observations', 'Zipf-PSS Distribution'),
                    col=c('black', 'blue'), pch=c(21,NA),
@@ -168,11 +179,11 @@ print.zipfpssR <- function(x, ...){
 
 #' @rdname zipfpssFit
 #' @export
-summary.zipfpssR <- function(object, ...){
+summary.zipfpssR <- function(object, isTruncated = FALSE, ...){
   print(object)
   cat('\n')
   cat('Fitted values:\n')
-  print(fitted(object))
+  print(fitted(object, isTruncated))
 }
 
 #' @rdname zipfpssFit
@@ -195,7 +206,9 @@ AIC.zipfpssR <- function(object, ...){
 #' @export
 BIC.zipfpssR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
-  bic <- .get_BIC(object[['logLikelihood']], 2, sum(as.numeric(dataMatrix[, 2])))
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+  bic <- .get_BIC(object[['logLikelihood']], 2, sum(dataMatrix[, 2]))
   return(bic)
 }
 

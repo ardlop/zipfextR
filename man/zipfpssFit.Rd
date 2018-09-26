@@ -16,17 +16,17 @@
 zipfpssFit(data, init_alpha = NULL, init_lambda = NULL, level = 0.95,
   isTruncated = FALSE, ...)
 
-\method{residuals}{zipfpssR}(object, ...)
+\method{residuals}{zipfpssR}(object, isTruncated = FALSE, ...)
 
-\method{fitted}{zipfpssR}(object, ...)
+\method{fitted}{zipfpssR}(object, isTruncated = FALSE, ...)
 
 \method{coef}{zipfpssR}(object, ...)
 
-\method{plot}{zipfpssR}(x, ...)
+\method{plot}{zipfpssR}(x, isTruncated = FALSE, ...)
 
 \method{print}{zipfpssR}(x, ...)
 
-\method{summary}{zipfpssR}(object, ...)
+\method{summary}{zipfpssR}(object, isTruncated = FALSE, ...)
 
 \method{logLik}{zipfpssR}(object, ...)
 
@@ -76,7 +76,8 @@ The function \emph{\link{optim}} is used to estimate the parameters.
 \examples{
 data <- rzipfpss(100, 2.5, 1.3)
 data <- as.data.frame(table(data))
-data[,1] <- as.numeric(levels(data[,1])[data[,1]])
+data[,1] <- as.numeric(as.character(data[,1]))
+data[,2] <- as.numeric(as.character(data[,2]))
 initValues <- getInitialValues(data, model='zipfpss')
 obj <- zipfpssFit(data, init_alpha = initValues$init_alpha, init_lambda = initValues$init_lambda)
 }

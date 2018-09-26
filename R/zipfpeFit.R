@@ -78,7 +78,8 @@
 #' @examples
 #' data <- rzipfpe(100, 2.5, 1.3)
 #' data <- as.data.frame(table(data))
-#' data[,1] <- as.numeric(levels(data[,1])[data[,1]])
+#' data[,1] <- as.numeric(as.character(data[,1]))
+#' data[,2] <- as.numeric(as.character(data[,2]))
 #' initValues <- getInitialValues(data, model='zipfpe')
 #' obj <- zipfpeFit(data, init_alpha = initValues$init_alpha, init_beta = initValues$init_beta)
 #' @seealso \code{\link{getInitialValues}}.
@@ -124,8 +125,10 @@ zipfpeFit <- function(data, init_alpha = NULL, init_beta = NULL, level = 0.95, .
 #' @export
 residuals.zipfpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
-  fitted.values <- fitted(object)
-  residual.values <- as.numeric(dataMatrix[, 2]) - fitted.values
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+
+  residual.values <- dataMatrix[, 2] - fitted(object)
   return(residual.values)
 }
 
@@ -133,8 +136,11 @@ residuals.zipfpeR <- function(object, ...){
 #' @export
 fitted.zipfpeR <- function(object, ...) {
   dataMatrix <- get(as.character(object[['call']]$data))
-  N <- sum(as.numeric(dataMatrix[, 2]))
-  fitted.values <- N*sapply(as.numeric(as.character(dataMatrix[,1])), dzipfpe, alpha = object[['alphaHat']],
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+
+  N <- sum(dataMatrix[, 2])
+  fitted.values <- N*sapply(dataMatrix[,1], dzipfpe, alpha = object[['alphaHat']],
                             beta = object[['betaHat']])
   return(fitted.values)
 }
@@ -155,11 +161,14 @@ coef.zipfpeR <- function(object, ...){
 #' @export
 plot.zipfpeR <- function(x, ...){
   dataMatrix <- get(as.character(x[['call']]$data))
-  graphics::plot(as.numeric(as.character(dataMatrix[,1])), as.numeric(dataMatrix[,2]), log="xy",
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+
+  graphics::plot(dataMatrix[,1], dataMatrix[,2], log="xy",
                  xlab="Observation", ylab="Frequency",
                  main="Fitting Zipf-PE Distribution", ...)
 
-  graphics::lines(as.numeric(as.character(dataMatrix[,1])), fitted(x), col="blue")
+  graphics::lines(dataMatrix[,1], fitted(x), col="blue")
 
   graphics::legend("topright",  legend = c('Observations', 'Zipf-PE Distribution'),
                    col=c('black', 'blue'), pch=c(21,NA),
@@ -214,6 +223,9 @@ AIC.zipfpeR <- function(object, ...){
 #' @export
 BIC.zipfpeR <- function(object, ...){
   dataMatrix <- get(as.character(object[['call']]$data))
-  bic <- .get_BIC(object[['logLikelihood']], 2, sum(as.numeric(dataMatrix[, 2])))
+  dataMatrix[,1] <- as.numeric(as.character(dataMatrix[,1]))
+  dataMatrix[,2] <-as.numeric(as.character(dataMatrix[,2]))
+
+  bic <- .get_BIC(object[['logLikelihood']], 2, sum(dataMatrix[, 2]))
   return(bic)
 }
