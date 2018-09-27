@@ -53,7 +53,7 @@ d_zi_zipfpss <- function(x, alpha, lambda, w, log = FALSE){
     } else {
       return((1-w)*dzipfpss(i, alpha, lambda, log))
     }
-  })
+  }, alpha = alpha, lambda = lambda, w = w, log = log)
 
   return(values)
 }

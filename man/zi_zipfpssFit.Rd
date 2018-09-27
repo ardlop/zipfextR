@@ -2,37 +2,37 @@
 % Please edit documentation in R/zi_zipfpssFit.R
 \name{zi_zipfpssFit}
 \alias{zi_zipfpssFit}
-\alias{residuals.zi_zipfpssFit}
-\alias{fitted.zi_zipfpssFit}
-\alias{coef.zi_zipfpssFit}
-\alias{plot.zi_zipfpssFit}
-\alias{print.zi_zipfpssFit}
-\alias{summary.zi_zipfpssFit}
-\alias{logLik.zi_zipfpssFit}
-\alias{AIC.zi_zipfpssFit}
-\alias{BIC.zi_zipfpssFit}
+\alias{residuals.zi_zipfpssR}
+\alias{fitted.zi_zipfpssR}
+\alias{coef.zi_zipfpssR}
+\alias{plot.zi_zipfpssR}
+\alias{print.zi_zipfpssR}
+\alias{summary.zi_zipfpssR}
+\alias{logLik.zi_zipfpssR}
+\alias{AIC.zi_zipfpssR}
+\alias{BIC.zi_zipfpssR}
 \title{Zero Inflated Zipf-PSS parameters estimation.}
 \usage{
 zi_zipfpssFit(data, init_alpha = 1.5, init_lambda = 1.5, init_w = 0.1,
   level = 0.95, ...)
 
-\method{residuals}{zi_zipfpssFit}(object, ...)
+\method{residuals}{zi_zipfpssR}(object, ...)
 
-\method{fitted}{zi_zipfpssFit}(object, ...)
+\method{fitted}{zi_zipfpssR}(object, ...)
 
-\method{coef}{zi_zipfpssFit}(object, ...)
+\method{coef}{zi_zipfpssR}(object, ...)
 
-\method{plot}{zi_zipfpssFit}(x, ...)
+\method{plot}{zi_zipfpssR}(x, ...)
 
-\method{print}{zi_zipfpssFit}(x, ...)
+\method{print}{zi_zipfpssR}(x, ...)
 
-\method{summary}{zi_zipfpssFit}(object, ...)
+\method{summary}{zi_zipfpssR}(object, ...)
 
-\method{logLik}{zi_zipfpssFit}(object, ...)
+\method{logLik}{zi_zipfpssR}(object, ...)
 
-\method{AIC}{zi_zipfpssFit}(object, ...)
+\method{AIC}{zi_zipfpssR}(object, ...)
 
-\method{BIC}{zi_zipfpssFit}(object, ...)
+\method{BIC}{zi_zipfpssR}(object, ...)
 }
 \arguments{
 \item{data}{Matrix of count data in form of table of frequencies.}

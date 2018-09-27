@@ -90,12 +90,12 @@
 }
 
 .getConfidenceIntervalsForZeroInflated <- function(paramSD, alpha, beta, w, level){
-  result <- matrix(nrow=3, ncol=3)
+  result <- matrix(nrow=3, ncol=2)
   levelCoef <- round(stats::qnorm(1-((1-level)/2)), 2)
   offset <- levelCoef * paramSD
   result[1, ] <- c(alpha - offset[1], alpha + offset[1])
   result[2, ] <- c(beta - offset[2], beta + offset[2])
-  result[1, ] <- c(w - offset[3], w + offset[3])
+  result[3, ] <- c(w - offset[3], w + offset[3])
   colnames(result) <- c('Inf. CI', 'Sup. CI')
   rownames(result) <- c('alpha', 'beta', 'w')
   return(result)
