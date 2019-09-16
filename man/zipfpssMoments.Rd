@@ -4,7 +4,8 @@
 \alias{zipfpssMoments}
 \title{Distribution Moments.}
 \usage{
-zipfpssMoments(k, alpha, lambda, isTruncated = FALSE, tolerance = 10^(-4))
+zipfpssMoments(k, alpha, lambda, isTruncated = FALSE,
+  tolerance = 10^(-4))
 }
 \arguments{
 \item{k}{Order of the moment to compute.}

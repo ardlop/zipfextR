@@ -13,7 +13,8 @@
 \alias{BIC.moezipfR}
 \title{MOEZipf parameters estimation.}
 \usage{
-moezipfFit(data, init_alpha = NULL, init_beta = NULL, level = 0.95, ...)
+moezipfFit(data, init_alpha = NULL, init_beta = NULL, level = 0.95,
+  ...)
 
 \method{residuals}{moezipfR}(object, ...)
 

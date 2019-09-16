@@ -1,7 +1,7 @@
 
 #' The Zero Inflated Zipf-Poisson Stop Sum Distribution (ZI Zipf-PSS).
 #'
-#' Probability mass function for the zero inflated Zipf-PSS distribution with parameters \eqn{\alpha}, \eqn{\lambda} and \eqn{\w}.
+#' Probability mass function for the zero inflated Zipf-PSS distribution with parameters \eqn{\alpha}, \eqn{\lambda} and \eqn{w}.
 #' The support of thezero inflated Zipf-PSS distribution are the positive integer numbers including the zero value.
 #'
 #' @name zi_zipfpss
@@ -10,7 +10,7 @@
 #' @param x Vector of positive integer values.
 #' @param alpha Value of the \eqn{\alpha} parameter (\eqn{\alpha > 1} ).
 #' @param lambda Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0} ).
-#' @param w Value of the \eqn{\w} parameter (0 < \eqn{\w < 1} ).
+#' @param w Value of the \eqn{w} parameter (0 < \eqn{w < 1} ).
 #' @param log Logical; if TRUE, probabilities p are given as log(p).
 #'
 #' @details

@@ -3,7 +3,6 @@
 \name{zipfpe}
 \alias{zipfpe}
 \alias{dzipfpe}
-\alias{dzipfpe}
 \alias{pzipfpe}
 \alias{qzipfpe}
 \alias{rzipfpe}

@@ -3,7 +3,6 @@
 \name{zipfpss}
 \alias{zipfpss}
 \alias{dzipfpss}
-\alias{dzipfpss}
 \alias{pzipfpss}
 \alias{rzipfpss}
 \alias{qzipfpss}

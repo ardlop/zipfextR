@@ -3,7 +3,6 @@
 \name{moezipf}
 \alias{moezipf}
 \alias{dmoezipf}
-\alias{dmoezipf}
 \alias{pmoezipf}
 \alias{qmoezipf}
 \alias{rmoezipf}

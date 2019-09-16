@@ -3,7 +3,6 @@
 \name{zi_zipfpss}
 \alias{zi_zipfpss}
 \alias{d_zi_zipfpss}
-\alias{d_zi_zipfpss}
 \title{The Zero Inflated Zipf-Poisson Stop Sum Distribution (ZI Zipf-PSS).}
 \usage{
 d_zi_zipfpss(x, alpha, lambda, w, log = FALSE)
@@ -15,12 +14,12 @@ d_zi_zipfpss(x, alpha, lambda, w, log = FALSE)
 
 \item{lambda}{Value of the \eqn{\lambda} parameter (\eqn{\lambda > 0} ).}
 
-\item{w}{Value of the \eqn{\w} parameter (0 < \eqn{\w < 1} ).}
+\item{w}{Value of the \eqn{w} parameter (0 < \eqn{w < 1} ).}
 
 \item{log}{Logical; if TRUE, probabilities p are given as log(p).}
 }
 \description{
-Probability mass function for the zero inflated Zipf-PSS distribution with parameters \eqn{\alpha}, \eqn{\lambda} and \eqn{\w}.
+Probability mass function for the zero inflated Zipf-PSS distribution with parameters \eqn{\alpha}, \eqn{\lambda} and \eqn{w}.
 The support of thezero inflated Zipf-PSS distribution are the positive integer numbers including the zero value.
 }
 \details{

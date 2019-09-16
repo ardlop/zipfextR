@@ -63,23 +63,25 @@ getInitialValues <- function(data, model='zipf'){
   } else if(model == 'zipfpe'){
     return(list(init_alpha = round(alpha0, 4), init_beta = 0.001))
   } else if(model == 'zt_zipfpss'){
-    return(list(init_alpha = round(alpha0, 4), init_lambda = 0.001))
+    return(list(init_alpha = round(alpha0, 4), init_lambda = 1.001))
   } else if(model=='zipfpss'){
     if(length(freq1) == 0 || length(freq2) == 0){
-      lambda0 <- 0.001
-      alpha0 <- 1.001
+      # lambda0 <- 1.001
+      # alpha0 <- 1.001
+      return(list(init_alpha = 1.001, init_lambda = 1.001))
     } else{
-      lambda0 <- max(-log(freq1/sum(data[,2])), 0.001)
-      value <- lambda0*freq1/freq2
-      est <- stats::optim(1.01,
-            .zpssAlphaHat,
-            value = value,
-            method = 'L-BFGS-B',
-            lower=1.001,
-            upper = 30)
-      alpha0 <- max(1.001, round(est$par, 4))
+      return(list(init_alpha = alpha0, init_lambda = 1.001))
+      # lambda0 <- max(-log(freq1/sum(data[,2])), 0.001)
+      # value <- lambda0*freq1/freq2
+      # est <- stats::optim(1.01,
+      #       .zpssAlphaHat,
+      #       value = value,
+      #       method = 'L-BFGS-B',
+      #       lower=1.001,
+      #       upper = 30)
+      # alpha0 <- max(1.001, round(est$par, 4))
     }
-    return(list(init_alpha = alpha0, init_lambda = round(lambda0, 4)))
+    # return(list(init_alpha = alpha0, init_lambda = round(lambda0, 4)))
   } else{
     stop('You should introduced a valid model')
   }

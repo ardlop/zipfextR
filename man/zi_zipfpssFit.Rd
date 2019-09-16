@@ -13,8 +13,8 @@
 \alias{BIC.zi_zipfpssR}
 \title{Zero Inflated Zipf-PSS parameters estimation.}
 \usage{
-zi_zipfpssFit(data, init_alpha = 1.5, init_lambda = 1.5, init_w = 0.1,
-  level = 0.95, ...)
+zi_zipfpssFit(data, init_alpha = 1.5, init_lambda = 1.5,
+  init_w = 0.1, level = 0.95, ...)
 
 \method{residuals}{zi_zipfpssR}(object, ...)
 

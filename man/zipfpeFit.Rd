@@ -13,7 +13,8 @@
 \alias{BIC.zipfpeR}
 \title{Zipf-PE parameters estimation.}
 \usage{
-zipfpeFit(data, init_alpha = NULL, init_beta = NULL, level = 0.95, ...)
+zipfpeFit(data, init_alpha = NULL, init_beta = NULL, level = 0.95,
+  ...)
 
 \method{residuals}{zipfpeR}(object, ...)
 
