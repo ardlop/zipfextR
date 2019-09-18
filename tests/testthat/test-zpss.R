@@ -6,7 +6,7 @@ test_that("[zpss - preconditions] Checking preconditions", {
   expect_error(dzipfpss(1, 2.5, "-1.5"),
                "Incorrect lambda parameter. You should provide a numeric value.")
   expect_error(dzipfpss("1", 1.5, 1.5),
-               "The x value is not included into the support of the distribution.")
+               label = "The x value is not included into the support of the distribution.")
   expect_error(dzipfpss(2.5, 2.5, 1.5),
                "The x value is not included into the support of the distribution.")
   expect_error(dzipfpss(-1, 2.5, 1.5),

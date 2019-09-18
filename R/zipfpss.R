@@ -35,17 +35,17 @@ NULL
 #> NULL
 
 .prec.zipfpss.checkXvalue <- function(x){
-  if(!is.numeric(x) || x < 0 || x%%1 != 0) {
+  if(!is.numeric(x) | any(x < 0) | any(x%%1 != 0)) {
     stop('The x value is not included into the support of the distribution.')
   }
 }
 
 .prec.zipfpss.checkparams <- function(alpha, lambda){
-  if(!is.numeric(alpha) || alpha <= 1){
+  if(!is.numeric(alpha) | alpha <= 1){
     stop('Incorrect alpha parameter. This parameter should be greater than one.')
   }
 
-  if(!is.numeric(lambda) || lambda < 0){
+  if(!is.numeric(lambda) | lambda < 0){
     stop('Incorrect lambda parameter. You should provide a numeric value.')
   }
 }
@@ -208,19 +208,19 @@ qzipfpss <- function(p, alpha, lambda, log.p = FALSE, lower.tail = TRUE, isTrunc
     stop('Wrong value(s) for the p parameter.')
   }
 
-  if(log.p && lower.tail){
+  if(log.p & lower.tail){
     p <- exp(p)
   } else{
-    if(log.p && !lower.tail){
+    if(log.p & !lower.tail){
       p <- 1-exp(p)
     } else{
-      if(!log.p && !lower.tail){
+      if(!log.p & !lower.tail){
         p <- 1-p
       }
     }
   }
 
-  if(length(which(p > 1 || p < 0 )) > 0){
+  if(any(p > 1) | any(p < 0 )){
     stop('There is a wrong value(s) in the p parameter.')
   }
 

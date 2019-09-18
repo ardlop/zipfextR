@@ -28,15 +28,15 @@ NULL
 #> NULL
 
 .prec.zi_zipfpss.checkparams <- function(alpha, lambda, w){
-  if(!is.numeric(alpha) || alpha <= 1){
+  if(!is.numeric(alpha) | alpha <= 1){
     stop('Incorrect alpha parameter. This parameter should be greater than one.')
   }
 
-  if(!is.numeric(lambda) || lambda < 0){
+  if(!is.numeric(lambda) | lambda < 0){
     stop('Incorrect lambda parameter. You should provide a numeric value.')
   }
 
-  if(!is.numeric(w) || w <= 0 || w > 1){
+  if(!is.numeric(w) | any(w <= 0) | any(w > 1)){
     stop('Incorrect w parameter. You should provide a numeric value.')
   }
 }

@@ -67,17 +67,17 @@ NULL
 #> NULL
 
 .prec.moezipf.checkXvalue <- function(x){
-  if(!is.numeric(x) || x < 1 || x%%1 != 0) {
+  if(!is.numeric(x) | any(x < 1) | any(x%%1 != 0)) {
     stop('The x value is not included into the support of the distribution.')
   }
 }
 
 .prec.moezipf.checkparams <- function(alpha, beta){
-  if(!is.numeric(alpha) || alpha <= 1){
+  if(!is.numeric(alpha) | alpha <= 1){
     stop('Incorrect alpha parameter. This parameter should be greater than one.')
   }
 
-  if(!is.numeric(beta) || beta < 0){
+  if(!is.numeric(beta) | beta < 0){
     stop('Incorrect beta parameter. You should provide a numeric value.')
   }
 }
@@ -116,13 +116,13 @@ pmoezipf <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
   z <- VGAM::zeta(alpha)
   srvvl <- sapply(q, .survival.default, alpha = alpha, beta = beta, z = z, simplify = TRUE)
 
-  if(!log.p && lower.tail){
+  if(!log.p & lower.tail){
     return(1 - srvvl)
   } else{
-    if(!log.p && !lower.tail){
+    if(!log.p & !lower.tail){
       return(srvvl)
     } else{
-      if(log.p && !lower.tail){
+      if(log.p & !lower.tail){
         return(log(srvvl))
       }
       return(log(1-srvvl))
@@ -131,7 +131,7 @@ pmoezipf <- function(q, alpha, beta, log.p = FALSE, lower.tail = TRUE){
 }
 
 .qmoezipf.default <- function(x, beta){
-  if(x > 1 || x < 0){
+  if(any(x > 1) | any(x < 0)){
     stop('Wrong values for the p parameter.')
   }
   return((x*beta)/(1 + x*(beta-1)))
@@ -146,13 +146,13 @@ qmoezipf <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
     stop('Wrong values for the p parameter.')
   }
 
-  if(log.p && lower.tail){
+  if(log.p & lower.tail){
     p <- exp(p)
   } else{
-    if(log.p && !lower.tail){
+    if(log.p & !lower.tail){
       p <- 1-exp(p)
     } else{
-      if(!log.p && !lower.tail){
+      if(!log.p & !lower.tail){
         p <- 1-p
       }
     }

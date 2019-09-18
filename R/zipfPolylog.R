@@ -26,13 +26,13 @@ NULL
 #> NULL
 
 .prec.zipfpolylog.checkXvalue <- function(x){
-  if(!is.numeric(x) || x < 1 || x%%1 != 0) {
+  if(!is.numeric(x) || any(x < 1) || any(x%%1 != 0)) {
     stop('The x value is not included into the support of the distribution.')
   }
 }
 
 .prec.zipfpolylog.checkparams <- function(alpha, beta){
-  if(!is.numeric(beta) || beta < 0 || beta > 1){
+  if(!is.numeric(beta) | beta < 0 | beta > 1){
     stop('Incorrect beta parameter. You should provide a numeric value.')
   }
 

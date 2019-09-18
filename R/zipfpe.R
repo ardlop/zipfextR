@@ -60,7 +60,7 @@ NULL
 #> NULL
 
 .prec.zipfpe.checkXvalue <- function(x){
-  if(!is.numeric(x) || x < 1 || x%%1 != 0) {
+  if(!is.numeric(x) || any(x < 1) || any(x%%1 != 0)) {
     stop('The x value is not included into the support of the distribution.')
   }
 }
@@ -138,19 +138,20 @@ qzipfpe <- function(p, alpha, beta, log.p = FALSE, lower.tail = TRUE){
     stop('Wrong value(s) for the p parameter.')
   }
 
-  if(log.p && lower.tail){
+  if(log.p & lower.tail){
     p <- exp(p)
   } else{
-    if(log.p && !lower.tail){
+    if(log.p & !lower.tail){
       p <- 1-exp(p)
     } else{
-      if(!log.p && !lower.tail){
+      if(!log.p & !lower.tail){
         p <- 1-p
       }
     }
   }
 
-  if(length(which(p > 1 || p < 0 )) > 0){
+ # if(length(which(p > 1 || p < 0 )) > 0){
+  if(any(p > 1) | any(p < 0 )){
     stop('There is a wrong value(s) in the p parameter.')
   }
 
