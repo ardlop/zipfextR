@@ -1,7 +1,7 @@
 Package: zipfextR
 Type: Package
 Title: Zipf Extended Distributions
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(person("Ariel", "Duarte-López", role = c("aut", "cre"),
                     email = "aduarte@ac.upc.edu",
 		    comment = c(ORCID = "0000-0002-7432-0344")),

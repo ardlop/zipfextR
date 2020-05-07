@@ -77,6 +77,11 @@ NULL
 
 .dzpe.default <- function(x, alpha, beta, z){
   .prec.zipfpe.checkXvalue(x)
+
+  if(beta == 0){
+    return(x^(-alpha)/z)
+  }
+
   zetaX <-.zeta_x(alpha, x)
   return((exp(beta*(1 - (zetaX/z)))*(exp(beta*(x^(-alpha)/z)) - 1))/(exp(beta) -1))
 }

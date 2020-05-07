@@ -3,9 +3,20 @@
 \name{zipfPolylog}
 \alias{zipfPolylog}
 \alias{dzipfpolylog}
+\alias{pzipfpolylog}
+\alias{qzipfpolylog}
+\alias{rzipfpolylog}
 \title{The Zipf-Polylog Distribution (Zipf-Polylog).}
 \usage{
 dzipfpolylog(x, alpha, beta, log = FALSE, nSum = 1000)
+
+pzipfpolylog(x, alpha, beta, log.p = FALSE, lower.tail = TRUE,
+  nSum = 1000)
+
+qzipfpolylog(p, alpha, beta, log.p = FALSE, lower.tail = TRUE,
+  nSum = 1000)
+
+rzipfpolylog(n, alpha, beta, nSum = 1000)
 }
 \arguments{
 \item{x}{Vector of positive integer values.}
@@ -14,9 +25,15 @@ dzipfpolylog(x, alpha, beta, log = FALSE, nSum = 1000)
 
 \item{beta}{Value of the \eqn{\beta} parameter (\eqn{\beta > 0} ).}
 
-\item{log}{Logical; if TRUE, probabilities p are given as log(p).}
+\item{log, log.p}{Logical; if TRUE, probabilities p are given as log(p).}
 
-\item{nSum}{The number of terms used for computing the Polilogarithm function [Default = 1000].}
+\item{nSum}{The number of terms used for computing the Polylogarithm function (Default = 1000).}
+
+\item{lower.tail}{Logical; if TRUE (default), probabilities are \eqn{P[X \leq x]}, otherwise, \eqn{P[X > x]}.}
+
+\item{p}{Vector of probabilities.}
+
+\item{n}{Number of random values to return.}
 }
 \value{
 {
@@ -34,5 +51,6 @@ parameters \eqn{\alpha} and \eqn{\beta} is computed as follows:
 }
 \examples{
 dzipfpolylog(1:10, 1.61, 0.98)
-
+pzipfpolylog(1:10, 1.61, 0.98)
+qzipfpolylog(0.8, 1.61, 0.98)
 }
