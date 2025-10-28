@@ -19,10 +19,10 @@ Description: Implementation of four extensions of the Zipf distribution: the Mar
   All the extensions maintain the linearity associated with the Zipf model in the tail.
 License: GPL-3
 Depends: R (>= 2.0.1)
-Imports: VGAM (>= 0.9.8), tolerance(>= 1.2.0), copula(>= 0.999-18)
+Imports: VGAM (>= 0.9.8), tolerance(>= 1.2.0), copula(>= 0.999-18), gmp(>= 0.7-4)
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ardlop/zipfextR
 BugReports: https://github.com/ardlop/zipfextR/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.3.1
 Suggests: testthat
