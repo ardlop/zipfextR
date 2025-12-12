@@ -192,7 +192,11 @@ predict.ZipfPSS_INAR1Innov <- function(object, newdata = NULL, ...) {
 }
 
 .get_conditioned_variance <- function(l_value, alpha, beta, lambda){
-  return(beta*(beta - 1) * l_value + lambda*(zeta(alpha - 2)/zeta(alpha)))
+  if(alpha <= 3){
+    stop("Conditioned variance cannot be computed: parameter 'alpha' must be greater than 3 for MLE estimation.")
+  }
+
+  return(beta*(1 - beta) * l_value + lambda*(zeta(alpha - 2)/zeta(alpha)))
 }
 
 
@@ -211,7 +215,7 @@ plot.ZipfPSS_INAR1Innov <- function(x, predict_range = NULL, alpha_CI = 0.05, ..
   plot(x$data[, 1], type = 'l', ...) # expected real value in the first column
   # E_zipfpss <- zipfpssMean(alpha, lambda)
   # estimations <- beta*x$data[, 2] + E_zipfpss #(se mueve a la clase) #previous value expected in column 2
-  lines(x$estimated_values[-1], type = 'l', col = 'red') #estimated values are leaded in 1 position
+  lines(x$estimated_values, type = 'l', col = 'red') #estimated values are leaded in 1 position
 
   if (x$estimation_method == 'MLE'){
     conditined_variances <- sapply(x$data[,2], function(i, alpha, beta, lambda){
@@ -220,8 +224,8 @@ plot.ZipfPSS_INAR1Innov <- function(x, predict_range = NULL, alpha_CI = 0.05, ..
     lowerIC <- x$estimated_values - qnorm(1 - alpha_CI)*sqrt(conditined_variances)
     upperIC <- x$estimated_values + qnorm(1 - alpha_CI)*sqrt(conditined_variances)
 
-    lines(lowerIC[-1], type = 'l', col = 'green')
-    lines(upperIC[-1], type = 'l', col = 'green')
+    lines(lowerIC, type = 'l', col = 'green')
+    lines(upperIC, type = 'l', col = 'green')
   }
 }
 
