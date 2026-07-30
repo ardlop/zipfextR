@@ -9,7 +9,12 @@
 #' @export
 
 
-# --- Constructor ---
+#' @param params Vector of model parameters.
+#' @param data The observed time series data.
+#' @param loglik Logical; whether to compute the log-likelihood.
+#' @param fit_info List with additional fitting information.
+#' @param estimation_method Character; method used for estimation.
+#' @param estimated_values Optional; previously estimated values for initialization.
 ZipfPSS_INAR1Innov <- function(params = NULL, data = NULL, loglik = NULL, fit_info = NULL, estimation_method = NULL, estimated_values = NULL) {
   obj <- list(
     model_name = "Zipf-PSS INAR(1) Innovation Model",
@@ -25,9 +30,11 @@ ZipfPSS_INAR1Innov <- function(params = NULL, data = NULL, loglik = NULL, fit_in
 }
 
 # --- Fitting function ---
+#' @export
 zipfPSS_inar1_innovation_fit <- function(df, method = c("MLE", "CLS"), start_params = NULL, ...) {
   method <- match.arg(method)
 
+  local_df <- df
   if (method == "MLE") {
 
     .getTransitionsProbs <- function(k_value, l_value, beta, alpha, lambda) {
@@ -64,17 +71,18 @@ zipfPSS_inar1_innovation_fit <- function(df, method = c("MLE", "CLS"), start_par
     res <- optim(
       par = start_params,
       fn = .conditional_max_likelihood,
-      data = df,
+      data = local_df,
       method = "L-BFGS-B",
       lower = c(1.2, 0.01, 0.01), #parametro
-      upper = c(Inf, 0.9999, Inf) #parametro
+      upper = c(Inf, 0.9999, Inf), #parametro
+      hessian = TRUE
     )
     E_zipfpss <- zipfpssMean(res$par[['alpha']], res$par[['lambda']])
-    estimations <- res$par[['beta']]*df[, 2] + E_zipfpss
+    estimations <- res$par[['beta']]*local_df[, 2] + E_zipfpss
 
     model <- ZipfPSS_INAR1Innov(
       params   = res$par,
-      data     = df,
+      data     = local_df,
       estimation_method = method,
       estimated_values = estimations,
       loglik   = -res$value,
@@ -82,9 +90,9 @@ zipfPSS_inar1_innovation_fit <- function(df, method = c("MLE", "CLS"), start_par
     )
 
   } else if (method == "CLS") {
-    T <- nrow(df)
-    X_t <- df[2:T, ]
-    X_t1 <- df[1:(T - 1), ]
+    T <- nrow(local_df)
+    X_t <- local_df[2:T, ]
+    X_t1 <- local_df[1:(T - 1), ]
 
     .step1 <- function(params, X_t, X_t1) {
       beta <- params[1]
@@ -100,7 +108,7 @@ zipfPSS_inar1_innovation_fit <- function(df, method = c("MLE", "CLS"), start_par
     beta_hat <- result_eta1$par[1]
     mu_hat <- result_eta1$par[2]
 
-    .step2 <- function(sigma2, beta, mu) {
+    .step2 <- function(sigma2, beta, mu, X_t, X_t1) {
       first_term <- (X_t - beta * X_t1 - mu)^2
       second_term <-  -beta*(1-beta)*X_t1 - sigma2
       sum((first_term + second_term)^2)
@@ -108,7 +116,7 @@ zipfPSS_inar1_innovation_fit <- function(df, method = c("MLE", "CLS"), start_par
 
     result_sigma2 <- optim(
       par = start_params[3],
-      fn = function(sigma2) .step2(sigma2, beta = beta_hat, mu = mu_hat),
+      fn = function(sigma2) .step2(sigma2, beta = beta_hat, mu = mu_hat, X_t = X_t, X_t1 = X_t1),
       method = "Brent",
       lower = 0,
       upper = 100)
@@ -127,11 +135,11 @@ zipfPSS_inar1_innovation_fit <- function(df, method = c("MLE", "CLS"), start_par
     names(parameters) <- c('alpha', 'beta', 'lambda', 'sigma', 'mu')
 
     E_zipfpss <- zipfpssMean(alpha_hat, lambda_hat)
-    estimations <- beta_hat*df[, 2] + E_zipfpss
+    estimations <- beta_hat*local_df[, 2] + E_zipfpss
 
     model <- ZipfPSS_INAR1Innov(
       params   = parameters,
-      data     = df,
+      data     = local_df,
       estimation_method = method,
       estimated_values = estimations,
       loglik   = NULL,
@@ -143,9 +151,10 @@ zipfPSS_inar1_innovation_fit <- function(df, method = c("MLE", "CLS"), start_par
 }
 
 #' @rdname zipfPSS_INAR_Innovation
+#' @method residuals ZipfPSS_INAR1Innov
 #' @export
 residuals.ZipfPSS_INAR1Innov <- function(object, standarized = FALSE, ...){
-  res_values <- object$data[, 1] - object$estimated_values
+  res_values <- object$data[, 2] - object$estimated_values
 
   if (standarized){
     conditined_variances <- sapply(object$data[,2], function(i, alpha, beta, lambda){
@@ -154,7 +163,7 @@ residuals.ZipfPSS_INAR1Innov <- function(object, standarized = FALSE, ...){
     beta = object$params[['beta']],
     lambda = object$params[['lambda']])
 
-    std_residuals <- res_values/sqrt(var(conditined_variances))
+    std_residuals <- res_values/sqrt(conditined_variances)
     return(std_residuals)
   }
   return(res_values)
@@ -163,6 +172,7 @@ residuals.ZipfPSS_INAR1Innov <- function(object, standarized = FALSE, ...){
 
 # --- Prediction method ---
 #' @rdname zipfPSS_INAR_Innovation
+#' @method predict ZipfPSS_INAR1Innov
 #' @export
 predict.ZipfPSS_INAR1Innov <- function(object, newdata = NULL, ...) {
   alpha  <- object$params[["alpha"]]
@@ -196,13 +206,14 @@ predict.ZipfPSS_INAR1Innov <- function(object, newdata = NULL, ...) {
     stop("Conditioned variance cannot be computed: parameter 'alpha' must be greater than 3 for MLE estimation.")
   }
 
-  return(beta*(1 - beta) * l_value + lambda*(zeta(alpha - 2)/zeta(alpha)))
+  return(beta * (1 - beta) * l_value + lambda*(zeta(alpha - 2)/zeta(alpha)))
 }
 
 
 
 # --- Plot method ---
 #' @rdname zipfPSS_INAR_Innovation
+#' @method plot ZipfPSS_INAR1Innov
 #' @export
 plot.ZipfPSS_INAR1Innov <- function(x, predict_range = NULL, alpha_CI = 0.05, ...) {
   alpha <- x$params[['alpha']]
@@ -217,7 +228,7 @@ plot.ZipfPSS_INAR1Innov <- function(x, predict_range = NULL, alpha_CI = 0.05, ..
   # estimations <- beta*x$data[, 2] + E_zipfpss #(se mueve a la clase) #previous value expected in column 2
   lines(x$estimated_values, type = 'l', col = 'red') #estimated values are leaded in 1 position
 
-  if (x$estimation_method == 'MLE'){
+  if (alpha > 3){
     conditined_variances <- sapply(x$data[,2], function(i, alpha, beta, lambda){
       .get_conditioned_variance(i, alpha, beta, lambda)
     }, alpha= alpha, beta = beta, lambda = lambda)
@@ -232,6 +243,7 @@ plot.ZipfPSS_INAR1Innov <- function(x, predict_range = NULL, alpha_CI = 0.05, ..
 
 # --- Summary method ---
 #' @rdname zipfPSS_INAR_Innovation
+#' @method summary ZipfPSS_INAR1Innov
 #' @export
 summary.ZipfPSS_INAR1Innov <- function(object, ...) {
   # build a structured list instead of printing directly
@@ -276,6 +288,7 @@ print.summary.ZipfPSS_INAR1Innov <- function(x, ...) {
 }
 
 #' @rdname zipfPSS_INAR_Innovation
+#' @method print ZipfPSS_INAR1Innov
 #' @export
 print.ZipfPSS_INAR1Innov <- function(x, ...) {
   s <- summary(x)
@@ -284,6 +297,7 @@ print.ZipfPSS_INAR1Innov <- function(x, ...) {
 }
 
 #' @rdname zipfPSS_INAR_Innovation
+#' @method AIC ZipfPSS_INAR1Innov
 #' @export
 AIC.ZipfPSS_INAR1Innov <- function(object, ...){
   if (object$estimation_method == 'MLE') {
@@ -296,6 +310,7 @@ AIC.ZipfPSS_INAR1Innov <- function(object, ...){
 }
 
 #' @rdname zipfPSS_INAR_Innovation
+#' @method BIC ZipfPSS_INAR1Innov
 #' @export
 BIC.ZipfPSS_INAR1Innov <- function(object, ...){
   if (object$estimation_method == 'MLE') {
